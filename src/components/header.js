@@ -3,12 +3,18 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
+import MapIcon from '@mui/icons-material/Map';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import PolicyIcon from '@mui/icons-material/Policy';
 import ExpandCircle from '@mui/icons-material/ExpandCircleDown';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid'
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Drawer from '@mui/material/Drawer';
@@ -16,12 +22,13 @@ import { Divider } from '@mui/material';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListSubheader from '@mui/material/ListSubheader';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 
-import {secciones} from '../data.js';
+import {subsecciones,secciones} from '../data.js';
 
 const theme = createTheme({
     typography: {
@@ -39,6 +46,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+
 const Header = () => {
   let logoWidth = 80;
   const drawerWidth = 300;
@@ -51,6 +59,10 @@ const Header = () => {
   for(let i=0; i<secciones.length && openMenu.length<secciones.length; i++){
     openMenu.push(false);
   }
+  const [openSubMenu, setOpenSubMenu] = React.useState([]);
+  for(let i=0; i<subsecciones.length && openSubMenu.length<subsecciones.length; i++){
+    openSubMenu.push(false);
+  }
 
   function handleClickMenu(num){ 
     let newMenu = openMenu;
@@ -62,20 +74,51 @@ const Header = () => {
     setOpenMenu([...newMenu]);
   }
 
+  function handleClickSubMenu(num){ 
+    let newMenu = openSubMenu;
+    if(!newMenu[num]){
+      newMenu[num] = true;
+    }else{
+      newMenu[num] = false;
+    }
+    setOpenSubMenu([...newMenu]);
+  }
+
+  function checkSubSeccion(title){
+    console.log(title);
+      for(let i=0; i<subsecciones.length; i++){
+        if(subsecciones[i].parent===title){
+          return subsecciones[i].id;
+        }
+      }
+      console.log("no");
+
+      return -1;
+  }
+
+  const [extraMenu, setExtraMenu] = React.useState(null);
+  const handleClickExMenu = (event) => {
+    if(event.currentTarget !== extraMenu){
+      setExtraMenu(event.currentTarget); 
+  }};
+  const handleCloseExMenu = () => { setExtraMenu(null); };
+
   return (
     <div>
       <Toolbar sx={{borderBottom: `1px solid ${theme.palette.grey[300]}`}}>
         <Grid mb={1.5} container alignItems="center">
           <Grid item xs={3} align="left">
-            <IconButton
-                color="inherit" onClick={handleDrawerOpen} edge="start"
-                sx={{ mr: 2 , ...(openDR && { display: 'none' })}}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap component="div" display="inline">
-                Secciones
-            </Typography>
+            <Grid container direction="row" alignItems="center">
+              <IconButton
+                  color="inherit" onClick={handleDrawerOpen} onMouseOver={handleDrawerOpen} edge="start"
+                  sx={{ mr: 2 , ...(openDR && { display: 'none' })}}
+              >
+                  <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" noWrap component="div" display="inline" align="center">
+                  Secciones
+              </Typography>
+            </Grid>
           </Grid>
           <Grid item xs={2} align="right">
             <Box component="img" sx={{ height: logoWidth*1.094, width: logoWidth}}
@@ -86,10 +129,38 @@ const Header = () => {
               Ayuntamiento de <Box sx={{ fontWeight: 'bold', fontSize: 'h5.fontSize' }}>Carrocera</Box>
             </Typography>
           </Grid>
-          <Grid item xs={3} align="right">
-            <IconButton>
-              <ExpandCircle sx={{ fontSize: "30px" }}/>
-            </ IconButton>
+          <Grid item xs={1} align="right"></Grid>
+          <Grid item xs={1} align="right">
+            <Grid container direction="row" alignItems="center">
+              <Typography variant="h6" noWrap component="div" display="inline" align="right">
+                  Menú
+              </Typography>
+              <IconButton onMouseOver={handleClickExMenu} onClick={handleClickExMenu} aria-controls={Boolean(extraMenu) ? 'account-menu' : undefined} 
+              aria-haspopup="true" aria-expanded={Boolean(extraMenu) ? 'true' : undefined}>
+                <ExpandCircle sx={{ fontSize: "30px" }}/>
+              </IconButton>
+              <Menu anchorEl={extraMenu} open={Boolean(extraMenu)} onClose={handleCloseExMenu}
+              MenuListProps={{ onMouseLeave: handleCloseExMenu }}>
+                <MenuItem sx={{color:"blue", fontSize: 15}}>
+                  <ListItemIcon><HomeIcon fontSize="small"/></ListItemIcon>
+                  INICIO
+                </MenuItem>
+                <MenuItem sx={{color:"blue", fontSize: 15}}>
+                  <ListItemIcon><MapIcon fontSize="small"/></ListItemIcon>
+                  MAPA WEB
+                </MenuItem>
+                <MenuItem sx={{color:"blue", fontSize: 15}}>
+                  <ListItemIcon><ContactSupportIcon fontSize="small"/></ListItemIcon>
+                  CONTACTO
+                </MenuItem>
+                <MenuItem sx={{color:"blue", fontSize: 15}}>
+                  <ListItemIcon><PolicyIcon fontSize="small"/></ListItemIcon>
+                  AVISO LEGAL
+                </MenuItem>
+              </Menu>
+            </Grid>
+          </Grid>
+          <Grid item xs={1} align="right">
             <IconButton>
               <SearchIcon sx={{ fontSize: "30px" }}/>
             </IconButton>
@@ -98,14 +169,10 @@ const Header = () => {
       </Toolbar>
 
       <Drawer
-        sx={{
-          width: drawerWidth, flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          }, bgcolor: 'blue'
-        }}
-        variant="persistent" anchor="left"open={openDR}
+        sx={{ width: drawerWidth, flexShrink: 0,
+          '& .MuiDrawer-paper': { width: drawerWidth,boxSizing: 'border-box',}, bgcolor: 'paper' }}
+        PaperProps={{ sx: { backgroundColor: "lightblue",} }}
+        variant="persistent" anchor="left"open={openDR} onMouseLeave={handleDrawerClose}
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -115,7 +182,7 @@ const Header = () => {
         <Divider />
         <List component="nav" subheader={
         <ListSubheader component="div" id="nested-list-subheader">
-            Secciones
+            <Box sx={{ fontWeight: 'bold', fontSize: 'h6.fontSize', textAlign: 'center'}}>SECCIONES</Box>
         </ListSubheader>
         }>
           {secciones.map((seccion) => 
@@ -123,6 +190,9 @@ const Header = () => {
             {(seccion.content.length===0) ? (
               <ListItemButton>
                 <ListItemText primary={seccion.title} />
+                {(seccion.title=="INICIO") ? (
+                  <HomeIcon/>
+                ) : ""}
               </ListItemButton>
             ) :  (
               <div>
@@ -133,9 +203,29 @@ const Header = () => {
               <Collapse in={openMenu[seccion.id]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                 {secciones[seccion.id].content.map((subseccion) => 
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemText primary={subseccion} />
-                  </ListItemButton>
+                  <div>
+                  {(checkSubSeccion(subseccion)===-1) ? (
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemText primary={subseccion} />
+                    </ListItemButton>
+                  ) : (
+                    <div>
+                    <ListItemButton sx={{ pl: 4 }} onClick={() => handleClickSubMenu(checkSubSeccion(subseccion))}>
+                      <ListItemText primary={subseccion} />
+                      {openSubMenu[checkSubSeccion(subseccion)] ? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
+                    <Collapse in={openSubMenu[checkSubSeccion(subseccion)]} timeout="auto" unmountOnExit>
+                      <List component="div" disablePadding>
+                      {subsecciones[checkSubSeccion(subseccion)].content.map((sub2seccion) => 
+                        <ListItemButton sx={{ pl: 8 }}>
+                          <ListItemText primary={sub2seccion} />
+                        </ListItemButton>
+                      )}
+                      </List>
+                    </Collapse>
+                    </div>
+                  )}
+                  </div>
                 )}
                 </List>
               </Collapse>
@@ -145,13 +235,6 @@ const Header = () => {
           )}
         </List>
       </Drawer>
-
-      <Toolbar sx={{justifyContent: 'space-between', mx: 40}}>
-        <Button sx={{color:"blue"}} color="inherit"> Inicio </Button>
-        <Button sx={{color:"blue"}} color="inherit"> Mapa Web </Button>
-        <Button sx={{color:"blue"}} color="inherit"> Contacto </Button>
-        <Button sx={{color:"blue"}} color="inherit"> Aviso legal </Button>
-      </Toolbar>
     </div>
   );
 }

@@ -9,3 +9,7 @@ export const secciones = [
     {id:7, title: "PAGO A PROVEEDORES", content: Array()},
     {id:8, title: "PORTAL DE TRANSPARENCIA", content: Array()}
 ];
+
+export const subsecciones = [
+    {id:0, parent: "Normativa Municipal", title: "INICIO", content: Array("Actas", "Ordenanzas", "Reglamentos", "Normativa urbanística")}
+];
