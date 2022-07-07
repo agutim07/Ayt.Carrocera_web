@@ -85,15 +85,12 @@ const Header = () => {
   }
 
   function checkSubSeccion(title){
-    console.log(title);
-      for(let i=0; i<subsecciones.length; i++){
-        if(subsecciones[i].parent===title){
-          return subsecciones[i].id;
-        }
+    for(let i=0; i<subsecciones.length; i++){
+      if(subsecciones[i].parent===title){
+        return subsecciones[i].id;
       }
-      console.log("no");
-
-      return -1;
+    }
+    return -1;
   }
 
   const [extraMenu, setExtraMenu] = React.useState(null);
