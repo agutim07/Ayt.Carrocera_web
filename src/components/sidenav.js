@@ -13,7 +13,7 @@ import { Typography } from '@mui/material';
 const Sidenav = () => {
     return(
         <Box sx={{backgroundColor: "#222222", color:"#ffffff", backgroundSize: 'cover', backgroundPosition: 'center', 
-            my: 2, ml:1, width: 290, maxWidth: { xs: 350, md: 300 }, borderRadius: '9px'}}>
+            my: 2, ml:1, borderRadius: '9px'}}>
             <Grid container direction="row" alignItems="center" justifyContent="center">
                 <Avatar sx={{ my: 0.5, bgcolor: "#222222" }}><AttachmentIcon/></Avatar>
                 <Typography display="inline">ACESSOS RÁPIDOS</Typography>
@@ -55,6 +55,15 @@ const Sidenav = () => {
                 my: 1.5, ml:1, border: "1px solid white"}}>
                     <Grid container direction="row" alignItems="center" justifyContent="center">
                     <Typography display="inline"><Box sx={{ color:"white", fontWeight: 'bold'}}>BANDOS Y ANUNCIOS</Box></Typography>
+                    </Grid>
+                </Paper>
+                </Link>
+                <Link rel="noopener noreferrer" target="_blank" href="https://google.es/" underline="none">
+                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/transparencia.jpg"})`, 
+                '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: 290*0.75, height:100, margin:1, padding:1, 
+                my: 1.5, ml:1, border: "1px solid white"}}>
+                    <Grid container direction="row" alignItems="center" justifyContent="center">
+                    <Typography display="inline"><Box sx={{ color:"white", fontSize: "15px", fontWeight: 'bold'}}>PORTAL DE TRANSPARENCIA</Box></Typography>
                     </Grid>
                 </Paper>
                 </Link>

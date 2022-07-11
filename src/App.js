@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 
 import Header from './components/header.js';
 import Sidenav from './components/sidenav.js';
+import Inicio from './components/secciones/inicio.js';
 
 const theme = createTheme({
   typography: {
@@ -51,19 +52,25 @@ function App() {
     <ThemeProvider theme={theme}>
       <Box sx={{ mx: 15, mt: 2 }}> 
         <Header />
-        <Grid container spacing={0} direction="row" alignItems="up" justifyContent="center">
+        <Grid container spacing={0.5} direction="row" alignItems="up" justifyContent="center">
           <Grid item xs={9} align="left">
-            <Slide direction="right" mountOnEnter unmountOnExit in={change}>
-              <Box
-                component="img"
-                sx={{backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                  backgroundSize: 'cover', backgroundPosition: 'center', my: 2, ml:1,
-                  height: 180, width: 950, maxHeight: { xs: 230, md: 180 }, maxWidth: { xs: 1000, md: 950 },
-                  borderRadius: '16px'}}
-                alt="Galería."
-                src={img}
-              />
-              </Slide>
+            <Grid container spacing={0.5} direction="column" alignItems="center" justifyContent="center">
+              <Grid item sx={{my: 2, ml:1, height: 180, width: 930}}>
+                <Slide direction="right" mountOnEnter unmountOnExit in={change}>
+                  <Box
+                    component="img"
+                    sx={{backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                      backgroundSize: 'cover', backgroundPosition: 'center', maxHeight:180, minWidth:930, maxWidth:930, 
+                      borderRadius: '16px'}}
+                    alt="Galería."
+                    src={img}
+                  />
+                  </Slide>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Inicio />
+              </Grid>
           </Grid>
 
           <Grid item xs={3} align="right">

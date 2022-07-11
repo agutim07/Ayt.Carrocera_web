@@ -113,7 +113,7 @@ const Header = () => {
                   <MenuIcon />
               </IconButton>
               <Typography variant="h6" noWrap component="div" display="inline" align="center">
-                  Secciones
+                  Información
               </Typography>
             </Grid>
           </Grid>
@@ -179,7 +179,7 @@ const Header = () => {
         <Divider />
         <List component="nav" subheader={
         <ListSubheader component="div" id="nested-list-subheader">
-            <Box sx={{ fontWeight: 'bold', fontSize: 'h6.fontSize', textAlign: 'center'}}>SECCIONES</Box>
+            <Box sx={{ fontWeight: 'bold', fontSize: 'h6.fontSize', textAlign: 'center'}}>INFO</Box>
         </ListSubheader>
         }>
           {secciones.map((seccion) => 
