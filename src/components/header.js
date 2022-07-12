@@ -9,7 +9,6 @@ import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import PolicyIcon from '@mui/icons-material/Policy';
 import ExpandCircle from '@mui/icons-material/ExpandCircleDown';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid'
@@ -168,7 +167,7 @@ const Header = () => {
       <Drawer
         sx={{ width: drawerWidth, flexShrink: 0,
           '& .MuiDrawer-paper': { width: drawerWidth,boxSizing: 'border-box',}, bgcolor: 'paper' }}
-        PaperProps={{ sx: { backgroundColor: "lightblue",} }}
+        PaperProps={{ sx: { backgroundColor: "#03a9f4",} }}
         variant="persistent" anchor="left"open={openDR} onMouseLeave={handleDrawerClose}
       >
         <DrawerHeader>

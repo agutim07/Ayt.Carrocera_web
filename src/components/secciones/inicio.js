@@ -10,13 +10,27 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
 
 import CallIcon from '@mui/icons-material/Call';
+import ShareIcon from '@mui/icons-material/Share';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
 import PeopleIcon from '@mui/icons-material/People';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
+import {saludo} from '../../data.js';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -57,14 +71,10 @@ const Inicio = () => {
 
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
-        mt:1, justifyContent:"center" }}>
-            <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                value={value}
-                onChange={handleChange}
-                sx={{ borderRight: 1, borderColor: 'divider' }}
-            >
+        mt:1, justifyContent:"center",  flexDirection: 'column'}}>
+            <Grid container direction="row" justifyContent="center" alignItems="center">
+            <Tabs orientation="vertical" variant="scrollable" value={value} onChange={handleChange}
+            sx={{borderRight: 1, borderColor: 'divider' }} centered>
                 <Tab label="Ciudadanos" {...a11yProps(0)} />
                 <Tab label="Empresas" {...a11yProps(1)} />
             </Tabs>
@@ -118,6 +128,44 @@ const Inicio = () => {
                 </ListItem>
                 </List>
             </TabPanel>
+            </Grid>
+
+            <Grid container direction="row" justifyContent="center" alignItems="center">
+            <Card sx={{ maxWidth: "90%", m:2}}>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+                    alt="green iguana"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                    <Box sx={{ fontWeight: 'bold'}}>Saludo del alcalde</Box>
+                    </Typography>
+                    <Typography variant="body1">
+                    {saludo}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Grid container direction="row">
+                    <Button size="small">Leer el texto completo</Button>
+                    <SpeedDial
+                        ariaLabel="share" FabProps={{ size: "small" }} 
+                        icon={<ShareIcon />} direction="right" sx={{ml:2}}
+                    >
+                        <SpeedDialAction key={'Compartir en Twitter'} icon={<TwitterIcon />} 
+                        tooltipTitle={'Compartir en Twitter'} rel="noopener noreferrer" target="_blank" 
+                        href="https://twitter.com/intent/tweet?url=http://www.aytocarrocera.es/&text=Ayuntamiento%20de%20Carrocera%20:"/>
+                        <SpeedDialAction key={'Compartir en Facebook'} icon={<FacebookIcon />} 
+                        tooltipTitle={'Compartir en Facebook'} rel="noopener noreferrer" target="_blank" 
+                        href="https://facebook.com/sharer/sharer.php?u=http://www.aytocarrocera.es/"/>
+                        <SpeedDialAction key={'Copiar enlace'} icon={<ContentCopyIcon />} 
+                        tooltipTitle={'Copiar enlace'} onClick={() => {navigator.clipboard.writeText("http://www.aytocarrocera.es/")}}/>
+                    </SpeedDial>
+                    </Grid>
+                </CardActions>
+            </Card>
+            </Grid>
         </Box>
     );
 }
