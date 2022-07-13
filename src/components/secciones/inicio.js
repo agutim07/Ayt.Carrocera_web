@@ -73,7 +73,7 @@ const Inicio = () => {
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
             <Grid container direction="row" justifyContent="center" alignItems="center">
-            <Tabs orientation="vertical" variant="scrollable" value={value} onChange={handleChange}
+            <Tabs orientation="vertical" value={value} onChange={handleChange}
             sx={{borderRight: 1, borderColor: 'divider' }} centered>
                 <Tab label="Ciudadanos" {...a11yProps(0)} />
                 <Tab label="Empresas" {...a11yProps(1)} />

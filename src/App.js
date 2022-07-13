@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import Header from './components/header.js';
 import Sidenav from './components/sidenav.js';
 import Inicio from './components/secciones/inicio.js';
+import Contacto from './components/secciones/contacto';
 
 const theme = createTheme({
   typography: {
@@ -19,6 +20,12 @@ const theme = createTheme({
 },});
 
 function App() {
+  const [page, setPage] = useState("inicio");
+
+  const pageChange = newPage => {
+    setPage(newPage);
+  }
+
   const images = [
     "http://www.aytocarrocera.es/export/sites/aytocarrocera/galerias/imagenes/plantilla/cabecera.jpg",
     "http://www.aytocarrocera.es/export/sites/aytocarrocera/galerias/imagenes/plantilla/cabecera1.png",
@@ -53,7 +60,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ mx: 15, mt: 2 }}> 
-        <Header />
+        <Header pageChange={pageChange}/>
         <Grid container spacing={0.5} direction="row" alignItems="up" justifyContent="center" sx={{mb:2}}>
           <Grid item xs={9} align="left">
             <Grid container spacing={0.5} direction="column" alignItems="center" justifyContent="center">
@@ -71,12 +78,13 @@ function App() {
                 </Grid>
               </Grid>
               <Grid item>
-                <Inicio />
+              {(page==="inicio") ? (<Inicio />) : ""}
+              {(page==="contacto") ? (<Contacto />) : ""}
               </Grid>
           </Grid>
 
           <Grid item xs={3} align="right">
-            <Sidenav />
+            <Sidenav pageChange={pageChange}/>
           </Grid>
         </Grid>
 
