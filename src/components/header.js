@@ -46,7 +46,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 
-function Header({pageChange}){
+const Header = ({pageChange}) => {
   let logoWidth = 80;
   const drawerWidth = 300;
 
@@ -118,7 +118,7 @@ function Header({pageChange}){
           </Grid>
           <Grid item xs={2} align="right">
             <Box component="img" sx={{ height: logoWidth*1.094, width: logoWidth}}
-            alt="Escudo de Carrocera." src="/escudo.png"/>
+            alt="Escudo de Carrocera." src="/escudo.png" />
           </Grid>
           <Grid item xs={4} align="left">
             <Typography component="h2" variant="h6" color="darkred" align="center" noWrap >
@@ -137,7 +137,7 @@ function Header({pageChange}){
               </IconButton>
               <Menu anchorEl={extraMenu} open={Boolean(extraMenu)} onClose={handleCloseExMenu}
               MenuListProps={{ onMouseLeave: handleCloseExMenu }}>
-                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={pageChange("inicio")}> 
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => pageChange("inicio")}>
                   <ListItemIcon><HomeIcon fontSize="small"/></ListItemIcon>
                   INICIO
                 </MenuItem>

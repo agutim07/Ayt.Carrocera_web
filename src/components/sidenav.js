@@ -12,12 +12,18 @@ import Button from '@mui/material/Button';
 
 import { Typography } from '@mui/material';
 
-export function AddLibrary(urlOfTheLibrary) {
-    const script = document.createElement('script');
-    script.src = urlOfTheLibrary;
-    script.async = false;
-    document.body.appendChild(script);
-}
+export const useScript = url => {
+    useEffect(() => {
+      const script = document.createElement('script');
+      script.src = url;
+      script.async = true;
+      document.body.appendChild(script);
+  
+      return () => {
+        document.body.removeChild(script);
+      }
+    }, [url]);
+};
 
 function Sidenav({pageChange}){
     return(
@@ -109,7 +115,7 @@ function Sidenav({pageChange}){
                 </Link>
                 <Paper sx={{margin:1,  my: 1.5, ml:1}}>
                     <div id="c_35d69abd4d2b56343d2b7080a525b502" class="normal"></div>
-                    {AddLibrary('https://www.eltiempo.es/widget/widget_loader/35d69abd4d2b56343d2b7080a525b502')}
+                    {useScript('https://www.eltiempo.es/widget/widget_loader/35d69abd4d2b56343d2b7080a525b502')}
                 </Paper>
             </Grid>
         </Box>
