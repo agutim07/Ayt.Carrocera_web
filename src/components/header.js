@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Drawer from '@mui/material/Drawer';
@@ -99,6 +100,12 @@ const Header = ({pageChange}) => {
   }};
   const handleCloseExMenu = () => { setExtraMenu(null); };
 
+  const newPage = page => {
+    if(page=="INICIO"){
+      pageChange("inicio");
+    }
+  }
+
   return (
     <div>
       <Toolbar sx={{borderBottom: `1px solid ${theme.palette.grey[300]}`}}>
@@ -106,34 +113,38 @@ const Header = ({pageChange}) => {
           <Grid item xs={3} align="left">
             <Grid container direction="row" alignItems="center">
               <IconButton
-                  color="inherit" onClick={handleDrawerOpen} onMouseOver={handleDrawerOpen} edge="start"
+                  onClick={handleDrawerOpen} onMouseOver={handleDrawerOpen} edge="start"
                   sx={{ mr: 2 , ...(openDR && { display: 'none' })}}
               >
-                  <MenuIcon />
+                  <MenuIcon sx={{color:"white"}}/>
               </IconButton>
-              <Typography variant="h6" noWrap component="div" display="inline" align="center">
+              <Typography variant="h6" noWrap color="white" component="div" display="inline" align="center">
                   Información
               </Typography>
             </Grid>
           </Grid>
           <Grid item xs={2} align="right">
+            <IconButton disableElevation disableRipple size="small" onClick={() => pageChange("inicio")}
+              sx={{ ml: 1, "&.MuiButtonBase-root:hover": {bgcolor: "transparent"}}}
+            >
             <Box component="img" sx={{ height: logoWidth*1.094, width: logoWidth}}
             alt="Escudo de Carrocera." src="/escudo.png" />
+            </IconButton>
           </Grid>
           <Grid item xs={4} align="left">
-            <Typography component="h2" variant="h6" color="darkred" align="center" noWrap >
+            <Typography component="h2" variant="h6" color="#e53935" align="center" noWrap >
               Ayuntamiento de <Box sx={{ fontWeight: 'bold', fontSize: 'h5.fontSize' }}>Carrocera</Box>
             </Typography>
           </Grid>
           <Grid item xs={1} align="right"></Grid>
           <Grid item xs={1} align="right">
             <Grid container direction="row" alignItems="center">
-              <Typography variant="h6" noWrap component="div" display="inline" align="right">
+              <Typography variant="h6" noWrap color="white" component="div" display="inline" align="right">
                   Menú
               </Typography>
               <IconButton onMouseOver={handleClickExMenu} onClick={handleClickExMenu} aria-controls={Boolean(extraMenu) ? 'account-menu' : undefined} 
               aria-haspopup="true" aria-expanded={Boolean(extraMenu) ? 'true' : undefined}>
-                <ExpandCircle sx={{ fontSize: "30px" }}/>
+                <ExpandCircle sx={{ color:"white", fontSize: "30px" }}/>
               </IconButton>
               <Menu anchorEl={extraMenu} open={Boolean(extraMenu)} onClose={handleCloseExMenu}
               MenuListProps={{ onMouseLeave: handleCloseExMenu }}>
@@ -158,7 +169,7 @@ const Header = ({pageChange}) => {
           </Grid>
           <Grid item xs={1} align="right">
             <IconButton>
-              <SearchIcon sx={{ fontSize: "30px" }}/>
+              <SearchIcon sx={{ color:"white", fontSize: "30px" }}/>
             </IconButton>
           </Grid>
         </Grid>
@@ -167,7 +178,7 @@ const Header = ({pageChange}) => {
       <Drawer
         sx={{ width: drawerWidth, flexShrink: 0,
           '& .MuiDrawer-paper': { width: drawerWidth,boxSizing: 'border-box',}, bgcolor: 'paper' }}
-        PaperProps={{ sx: { backgroundColor: "#03a9f4",} }}
+        PaperProps={{ sx: { backgroundColor: "#00bcd4",} }}
         variant="persistent" anchor="left"open={openDR} onMouseLeave={handleDrawerClose}
       >
         <DrawerHeader>
@@ -184,7 +195,7 @@ const Header = ({pageChange}) => {
           {secciones.map((seccion) => 
             <div>
             {(seccion.content.length===0) ? (
-              <ListItemButton>
+              <ListItemButton onClick={() => newPage(seccion.title)}>
                 <ListItemText primary={seccion.title} />
                 {(seccion.title=="INICIO") ? (
                   <HomeIcon/>

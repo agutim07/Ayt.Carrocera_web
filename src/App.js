@@ -6,6 +6,7 @@ import Slide from '@mui/material/Slide';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import CssBaseline from "@mui/material/CssBaseline";
 
 import Header from './components/header.js';
 import Sidenav from './components/sidenav.js';
@@ -17,7 +18,7 @@ const theme = createTheme({
     fontFamily: [
       'Work Sans',
     ].join(','),
-},});
+  },});
 
 function App() {
   const [page, setPage] = useState("inicio");
@@ -59,7 +60,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ mx: 15, mt: 2 }}> 
+      <Box sx={{ mx: 15}}> 
         <Header pageChange={pageChange}/>
         <Grid container spacing={0.5} direction="row" alignItems="up" justifyContent="center" sx={{mb:2}}>
           <Grid item xs={9} align="left">

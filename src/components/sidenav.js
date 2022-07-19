@@ -89,10 +89,10 @@ function Sidenav({pageChange}){
         </Grid>
 
         <Grid item>
-        <Box sx={{backgroundColor: "#0097a7", color:"#000000", backgroundSize: 'cover', backgroundPosition: 'center', 
+        <Box sx={{backgroundColor: "#b71c1c", color:"#000000", backgroundSize: 'cover', backgroundPosition: 'center', 
             my: 1, ml:1, borderRadius: '9px'}}>
             <Grid container direction="row" alignItems="center" justifyContent="center">
-                <Avatar sx={{ my: 0.5, color:"#000000", bgcolor: "#0097a7" }}><TravelExploreIcon/></Avatar>
+                <Avatar sx={{ my: 0.5, color:"#000000", bgcolor: "#b71c1c" }}><TravelExploreIcon/></Avatar>
                 <Typography display="inline">PORTALES DE INTERÉS</Typography>
             </Grid>
             <Divider  sx={{ bgcolor: "#000000" }} variant="middle"/>
