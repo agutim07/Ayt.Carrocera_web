@@ -156,7 +156,7 @@ const Header = ({pageChange}) => {
                   <ListItemIcon><MapIcon fontSize="small"/></ListItemIcon>
                   MAPA WEB
                 </MenuItem>
-                <MenuItem sx={{color:"blue", fontSize: 15}}>
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => pageChange("contacto")}>
                   <ListItemIcon><ContactSupportIcon fontSize="small"/></ListItemIcon>
                   CONTACTO
                 </MenuItem>
@@ -189,7 +189,7 @@ const Header = ({pageChange}) => {
         <Divider />
         <List component="nav" subheader={
         <ListSubheader component="div" id="nested-list-subheader">
-            <Box sx={{ fontWeight: 'bold', fontSize: 'h6.fontSize', textAlign: 'center'}}>INFO</Box>
+            <Box sx={{ color: '#222222', fontWeight: 'bold', fontSize: 'h6.fontSize', textAlign: 'center'}}>INFO</Box>
         </ListSubheader>
         }>
           {secciones.map((seccion) => 
