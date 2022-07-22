@@ -32,3 +32,5 @@ export const saludo = [
     `Cada rincón es una sorpresa y cada paisaje ofrece infinitas sorpresas, así que siempre se puede volver, aunque la opción de quedase a pasar la noche añade otras posibilidades que vale la pena descubrir...`,<br/>,`
     La oferta de alojamientos es amplia y disponible en todas las localidades y los establecimientos de restauración y cafetería también numerosos y de reconocido prestigio. Solo hay que venir a comprobarlo. Os esperamos en Carrocera.`
 ];
+
+export const condLegales = ['De conformidad con lo establecido en la Ley 15/1999, de 13 de diciembre y con el R.D. 1720/2007, de 21 de diciembre, sobre Protección de Datos de Carácter Personal, le informamos que los datos facilitados por usted serán incorporados a un fichero propiedad del Ayuntamiento, con la única finalidad de responder a sus consultas. Podrá ejercer sus derechos de acceso, rectificación, cancelación y oposición al tratamiento de sus datos personales, en los términos y condiciones previstos por la Ley, dirigiéndose al Ayuntamiento.']

@@ -62,7 +62,7 @@ function a11yProps(index) {
     };
 }
 
-const Inicio = () => {
+function Inicio({pageChange}){
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -87,7 +87,7 @@ const Inicio = () => {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => pageChange("contacto")}>
                             <ListItemIcon><SupportAgentIcon /></ListItemIcon>
                             <ListItemText primary="Atención a la ciudadania" />
                         </ListItemButton>

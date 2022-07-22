@@ -1,20 +1,18 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import React, {useState, useRef} from 'react';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import {alpha,styled} from '@mui/material/styles';
+import AlertTitle from '@mui/material/AlertTitle';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import Collapse from '@mui/material/Collapse';
+import MuiAlert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
@@ -24,12 +22,99 @@ import Chip from '@mui/material/Chip';
 import PlaceIcon from '@mui/icons-material/Place';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
+import TextField from '@mui/material/TextField';
+import { red} from '@mui/material/colors';
+import Switch from '@mui/material/Switch';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import {DialogActions, DialogContent} from '@mui/material';
+import {condLegales} from '../../data.js';
+
+const RedSwitch = styled(Switch)(({ theme }) => ({
+    '& .MuiSwitch-track': {
+        backgroundColor:'white'
+    },
+    '& .MuiSwitch-switchBase.Mui-checked': {
+        color: red[600],
+        '&:hover': {
+        backgroundColor: alpha(red[600], theme.palette.action.hoverOpacity),
+        },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+        backgroundColor: red[600],
+    },
+}));
+
+const CustomTextField = styled(TextField)({
+    '& label.Mui-focused': {
+      color: 'white',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'white',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'white',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'red',
+      },
+    },
+    '& .MuiOutlinedInput-root:hover': {
+        '& fieldset': {
+          borderColor: "red",
+        }
+    },
+  });
 
 const Contacto = () => {
     const handleLocationClick = () => {
         window.open("https://goo.gl/maps/Bwou32hWBzDq7ib9A", '_blank', 'noopener,noreferrer');
     };
-    
+
+    const [details, setDetails] = useState({nombre:"",correo:"",consulta:""});
+
+    const [checked, setChecked] = React.useState(false);
+    const handleChange = (event) => {
+        setChecked(event.target.checked);
+    };
+
+    const [openDialog, setOpenDialog] = useState(false);
+    const handleOpenDialog = () => {setOpenDialog(true);};
+    const handleCloseDialog = (status) => {
+        setOpenDialog(false);
+        if(status) setChecked(true);
+    };
+
+    const [openError, setOpenError] = useState(false);
+    const [error, setError] = useState("");
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setOpenError(false);
+
+        if(details.nombre==="" || details.correo==="" || details.consulta===""){
+            setError("Debe rellenar todos los campos");
+            setOpenError(true);
+        }else if(!validateEmail(details.correo)){
+            setError("Correo electrónico inválido");
+            setOpenError(true);
+        }else if(details.consulta.length>1000){
+            setError("La consulta no puede superar los 1000 caracteres");
+            setOpenError(true);
+        }else if(!checked){
+            setError("Debe aceptar la política de privacidad");
+            setOpenError(true);
+        }
+    };
+
+    const validateEmail = (email) => {
+        return String(email)
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          );
+      };
 
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
@@ -74,43 +159,73 @@ const Contacto = () => {
             </Grid>
 
             <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{mb:3}}>
-                <Typography display="inline"><Box sx={{ color:"#e53935", mt:2, fontSize:20, fontWeight: 'bold'}}>FORMULARIO DE CONTACTO</Box></Typography>
+                <Typography display="inline"><Box sx={{ color:"#e53935", mt:2, fontSize:20, fontWeight: 'bold'}}>CONSULTA DIRECTA</Box></Typography>
                 <Divider sx={{ width:'40%', bgcolor: "#424242", my:0.5 }} variant="middle"/>
                 <Typography display="inline" align="center" sx={{width: "60%"}}>Para cualquier consulta puede ponerse en contacto mediante el siguiente formulario indicándonos una dirección de correo electrónico a la que poder responderle.</Typography>
-                <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"#e53935", width: "60%", margin:1, 
+                <Paper elevation={12} sx={{ backgroundColor: "black", color:"white", width: "60%", margin:1, 
                 padding:1, my: 0.5, border: "1px solid #e53935", boxShadow: "3px 3px 3px #e53935" }}>
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
-                        <Grid container direction="row" alignItems="center">
-                            <Grid item xs={0.5}></Grid>
-                            <Grid item xs={3.5} align="left">
-                            <Typography display="inline" sx={{mr:1}}>Dirección</Typography>
-                            </Grid>
-                            <Grid item xs={8} align="left">
-                            <Chip onClick={handleLocationClick} icon={<PlaceIcon />} 
-                            label="Plaza Mayor, 1. Carrocera - León (España). C.P.: 24123" variant="outlined" />
-                            </Grid>
+                    <Collapse in={openError}>
+                        <MuiAlert severity="error"
+                        action={
+                            <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                                setOpenError(false);
+                            }}
+                            >
+                            <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                        sx={{ mb: 3 }}
+                        >
+                        <AlertTitle>No se ha podido enviar la consulta</AlertTitle>
+                        <strong>{error}</strong>
+                        </MuiAlert>
+                    </Collapse>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ m: 0.5, mr: 3 }}>
+                        <CustomTextField margin="normal" required fullWidth id="email" label="Correo Electrónico" name="email" 
+                        autoComplete="email"  sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} 
+                        onChange={e => setDetails({...details, correo: e.target.value})} value={details.correo} variant="outlined"
+                        />
+                        <CustomTextField margin="normal" required fullWidth name="name" label="Nombre y Apellidos" type="text"
+                        sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="name"
+                        onChange={e => setDetails({...details, nombre: e.target.value})} value={details.nombre} 
+                        />
+                        <CustomTextField margin="normal" required fullWidth name="consulta" label="Consulta" type="text" 
+                        multiline rows={6} sx={{textarea:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="consulta" 
+                        onChange={e => setDetails({...details, consulta: e.target.value})} value={details.consulta} 
+                        />
+                        <Grid container direction="row" alignItems="center" justifyContent="left">
+                            <Typography>He leido y acepto la<Button onClick={() => handleOpenDialog()} sx={{color:"red"}}>
+                            Política de Privacidad</Button></Typography> 
+                            <RedSwitch checked={checked} onChange={handleChange} color="primary" />
                         </Grid>
-                        <Grid container direction="row" alignItems="center" sx={{my:1}}>
-                            <Grid item xs={0.5}></Grid>
-                            <Grid item xs={3.5} align="left">
-                            <Typography display="inline" sx={{mr:1}}>Teléfono</Typography>
-                            </Grid>
-                            <Grid item xs={8} align="left">
-                            <Chip icon={<PhoneIcon />} label="987 592 071" variant="outlined" />
-                            </Grid>
-                        </Grid>
-                        <Grid container direction="row" alignItems="center" sx={{mb:1}}>
-                            <Grid item xs={0.5}></Grid>
-                            <Grid item xs={3.5} align="left">
-                            <Typography display="inline" >Correo electrónico</Typography>
-                            </Grid>
-                            <Grid item xs={8} align="left">
-                            <Chip icon={<EmailIcon />} label="info@aytocarrocera.es" variant="outlined" />
-                            </Grid>
-                        </Grid>
+                        <Box sx={{ fontStyle: 'italic' }}>(*): estos campos son obligatorios</Box>
+                        <Button type="submit" fullWidth variant="contained" sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: '#e53935', }}}>
+                            Enviar consulta
+                        </Button>
+                    </Box>
                     </Grid>
                 </Paper>
             </Grid>
+
+            <Box sx={{position: "absolute", bottom: 20, right: 20}}>
+            <Dialog maxWidth="sm" fullWidth={true} open={openDialog} onClose={() => handleCloseDialog(false)} aria-labelledby="form-dialog-title" >
+                <DialogTitle id="form-dialog-title"><strong>CONDICIONES LEGALES</strong></DialogTitle>
+                <DialogContent>
+                    <Typography paragraph variant="subtitle2">
+                        {condLegales}
+                    </Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => handleCloseDialog(true)} color="primary"> Aceptar </Button>
+                    <Button onClick={() => handleCloseDialog(false)} color="primary"> Cerrar </Button>
+                </DialogActions>
+            </Dialog>
+            </Box>
         </Box>
     );
 }

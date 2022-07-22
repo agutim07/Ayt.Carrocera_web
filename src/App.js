@@ -79,7 +79,7 @@ function App() {
                 </Grid>
               </Grid>
               <Grid item>
-              {(page==="inicio") ? (<Inicio />) : ""}
+              {(page==="inicio") ? (<Inicio pageChange={pageChange}/>) : ""}
               {(page==="contacto") ? (<Contacto />) : ""}
               </Grid>
           </Grid>
