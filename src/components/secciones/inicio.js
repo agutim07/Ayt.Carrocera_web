@@ -29,6 +29,8 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 import {saludo} from '../../data.js';
 
@@ -48,6 +50,10 @@ function TabPanel(props) {
       </div>
     );
 }
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
   
 TabPanel.propTypes = {
     children: PropTypes.node,
@@ -67,6 +73,18 @@ function Inicio({pageChange}){
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+    };
+
+    const [openAlert, setOpenAlert] = React.useState(false);
+
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {return;}
+        setOpenAlert(false);
+    };
+
+    const handleClick = () => {
+        navigator.clipboard.writeText("http://www.aytocarrocera.es/");
+        setOpenAlert(true);
     };
 
     return(
@@ -160,12 +178,18 @@ function Inicio({pageChange}){
                         tooltipTitle={'Compartir en Facebook'} rel="noopener noreferrer" target="_blank" 
                         href="https://facebook.com/sharer/sharer.php?u=http://www.aytocarrocera.es/"/>
                         <SpeedDialAction key={'Copiar enlace'} icon={<ContentCopyIcon />} 
-                        tooltipTitle={'Copiar enlace'} onClick={() => {navigator.clipboard.writeText("http://www.aytocarrocera.es/")}}/>
+                        tooltipTitle={'Copiar enlace'} onClick={() => handleClick()}/>
                     </SpeedDial>
                     </Grid>
                 </CardActions>
             </Card>
             </Grid>
+
+            <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
+                    Enlace copiado al portapapeles
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }

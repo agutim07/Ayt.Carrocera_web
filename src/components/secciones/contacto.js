@@ -13,6 +13,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import MuiAlert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
+import Snackbar from '@mui/material/Snackbar';
 import Button from '@mui/material/Button';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
@@ -29,6 +31,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import {DialogActions, DialogContent} from '@mui/material';
 import {condLegales} from '../../data.js';
+import emailjs from '@emailjs/browser';
 
 const RedSwitch = styled(Switch)(({ theme }) => ({
     '& .MuiSwitch-track': {
@@ -44,6 +47,10 @@ const RedSwitch = styled(Switch)(({ theme }) => ({
         backgroundColor: red[600],
     },
 }));
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const CustomTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -88,6 +95,8 @@ const Contacto = () => {
 
     const [openError, setOpenError] = useState(false);
     const [error, setError] = useState("");
+    const [emailSent, setEmailSent] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -105,8 +114,30 @@ const Contacto = () => {
         }else if(!checked){
             setError("Debe aceptar la política de privacidad");
             setOpenError(true);
+        }else if(emailSent){
+            setAlertStatus(false);
+            setOpenAlert(true);
+        }else{
+            setLoading(true);
+            sendEmail();
         }
     };
+
+    const sendEmail = () => {
+        emailjs.send('gmail', 'template_prowsw9', details, 'oFb4x6CDmB1dwKhV_')
+          .then((result) => {
+              console.log(result.text);
+              setAlertStatus(true);
+              setEmailSent(true);
+              setOpenAlert(true);
+              setLoading(false);
+          }, (error) => {
+              console.log(error.text);
+              setAlertStatus(false);
+              setOpenAlert(true);
+              setLoading(false);
+          });
+      };
 
     const validateEmail = (email) => {
         return String(email)
@@ -114,7 +145,16 @@ const Contacto = () => {
           .match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           );
-      };
+    };
+
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [alertStatus, setAlertStatus] = React.useState(false);
+
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {return;}
+        setOpenAlert(false);
+    };
+
 
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
@@ -208,9 +248,20 @@ const Contacto = () => {
                             Enviar consulta
                         </Button>
                     </Box>
+                    {(loading) ? (
+                    <Box sx={{ display: 'flex' }}>
+                        <CircularProgress />
+                    </Box>) : ""}
                     </Grid>
                 </Paper>
             </Grid>
+
+            <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity={alertStatus ? "success" : (emailSent ? "warning" : "error")} sx={{ width: '100%' }}>
+                    {alertStatus ? "Consulta enviada correctamente" : (emailSent ? "Ya ha enviado una consulta en esta sesión, vuelva a intentarlo más tarde" : 
+                    "Error: fallo al enviar. Consulte con el ayuntamiento por las otras vías disponibles")}
+                </Alert>
+            </Snackbar>
 
             <Box sx={{position: "absolute", bottom: 20, right: 20}}>
             <Dialog maxWidth="sm" fullWidth={true} open={openDialog} onClose={() => handleCloseDialog(false)} aria-labelledby="form-dialog-title" >
