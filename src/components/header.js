@@ -101,8 +101,12 @@ const Header = ({pageChange}) => {
   const handleCloseExMenu = () => { setExtraMenu(null); };
 
   const newPage = page => {
-    if(page=="INICIO"){
+    console.log(page);
+    if(page==="INICIO"){
       pageChange("inicio");
+    }
+    if(page==="Teléfonos de Interés"){
+      pageChange("telefonos");
     }
   }
 
@@ -178,54 +182,50 @@ const Header = ({pageChange}) => {
       <Drawer
         sx={{ width: drawerWidth, flexShrink: 0,
           '& .MuiDrawer-paper': { width: drawerWidth,boxSizing: 'border-box',}, bgcolor: 'paper' }}
-        PaperProps={{ sx: { backgroundColor: "#00bcd4",} }}
+        PaperProps={{ sx: { backgroundColor: "#3a41af",} }}
         variant="persistent" anchor="left"open={openDR} onMouseLeave={handleDrawerClose}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon sx={{ fontSize: "30px" }}/>
-          </IconButton>
+        <DrawerHeader sx={{  justifyContent:'center', backgroundColor: "white"}}>
+            <Typography component="h2" variant="h6" color="#e53935" align="center" noWrap >
+              <Box sx={{fontWeight: 'bold', fontSize: 'h5.fontSize' }}>Información</Box>
+            </Typography>
         </DrawerHeader>
         <Divider />
-        <List component="nav" subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-            <Box sx={{ color: '#222222', fontWeight: 'bold', fontSize: 'h6.fontSize', textAlign: 'center'}}>INFO</Box>
-        </ListSubheader>
-        }>
+        <List component="nav" >
           {secciones.map((seccion) => 
             <div>
             {(seccion.content.length===0) ? (
               <ListItemButton onClick={() => newPage(seccion.title)}>
-                <ListItemText primary={seccion.title} />
+                <ListItemText sx={{color: 'white'}} primary={seccion.title} />
                 {(seccion.title=="INICIO") ? (
-                  <HomeIcon/>
+                  <HomeIcon sx={{color: 'white'}}/>
                 ) : ""}
               </ListItemButton>
             ) :  (
               <div>
               <ListItemButton onClick={() => handleClickMenu(seccion.id)}>
-                <ListItemText primary={seccion.title} />
-                {openMenu[seccion.id] ? <ExpandLess /> : <ExpandMore />}
+                <ListItemText primary={seccion.title} sx={{color: 'white'}} />
+                {openMenu[seccion.id] ? <ExpandLess sx={{color: 'white'}}/> : <ExpandMore sx={{color: 'white'}}/>}
               </ListItemButton>
               <Collapse in={openMenu[seccion.id]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                 {secciones[seccion.id].content.map((subseccion) => 
                   <div>
                   {(checkSubSeccion(subseccion)===-1) ? (
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemText primary={subseccion} />
+                    <ListItemButton onClick={() => newPage(subseccion)} sx={{ pl: 4 }}>
+                      <ListItemText primary={subseccion} sx={{color: 'white'}} />
                     </ListItemButton>
                   ) : (
                     <div>
                     <ListItemButton sx={{ pl: 4 }} onClick={() => handleClickSubMenu(checkSubSeccion(subseccion))}>
-                      <ListItemText primary={subseccion} />
-                      {openSubMenu[checkSubSeccion(subseccion)] ? <ExpandLess /> : <ExpandMore />}
+                      <ListItemText primary={subseccion} sx={{color: 'white'}}/>
+                      {openSubMenu[checkSubSeccion(subseccion)] ? <ExpandLess sx={{color: 'white'}} /> : <ExpandMore sx={{color: 'white'}} />}
                     </ListItemButton>
                     <Collapse in={openSubMenu[checkSubSeccion(subseccion)]} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
                       {subsecciones[checkSubSeccion(subseccion)].content.map((sub2seccion) => 
                         <ListItemButton sx={{ pl: 8 }}>
-                          <ListItemText primary={sub2seccion} />
+                          <ListItemText primary={sub2seccion} sx={{color: 'white'}} />
                         </ListItemButton>
                       )}
                       </List>

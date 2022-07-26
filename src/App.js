@@ -12,6 +12,7 @@ import Header from './components/header.js';
 import Sidenav from './components/sidenav.js';
 import Inicio from './components/secciones/inicio.js';
 import Contacto from './components/secciones/contacto';
+import Telefonos from './components/secciones/telefonos';
 
 const theme = createTheme({
   typography: {
@@ -81,6 +82,7 @@ function App() {
               <Grid item>
               {(page==="inicio") ? (<Inicio pageChange={pageChange}/>) : ""}
               {(page==="contacto") ? (<Contacto />) : ""}
+              {(page==="telefonos") ? (<Telefonos />) : ""}
               </Grid>
           </Grid>
 

@@ -99,7 +99,7 @@ function Inicio({pageChange}){
             <TabPanel value={value} index={0}>
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => pageChange("telefonos")}>
                             <ListItemIcon><CallIcon /></ListItemIcon>
                             <ListItemText primary="Teléfonos de interés" />
                         </ListItemButton>

@@ -159,7 +159,7 @@ const Contacto = () => {
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
-            <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{mb:3}}>
+            <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{mb:3, mt:1.5}}>
                 <Typography display="inline"><Box sx={{ mt:2, fontSize:20, fontWeight: 'bold'}}>INFORMACIÓN DE CONTACTO</Box></Typography>
                 <Divider sx={{ width:'40%', bgcolor: "#424242", my:0.5 }} variant="middle"/>
                 <Typography display="inline">Puede dirigirse al ayuntamiento mediante los siguientes métodos de contacto:</Typography>
