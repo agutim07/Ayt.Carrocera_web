@@ -74,7 +74,7 @@ const CustomTextField = styled(TextField)({
     },
   });
 
-const Contacto = () => {
+const Contacto = ({pageChange}) => {
     const handleLocationClick = () => {
         window.open("https://goo.gl/maps/Bwou32hWBzDq7ib9A", '_blank', 'noopener,noreferrer');
     };
@@ -159,6 +159,15 @@ const Contacto = () => {
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
+            <Box sx={{width:"100%", maxHeight: 3, mb:2}}><Grid container spacing={0} direction="row">
+                <Typography component="h2" variant="body2" >
+                <Link color="#4a4948" href="#" onClick={() => pageChange("inicio")} underline="none">
+                    Inicio / 
+                </Link>
+                </Typography>
+                <Typography component="h2" variant="body2" sx={{ml:0.5}}>Atención a la ciudadania</Typography>
+            </Grid></Box>
+
             <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{mb:3, mt:1.5}}>
                 <Typography display="inline"><Box sx={{ mt:2, fontSize:20, fontWeight: 'bold'}}>INFORMACIÓN DE CONTACTO</Box></Typography>
                 <Divider sx={{ width:'40%', bgcolor: "#424242", my:0.5 }} variant="middle"/>

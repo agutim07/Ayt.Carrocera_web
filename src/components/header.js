@@ -108,6 +108,7 @@ const Header = ({pageChange}) => {
     if(page==="Teléfonos de Interés"){
       pageChange("telefonos");
     }
+    handleDrawerClose();
   }
 
   return (
