@@ -18,6 +18,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 import CallIcon from '@mui/icons-material/Call';
 import ShareIcon from '@mui/icons-material/Share';
@@ -87,6 +89,11 @@ function Inicio({pageChange}){
         setOpenAlert(true);
     };
 
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const openCont = Boolean(anchorEl);
+    const handleClickCont = (event) => {setAnchorEl(event.currentTarget);};
+    const handleCloseCont = () => {setAnchorEl(null);};
+
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
@@ -123,10 +130,19 @@ function Inicio({pageChange}){
             <TabPanel value={value} index={1}>
             <List>
                 <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton aria-controls={openCont ? 'basic-menu' : undefined} aria-haspopup="true"
+                    aria-expanded={openCont ? 'true' : undefined} onClick={handleClickCont}>
                         <ListItemIcon><PeopleIcon /></ListItemIcon>
                         <ListItemText primary="Perfil del contratante" />
                     </ListItemButton>
+                    <Menu anchorEl={anchorEl} open={openCont} onClose={handleCloseCont} MenuListProps={{'aria-labelledby': 'basic-button',}}>
+                        <Link rel="noopener noreferrer" target="_blank" href="https://aytocarrocera.sedelectronica.es/" underline="none">
+                        <MenuItem sx={{color:'black'}} onClick={handleCloseCont}>Perfil del contratante actual (Sede Electrónica)</MenuItem>
+                        </Link>
+                        <Link rel="noopener noreferrer" target="_blank" href="https://contrataciondelestado.es/wps/poc?uri=deeplink%3AperfilContratante&ubicacionOrganica=v%2FILA6%2FpJ8o%3D" underline="none">
+                        <MenuItem sx={{color:'black'}} onClick={handleCloseCont}>Plataforma de Contratación del Estado</MenuItem>
+                        </Link>
+                    </Menu>
                 </ListItem>
                 <ListItem disablePadding>
                     <Link rel="noopener noreferrer" target="_blank" href="http://www.facturae.es/" underline="none">

@@ -75,15 +75,6 @@ function Sidenav({pageChange}){
                     </Grid>
                 </Paper>
                 </Link>
-                <Link rel="noopener noreferrer" target="_blank" href="https://google.es/" underline="none">
-                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/transparencia.jpg"})`, 
-                '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: 290*0.75, height:100, margin:1, padding:1, 
-                my: 1.5, ml:1, border: "1px solid white"}}>
-                    <Grid container direction="row" alignItems="center" justifyContent="center">
-                    <Typography display="inline"><Box sx={{ color:"white", fontSize: "15px", fontWeight: 'bold'}}>PORTAL DE TRANSPARENCIA</Box></Typography>
-                    </Grid>
-                </Paper>
-                </Link>
             </Grid>
         </Box>
         </Grid>

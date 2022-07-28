@@ -26,8 +26,8 @@ const Telefonos = ({pageChange}) => {
                 <Typography component="h2" variant="body2" sx={{ml:0.5}}>Teléfonos de interés del municipio</Typography>
             </Grid></Box>
 
-            <Grid container columnSpacing={3} rowSpacing={2} direction="row" justifyContent="center" alignItems="center" sx={{ml:2, mb:3, mt:1.5}}>
-                <Grid item xs={1} />
+            <Grid container rowSpacing={2} direction="row" alignItems="center" sx={{ml:2, mb:3, mt:1.5}}>
+                <Grid item xs={0.5} />
                 <Grid item xs={4} align="right">
                 <Card sx={{ display: 'flex', maxWidth: 600 , border:1, borderColor: 'black', borderRadius: '9px'}}>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>   
@@ -46,8 +46,8 @@ const Telefonos = ({pageChange}) => {
                         <CardMedia sx={{maxHeight:110}}  component="img" image="/escudo.png" />
                     </Grid>
                 </Card>
-
                 </Grid>
+                <Grid item xs={1} />
                 <Grid item xs={5} align="left">
                 <Card sx={{ display: 'flex', maxWidth: 600, border:1, borderColor: 'black', borderRadius: '9px' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>   
@@ -67,8 +67,7 @@ const Telefonos = ({pageChange}) => {
                     </Grid>
                 </Card>
                 </Grid>
-                <Grid item xs={1.5} />
-
+                <Grid item xs={1} />
                 <Grid item xs={4.5} align="right">
                 <Card sx={{ display: 'flex', maxWidth: 600, border:1, borderColor: 'black', borderRadius: '9px' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>   
@@ -88,7 +87,7 @@ const Telefonos = ({pageChange}) => {
                     </Grid>
                 </Card>
                 </Grid>
-
+                <Grid item xs={1} />
                 <Grid item xs={5.5} align="left">
                 <Card sx={{ display: 'flex', maxWidth: 600, border:1, borderColor: 'black', borderRadius: '9px' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>   
@@ -108,10 +107,9 @@ const Telefonos = ({pageChange}) => {
                     </Grid>
                 </Card>
                 </Grid>
-                <Grid item xs={0.5} />
 
-                <Grid item xs={2.5} />
-                <Grid item xs={5} align="center">
+                <Grid item xs={0.5} />
+                <Grid item xs={4.5} align="right">
                 <Card sx={{ display: 'flex', maxWidth: 600, border:1, borderColor: 'black', borderRadius: '9px' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>   
                     <CardContent sx={{ flex: '1 0 auto' }}>
@@ -133,7 +131,6 @@ const Telefonos = ({pageChange}) => {
                     </Grid>
                 </Card>
                 </Grid>
-                <Grid item xs={4.5} />
             </Grid>
         </Box>
     );
