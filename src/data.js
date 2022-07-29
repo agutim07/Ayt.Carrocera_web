@@ -1,12 +1,13 @@
 export const secciones = [
     {id:0, title: "INICIO", content: Array()},
-    {id:1, title: "AYUNTAMIENTO", content: Array("Corporación Municipal", "Saluda", "Normativa Municipal", "Tablón de Anuncios", "Teléfonos de Interés", "Trámites y Solicitudes", "Eventos", "Noticias")},
+    {id:1, title: "AYUNTAMIENTO", content: Array("Corporación Municipal", "Normativa Municipal", "Tablón de Anuncios", "Teléfonos de Interés", "Trámites y Solicitudes", "Eventos", "Noticias")},
     {id:2, title: "LOCALIZACIÓN", content: Array()},
     {id:3, title: "MUNICIPIO", content: Array("Datos del Municipio", "Estadísticas", "Introducción Histórica", "Escudo y Bandera", "Galería Fotográfica", "El Tiempo")},
     {id:4, title: "LOS PUEBLOS", content: Array("Benllera","Carrocera","Cuevas de Viñayo","Otero de las Dueñas","Piedrasecha","Santiago de las Villas","Viñayo")},
     {id:5, title: "TURISMO Y OCIO", content: Array("Alojamientos","Bares y Restaurantes","Artesanía","Espacios Naturales","Ferias, Fiestas y Tradiciones","Patrimonio","Productos Agroalimentarios")},
     {id:6, title: "PAGO A PROVEEDORES", content: Array()},
-    {id:7, title: "PORTAL DE TRANSPARENCIA", content: Array()}
+    {id:7, title: "PORTAL DE TRANSPARENCIA", content: Array()},
+    {id:7, title: "SEDE ELECTRÓNICA", content: Array()}
 ];
 
 export const subsecciones = [
@@ -29,7 +30,8 @@ export const saludo = [
     Igualmente se reseñan puntos de interés biológico, geológico y paisajístico como `,<span style={{fontWeight: 'bold'}}>el desfiladero de los Calderones en Piedrasecha</span>,` o el ya citado contraembalse de Selga de Ordás. Yacimientos incluidos en el Inventario Arqueológico de Castilla y León como “La Presa de la Griega” (Santiago de las Villas) que de época Romano Altoimperial, aún permite ver un canal tallado en la roca en la margen izquierda del río Torre.`,<br/>,<br/>,
     
     `Cada rincón es una sorpresa y cada paisaje ofrece infinitas sorpresas, así que siempre se puede volver, aunque la opción de quedarse a pasar la noche añade otras posibilidades que vale la pena descubrir...`,<br/>,`
-    `,<span style={{fontWeight: 'bold'}}>La oferta de alojamientos es amplia y disponible en todas las localidades y los establecimientos de restauración y cafetería también numerosos y de reconocido prestigio.</span>,` Solo hay que venir a comprobarlo. Os esperamos en Carrocera.`
+    `,<span style={{fontWeight: 'bold'}}>La oferta de alojamientos es amplia y disponible en todas las localidades y los establecimientos de restauración y cafetería también numerosos y de reconocido prestigio.</span>,` Solo hay que venir a comprobarlo. Os esperamos en Carrocera.`,<br/>,<br/>,
+    <span style={{fontStyle: 'italic'}}>El Alcalde, Luciano Yanutolo Suárez.</span>
 ];
 
 export const condLegales = ['De conformidad con lo establecido en la Ley 15/1999, de 13 de diciembre y con el R.D. 1720/2007, de 21 de diciembre, sobre Protección de Datos de Carácter Personal, le informamos que los datos facilitados por usted serán incorporados a un fichero propiedad del Ayuntamiento, con la única finalidad de responder a sus consultas. Podrá ejercer sus derechos de acceso, rectificación, cancelación y oposición al tratamiento de sus datos personales, en los términos y condiciones previstos por la Ley, dirigiéndose al Ayuntamiento.']

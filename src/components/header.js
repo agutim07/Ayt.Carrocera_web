@@ -108,6 +108,15 @@ const Header = ({pageChange}) => {
     if(page==="Teléfonos de Interés"){
       pageChange("telefonos");
     }
+    if(page==="Corporación Municipal"){
+      pageChange("corporacion");
+    }
+    if(page==="Trámites y Solicitudes"){
+      window.open("https://aytocarrocera.sedelectronica.es/dossier.0", '_blank', 'noopener,noreferrer');
+    }
+    if(page==="Tablón de Anuncios"){
+      window.open("https://aytocarrocera.sedelectronica.es/board", '_blank', 'noopener,noreferrer');
+    }
     handleDrawerClose();
   }
 
@@ -225,7 +234,7 @@ const Header = ({pageChange}) => {
                     <Collapse in={openSubMenu[checkSubSeccion(subseccion)]} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
                       {subsecciones[checkSubSeccion(subseccion)].content.map((sub2seccion) => 
-                        <ListItemButton sx={{ pl: 8 }}>
+                        <ListItemButton onClick={() => newPage(sub2seccion)} sx={{ pl: 8 }}>
                           <ListItemText primary={sub2seccion} sx={{color: 'white'}} />
                         </ListItemButton>
                       )}

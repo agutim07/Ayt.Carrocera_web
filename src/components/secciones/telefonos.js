@@ -26,7 +26,7 @@ const Telefonos = ({pageChange}) => {
                 <Typography component="h2" variant="body2" sx={{ml:0.5}}>Teléfonos de interés del municipio</Typography>
             </Grid></Box>
 
-            <Grid container rowSpacing={2} direction="row" alignItems="center" sx={{ml:2, mb:3, mt:1.5}}>
+            <Grid container rowSpacing={2} direction="row" alignItems="center" sx={{ml:4, mb:3, mt:1.5}}>
                 <Grid item xs={0.5} />
                 <Grid item xs={4} align="right">
                 <Card sx={{ display: 'flex', maxWidth: 600 , border:1, borderColor: 'black', borderRadius: '9px'}}>
