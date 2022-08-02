@@ -23,7 +23,7 @@ const Corporacion = ({pageChange}) => {
                     Inicio / 
                 </Link>
                 </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}>Corporación municipal</Typography>
+                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Ayuntamiento / Corporación municipal</Typography>
             </Grid></Box>
 
             <Box sx={{ display:"flex", justifyContent: 'center'}}>
@@ -78,7 +78,7 @@ const Corporacion = ({pageChange}) => {
             </Card>
             </Box>
 
-            <Box sx={{ display:"flex", justifyContent: 'center'}}>
+            <Box sx={{ display:"flex", justifyContent: 'center', mb:4 }}>
             <Card sx={{display:"flex", m:1, width:"75%", border:1, borderColor: 'black', borderRadius: '9px'}}>
                 <Grid container sx={{maxWidth:"35%", mr:2}}spacing={0} direction="column" justifyContent="center">
                     <CardMedia sx={{width:"70%"}} component="img" image="/pp.png"/>

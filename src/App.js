@@ -14,6 +14,7 @@ import Inicio from './components/secciones/inicio.js';
 import Contacto from './components/secciones/contacto';
 import Telefonos from './components/secciones/telefonos';
 import Corporacion from './components/secciones/corporacion';
+import Localizacion from './components/secciones/localizacion';
 
 const theme = createTheme({
   typography: {
@@ -85,6 +86,7 @@ function App() {
               {(page==="contacto") ? (<Contacto pageChange={pageChange}/>) : ""}
               {(page==="telefonos") ? (<Telefonos pageChange={pageChange}/>) : ""}
               {(page==="corporacion") ? (<Corporacion pageChange={pageChange}/>) : ""}
+              {(page==="localizacion") ? (<Localizacion pageChange={pageChange}/>) : ""}
               </Grid>
           </Grid>
 

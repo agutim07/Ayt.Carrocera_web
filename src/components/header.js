@@ -15,8 +15,7 @@ import Grid from '@mui/material/Grid'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import PaidIcon from '@mui/icons-material/Paid';
 import Drawer from '@mui/material/Drawer';
 import { Divider } from '@mui/material';
 import List from '@mui/material/List';
@@ -27,6 +26,8 @@ import ListSubheader from '@mui/material/ListSubheader';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
+import OpacityIcon from '@mui/icons-material/Opacity';
+import PublicIcon from '@mui/icons-material/Public';
 
 import {subsecciones,secciones} from '../data.js';
 
@@ -116,6 +117,9 @@ const Header = ({pageChange}) => {
     }
     if(page==="Tablón de Anuncios"){
       window.open("https://aytocarrocera.sedelectronica.es/board", '_blank', 'noopener,noreferrer');
+    }
+    if(page==="LOCALIZACIÓN"){
+      pageChange("localizacion");
     }
     handleDrawerClose();
   }
@@ -207,9 +211,11 @@ const Header = ({pageChange}) => {
             {(seccion.content.length===0) ? (
               <ListItemButton onClick={() => newPage(seccion.title)}>
                 <ListItemText sx={{color: 'white'}} primary={seccion.title} />
-                {(seccion.title=="INICIO") ? (
-                  <HomeIcon sx={{color: 'white'}}/>
-                ) : ""}
+                {(seccion.title=="INICIO") ? (<HomeIcon sx={{color: 'white'}}/>) : ""}
+                {(seccion.title=="LOCALIZACIÓN") ? (<MapIcon sx={{color: 'white'}}/>) : ""}
+                {(seccion.title=="PAGO A PROVEEDORES") ? (<PaidIcon sx={{color: 'white'}}/>) : ""}
+                {(seccion.title=="PORTAL DE TRANSPARENCIA") ? (<OpacityIcon sx={{color: 'white'}}/>) : ""}
+                {(seccion.title=="SEDE ELECTRÓNICA") ? (<PublicIcon sx={{color: 'white'}}/>) : ""}
               </ListItemButton>
             ) :  (
               <div>

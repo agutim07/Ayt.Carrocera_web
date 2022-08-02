@@ -23,7 +23,7 @@ const Telefonos = ({pageChange}) => {
                     Inicio / 
                 </Link>
                 </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}>Teléfonos de interés del municipio</Typography>
+                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Ayuntamiento / Teléfonos de interés del municipio</Typography>
             </Grid></Box>
 
             <Grid container rowSpacing={2} direction="row" alignItems="center" sx={{ml:4, mb:3, mt:1.5}}>
