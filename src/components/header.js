@@ -121,6 +121,9 @@ const Header = ({pageChange}) => {
     if(page==="LOCALIZACIÓN"){
       pageChange("localizacion");
     }
+    if(page==="Normativa urbanística"){
+      pageChange("urbanistica");
+    }
     handleDrawerClose();
   }
 

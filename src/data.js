@@ -34,4 +34,10 @@ export const saludo = [
     <span style={{fontStyle: 'italic'}}>El Alcalde, Luciano Yanutolo Suárez.</span>
 ];
 
+export const normurbanistica = [
+    `La `,<span style={{fontWeight: 'bold'}}>Página de Planeamiento Urbanístico y Ordenación del Territorio en Información Pública de Castilla y León</span>,` contiene los planes de urbanismo que en el momento actual se encuentran en fase de información pública, al objeto de que los interesados puedan formular alegaciones a los mismos.`,<br/>,<br/>,
+
+    `El `,<span style={{fontWeight: 'bold'}}>Archivo de Planeamiento Urbanístico y Ordenación del Territorio de Castilla y León</span>,` es una documentación organizada y estructurada de expedientes que se corresponden con instrumentos de planeamiento urbanístico aprobados y que han sido sometidos a un tratamiento de digitalización y conversión a Portable Document Format (PDF), con la creación de enlaces a través de documentos Guía que facilitan el acceso y navegación entre ellos.`
+]
+
 export const condLegales = ['De conformidad con lo establecido en la Ley 15/1999, de 13 de diciembre y con el R.D. 1720/2007, de 21 de diciembre, sobre Protección de Datos de Carácter Personal, le informamos que los datos facilitados por usted serán incorporados a un fichero propiedad del Ayuntamiento, con la única finalidad de responder a sus consultas. Podrá ejercer sus derechos de acceso, rectificación, cancelación y oposición al tratamiento de sus datos personales, en los términos y condiciones previstos por la Ley, dirigiéndose al Ayuntamiento.']

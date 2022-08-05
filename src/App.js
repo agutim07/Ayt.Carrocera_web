@@ -12,9 +12,10 @@ import Header from './components/header.js';
 import Sidenav from './components/sidenav.js';
 import Inicio from './components/secciones/inicio.js';
 import Contacto from './components/secciones/contacto';
-import Telefonos from './components/secciones/telefonos';
-import Corporacion from './components/secciones/corporacion';
+import Telefonos from './components/secciones/ayt/telefonos';
+import Corporacion from './components/secciones/ayt/corporacion';
 import Localizacion from './components/secciones/localizacion';
+import Urbanistica from './components/secciones/ayt/normativa/urbanistica';
 
 const theme = createTheme({
   typography: {
@@ -87,6 +88,7 @@ function App() {
               {(page==="telefonos") ? (<Telefonos pageChange={pageChange}/>) : ""}
               {(page==="corporacion") ? (<Corporacion pageChange={pageChange}/>) : ""}
               {(page==="localizacion") ? (<Localizacion pageChange={pageChange}/>) : ""}
+              {(page==="urbanistica") ? (<Urbanistica pageChange={pageChange}/>) : ""}
               </Grid>
           </Grid>
 
