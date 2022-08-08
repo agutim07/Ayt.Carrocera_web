@@ -124,6 +124,9 @@ const Header = ({pageChange}) => {
     if(page==="Normativa urbanística"){
       pageChange("urbanistica");
     }
+    if(page==="Datos del Municipio"){
+      pageChange("datosmun");
+    }
     handleDrawerClose();
   }
 

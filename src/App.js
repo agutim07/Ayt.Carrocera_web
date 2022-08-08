@@ -16,6 +16,7 @@ import Telefonos from './components/secciones/ayt/telefonos';
 import Corporacion from './components/secciones/ayt/corporacion';
 import Localizacion from './components/secciones/localizacion';
 import Urbanistica from './components/secciones/ayt/normativa/urbanistica';
+import Datosmun from './components/secciones/municipio/datosmun';
 
 const theme = createTheme({
   typography: {
@@ -89,6 +90,7 @@ function App() {
               {(page==="corporacion") ? (<Corporacion pageChange={pageChange}/>) : ""}
               {(page==="localizacion") ? (<Localizacion pageChange={pageChange}/>) : ""}
               {(page==="urbanistica") ? (<Urbanistica pageChange={pageChange}/>) : ""}
+              {(page==="datosmun") ? (<Datosmun pageChange={pageChange}/>) : ""}
               </Grid>
           </Grid>
 
