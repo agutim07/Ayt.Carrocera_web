@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
-import CardMedia from '@mui/material/CardMedia';
+import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -18,6 +18,13 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Paper from '@mui/material/Paper';
 import MuiAlert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Cancel';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -30,6 +37,14 @@ const Datosmun = ({pageChange}) => {
         setOpenAlert(false);
     };
     const handleOpenAlert = (event, reason) => {setOpenAlert(true);};
+
+    const [open, setOpen] = React.useState(false);
+    const [image, setImage] = React.useState("");
+    const handleClickOpen = (imagen) => {
+        setImage(imagen);
+        setOpen(true);
+    };
+    const handleClose = () => {setOpen(false);};
 
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
@@ -47,6 +62,7 @@ const Datosmun = ({pageChange}) => {
             <Grid item xs={6} align="center">
             <Box
                 component="img"
+                onClick={() => handleClickOpen("/datosmun_1.png")}
                 sx={{backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                     backgroundSize: 'cover', backgroundPosition: 'center', maxWidth:"90%"}}
                 alt="Galería."
@@ -55,7 +71,7 @@ const Datosmun = ({pageChange}) => {
             </Grid>
             <Grid item xs={6}>
                 <Grid container spacing={0} direction="column" justifyContent="center">
-                <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"#3a41af", width: "60%", margin:1, 
+                <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"#3a41af", width: "70%", margin:1, 
                 padding:1, my: 0.5, border: "1px solid black", boxShadow: "3px 3px 3px black" }}>
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
                         <Grid container direction="row" alignItems="center">
@@ -96,7 +112,7 @@ const Datosmun = ({pageChange}) => {
                         </Grid>
                     </Grid>
                 </Paper>
-                <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"red", width: "60%", margin:1, 
+                <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"red", width: "70%", margin:1, 
                 padding:1, my: 0.5, border: "1px solid black", boxShadow: "3px 3px 3px black", mt: 1.5 }}>
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
                         <Grid container spacing={0.5} sx={{borderRadius: '16px', border: "0.5px solid grey", width:"95%", mb:1}} direction="row" alignItems="center">
@@ -145,6 +161,7 @@ const Datosmun = ({pageChange}) => {
         <Grid container spacing={0} direction="column" alignItems="center"justifyContent="center">
         <Box
             component="img"
+            onClick={() => handleClickOpen("/datosmun_2.png")}
             sx={{backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                 backgroundSize: 'cover', backgroundPosition: 'center', maxWidth:"60%", my:3}}
             alt="Galería."
@@ -157,6 +174,18 @@ const Datosmun = ({pageChange}) => {
                 Datos del <Link color="red" rel="noopener noreferrer" target="_blank" href="https://www.ine.es/up/D4Jrbv6ni7" underline="none">INE</Link> a 1/1/2021
             </Alert>
         </Snackbar>
+
+        <Dialog fullWidth={true} maxWidth="xl" open={open} onClose={handleClose}>
+            <DialogTitle>Visor de imágenes</DialogTitle>
+            <DialogContent>
+                <Grid container spacing={0} direction="column" alignItems="center"justifyContent="center">
+                <Box component="img" src={image}/>
+                </Grid>
+            </DialogContent>
+            <DialogActions>
+                <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+            </DialogActions>
+        </Dialog>
         </Box>
     );
 }

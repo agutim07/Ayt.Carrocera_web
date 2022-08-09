@@ -127,6 +127,9 @@ const Header = ({pageChange}) => {
     if(page==="Datos del Municipio"){
       pageChange("datosmun");
     }
+    if(page==="Estadísticas"){
+      pageChange("estats");
+    }
     handleDrawerClose();
   }
 
