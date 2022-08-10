@@ -11,9 +11,6 @@ import Chip from '@mui/material/Chip';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import SpeedDial from '@mui/material/SpeedDial';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Paper from '@mui/material/Paper';
 import MuiAlert from '@mui/material/Alert';
@@ -89,7 +86,7 @@ const Datosmun = ({pageChange}) => {
                             <Typography display="inline" sx={{mr:1}}>Población</Typography>
                             </Grid>
                             <Grid item xs={6} align="left">
-                            <Chip onClick={() => handleOpenAlert()} label="451" variant="outlined" icon={<InfoOutlinedIcon />} clickable />
+                            <Chip onClick={() => handleOpenAlert()} label="452" variant="outlined" icon={<InfoOutlinedIcon />} clickable />
                             </Grid>
                         </Grid>
                         <Grid container direction="row" alignItems="center" sx={{mb:1}}>

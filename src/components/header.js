@@ -130,6 +130,9 @@ const Header = ({pageChange}) => {
     if(page==="Estadísticas"){
       pageChange("estats");
     }
+    if(page==="Introducción Histórica"){
+      pageChange("historia");
+    }
     handleDrawerClose();
   }
 

@@ -18,6 +18,7 @@ import Localizacion from './components/secciones/localizacion';
 import Urbanistica from './components/secciones/ayt/normativa/urbanistica';
 import Datosmun from './components/secciones/municipio/datosmun';
 import Estadisticas from './components/secciones/municipio/estats';
+import Historia from './components/secciones/municipio/historia';
 
 const theme = createTheme({
   typography: {
@@ -93,6 +94,7 @@ function App() {
               {(page==="urbanistica") ? (<Urbanistica pageChange={pageChange}/>) : ""}
               {(page==="datosmun") ? (<Datosmun pageChange={pageChange}/>) : ""}
               {(page==="estats") ? (<Estadisticas pageChange={pageChange}/>) : ""}
+              {(page==="historia") ? (<Historia pageChange={pageChange}/>) : ""}
               </Grid>
           </Grid>
 

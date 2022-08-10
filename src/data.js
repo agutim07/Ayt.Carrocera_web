@@ -41,3 +41,10 @@ export const normurbanistica = [
 ]
 
 export const condLegales = ['De conformidad con lo establecido en la Ley 15/1999, de 13 de diciembre y con el R.D. 1720/2007, de 21 de diciembre, sobre Protección de Datos de Carácter Personal, le informamos que los datos facilitados por usted serán incorporados a un fichero propiedad del Ayuntamiento, con la única finalidad de responder a sus consultas. Podrá ejercer sus derechos de acceso, rectificación, cancelación y oposición al tratamiento de sus datos personales, en los términos y condiciones previstos por la Ley, dirigiéndose al Ayuntamiento.']
+
+export const introduccionhistorica = [
+    `Carrocera estuvo `,<span style={{fontWeight: 'bold'}}>poblada desde la antigüedad por los Vacceos</span>,`, pueblo que tenía la costumbre de vivir en régimen de comunidad, de donde proceden los pastos comunales de los pueblos. Posteriormente, `,<span style={{fontWeight: 'bold'}}>los romanos invadieron el territorio</span>,`, hasta el siglo XIX AC. `,<span style={{fontWeight: 'bold'}}>Almanzor asoló la zona</span>,`, destruyendo parte de ésta.`,<br/>,<br/>,`
+    En el Siglo IX los reyes Astures Alfonso I y Alfonso II iniciaron la repoblación de la zona. Asimismo, fue feudo de la familia Quiñones de León, Condes de Luna.`,<br/>,<br/>,`
+    De enorme importancia fueron los `,<span style={{fontWeight: 'bold'}}>Monasterios de Tusinos y Otero de las Dueñas</span>,`, cuya fundación data de los siglos XI al XIII, cuyas Monjas siguieron la Regla de San Benito (Orden del Cister). Carrocera, en el año de 1840 era la capital del Concejo llamado `,<span style={{fontWeight: 'bold'}}>Val de Viñayo</span>,`.`,<br/>,<br/>,`
+    Disueltos los Concejos, los pueblos del Municipio formaron Ayuntamiento en unión de los pueblos de Rioseco, Espinosa y Tapia, siendo entonces su `,<span style={{fontWeight: 'bold'}}>capital Benllera, hasta el año de 1870</span>,`. En estas fechas se traslada el Ayuntamiento a Carrocera, como punto céntrico, al segregarse los citados pueblos de Rioseco, Espinosa y Tapia.`,<br/>,<br/>
+]
