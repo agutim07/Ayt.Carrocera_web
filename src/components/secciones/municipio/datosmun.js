@@ -86,7 +86,7 @@ const Datosmun = ({pageChange}) => {
                             <Typography display="inline" sx={{mr:1}}>Población</Typography>
                             </Grid>
                             <Grid item xs={6} align="left">
-                            <Chip onClick={() => handleOpenAlert()} label="452" variant="outlined" icon={<InfoOutlinedIcon />} clickable />
+                            <Chip onClick={() => handleOpenAlert()} label="470" variant="outlined" icon={<InfoOutlinedIcon />} clickable />
                             </Grid>
                         </Grid>
                         <Grid container direction="row" alignItems="center" sx={{mb:1}}>
@@ -168,7 +168,7 @@ const Datosmun = ({pageChange}) => {
 
         <Snackbar open={openAlert} autoHideDuration={5000} onClose={handleCloseAlert}>
             <Alert onClose={handleCloseAlert} severity="info">
-                Datos del <Link color="red" rel="noopener noreferrer" target="_blank" href="https://www.ine.es/up/D4Jrbv6ni7" underline="none">INE</Link> a 1/1/2021
+                Datos del padrón municipal a 11/08/2022
             </Alert>
         </Snackbar>
 

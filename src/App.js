@@ -19,6 +19,9 @@ import Urbanistica from './components/secciones/ayt/normativa/urbanistica';
 import Datosmun from './components/secciones/municipio/datosmun';
 import Estadisticas from './components/secciones/municipio/estats';
 import Historia from './components/secciones/municipio/historia';
+import Emblemas from './components/secciones/municipio/emblemas';
+import Benllera from './components/secciones/pueblos/benllera';
+
 
 const theme = createTheme({
   typography: {
@@ -95,6 +98,8 @@ function App() {
               {(page==="datosmun") ? (<Datosmun pageChange={pageChange}/>) : ""}
               {(page==="estats") ? (<Estadisticas pageChange={pageChange}/>) : ""}
               {(page==="historia") ? (<Historia pageChange={pageChange}/>) : ""}
+              {(page==="emblemas") ? (<Emblemas pageChange={pageChange}/>) : ""}
+              {(page==="benllera") ? (<Benllera pageChange={pageChange}/>) : ""}
               </Grid>
           </Grid>
 

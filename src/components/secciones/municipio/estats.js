@@ -25,12 +25,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Cancel';
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+import CardMedia from '@mui/material/CardMedia';
 
 const Estadisticas = ({pageChange}) => {
+    const [open, setOpen] = React.useState(false);
+    const [image, setImage] = React.useState("");
+    const handleClickOpen = (imagen) => {
+        setImage(imagen);
+        setOpen(true);
+    };
+    const handleClose = () => {setOpen(false);};
 
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
@@ -45,8 +49,64 @@ const Estadisticas = ({pageChange}) => {
             </Grid></Box>
 
             <Grid container sx={{my:1}} spacing={0.5} direction="row" justifyContent="center">
-                
+            <Card sx={{maxWidth: "70%", m:2}}>
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        <Box sx={{ fontWeight: 'bold'}}>Evolución de la población de 1900 a 2020</Box>
+                    </Typography> 
+                </CardContent>
+                <CardMedia
+                    component="img"
+                    image="/grafico_poblacion.png"
+                    alt="green iguana"
+                    onClick={() => handleClickOpen("/grafico_poblacion.png")}
+                />
+            </Card>  
             </Grid>
+
+            <Grid container sx={{my:1}} spacing={0.5} direction="row" justifyContent="center">
+            <Card sx={{maxWidth: "70%", m:2}}>
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        <Box sx={{ fontWeight: 'bold'}}>Población por localidades</Box>
+                    </Typography> 
+                </CardContent>
+                <CardMedia
+                    component="img"
+                    image="/grafico_poblacion2.png"
+                    alt="green iguana"
+                    onClick={() => handleClickOpen("/grafico_poblacion2.png")}
+                />
+            </Card>  
+            </Grid>
+
+            <Grid container sx={{my:1}} spacing={0.5} direction="row" justifyContent="center">
+            <Card sx={{maxWidth: "70%", m:2}}>
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        <Box sx={{ fontWeight: 'bold'}}>Población por edad y sexo</Box>
+                    </Typography> 
+                </CardContent>
+                <CardMedia
+                    component="img"
+                    image="/grafico_poblacion3.png"
+                    alt="green iguana"
+                    onClick={() => handleClickOpen("/grafico_poblacion3.png")}
+                />
+            </Card>  
+            </Grid>
+
+            <Dialog fullWidth={true} maxWidth="xl" open={open} onClose={handleClose}>
+                <DialogTitle>Visor de imágenes</DialogTitle>
+                <DialogContent>
+                    <Grid container spacing={0} direction="column" alignItems="center"justifyContent="center">
+                    <Box component="img" height="100vh" display="flex" flexDirection="column" src={image}/>
+                    </Grid>
+                </DialogContent>
+                <DialogActions>
+                    <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 }

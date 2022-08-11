@@ -133,6 +133,15 @@ const Header = ({pageChange}) => {
     if(page==="Introducción Histórica"){
       pageChange("historia");
     }
+    if(page==="Escudo y Bandera"){
+      pageChange("emblemas");
+    }
+    if(page==="El Tiempo"){
+      window.open("https://www.eltiempo.es/carrocera.html", '_blank', 'noopener,noreferrer');
+    }
+    if(page==="Benllera"){
+      pageChange("benllera");
+    }
     handleDrawerClose();
   }
 
