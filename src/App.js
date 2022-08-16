@@ -70,17 +70,17 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ mx: 15}}> 
+      <Box sx={{ mx: "7.5%"}}> 
         <Header pageChange={pageChange}/>
         <Grid container spacing={0.5} direction="row" alignItems="up" justifyContent="center" sx={{mb:2}}>
-          <Grid item xs={9} align="left">
+          <Grid item xs={12} sm={10} md={9} align="left">
             <Grid container spacing={0.5} direction="column" alignItems="center" justifyContent="center">
-              <Grid item sx={{my: 2, ml:1, height: 180, width: 930}}>
+              <Grid item sx={{my: 2, ml:1, height: {xs: 70, sm:120, md: 180}, width: "100%"}}>
                 <Slide direction="right" mountOnEnter unmountOnExit in={change}>
                   <Box
                     component="img"
-                    sx={{backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                      backgroundSize: 'cover', backgroundPosition: 'center', maxHeight:180, minWidth:930, maxWidth:930, 
+                    sx={{ objectFit: 'cover', backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                      backgroundSize: 'cover', backgroundPosition: 'center', maxHeight:180, minWidth:"99%", maxWidth:"99%", 
                       borderRadius: '16px'}}
                     alt="Galería."
                     src={img}
@@ -103,7 +103,7 @@ function App() {
               </Grid>
           </Grid>
 
-          <Grid item xs={3} align="right">
+          <Grid item xs={false} sm={2} md={3} align="right" sx={{display: { xs: 'none', md: 'block' }}}>
             <Sidenav pageChange={pageChange}/>
           </Grid>
         </Grid>

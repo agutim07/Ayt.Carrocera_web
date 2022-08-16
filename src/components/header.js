@@ -149,7 +149,7 @@ const Header = ({pageChange}) => {
     <div>
       <Toolbar sx={{borderBottom: `1px solid ${theme.palette.grey[300]}`}}>
         <Grid mb={1.5} container alignItems="center">
-          <Grid item xs={3} align="left">
+          <Grid item xs={1} sm={3} align="left">
             <Grid container direction="row" alignItems="center">
               <IconButton
                   onClick={handleDrawerOpen} onMouseOver={handleDrawerOpen} edge="start"
@@ -157,12 +157,14 @@ const Header = ({pageChange}) => {
               >
                   <MenuIcon sx={{color:"white"}}/>
               </IconButton>
+              <Box sx={{ display: { xs: 'none', sm: 'block' }}}> 
               <Typography variant="h6" noWrap color="white" component="div" display="inline" align="center">
                   Información
               </Typography>
+              </Box>
             </Grid>
           </Grid>
-          <Grid item xs={2} align="right">
+          <Grid item xs={3} sm={2} align="right">
             <IconButton disableElevation disableRipple size="small" onClick={() => pageChange("inicio")}
               sx={{ ml: 1, "&.MuiButtonBase-root:hover": {bgcolor: "transparent"}}}
             >
@@ -170,13 +172,13 @@ const Header = ({pageChange}) => {
             alt="Escudo de Carrocera." src="/escudo.png" />
             </IconButton>
           </Grid>
-          <Grid item xs={4} align="left">
+          <Grid item xs={7} sm={4} align="left">
             <Typography component="h2" variant="h6" color="#e53935" align="center" noWrap >
               Ayuntamiento de <Box sx={{ fontWeight: 'bold', fontSize: 'h5.fontSize' }}>Carrocera</Box>
             </Typography>
           </Grid>
-          <Grid item xs={1} align="right"></Grid>
-          <Grid item xs={1} align="right">
+          <Grid item xs={false} sm={1} align="right"/>
+          <Grid item sx={{ display: { xs: 'none', sm: 'block' }}} xs={1} align="right">
             <Grid container direction="row" alignItems="center">
               <Typography variant="h6" noWrap color="white" component="div" display="inline" align="right">
                   Menú
@@ -207,9 +209,6 @@ const Header = ({pageChange}) => {
             </Grid>
           </Grid>
           <Grid item xs={1} align="right">
-            <IconButton>
-              <SearchIcon sx={{ color:"white", fontSize: "30px" }}/>
-            </IconButton>
           </Grid>
         </Grid>
       </Toolbar>

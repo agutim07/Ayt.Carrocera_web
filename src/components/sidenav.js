@@ -59,7 +59,7 @@ function Sidenav({pageChange}){
                 </Paper>
                 <Button onClick={() => pageChange("contacto")}>
                 <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/contacto.jpg"})`, 
-                '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: 290*0.75, height:115, margin:1, padding:1, 
+                '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: "100%", height:115, margin:1, padding:1, 
                 my: 1.5, ml:1, border: "1px solid white"}}>
                     <Grid container direction="row" alignItems="center" justifyContent="center">
                     <Typography display="inline"><Box sx={{ color:"red", fontWeight: 'bold'}}>ATENCIÓN AL CIUDADANO</Box></Typography>
@@ -69,7 +69,7 @@ function Sidenav({pageChange}){
                 <Link rel="noopener noreferrer" target="_blank" href="https://google.es/" underline="none">
                 <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/anuncio.jpg"})`, 
                 '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: 290*0.75, height:100, margin:1, padding:1, 
-                my: 1.5, ml:1, border: "1px solid white"}}>
+                my: 1.5, ml:1, border: "1px solid white", backgroundPosition: 'center',}}>
                     <Grid container direction="row" alignItems="center" justifyContent="center">
                     <Typography display="inline"><Box sx={{ color:"white", fontWeight: 'bold'}}>BANDOS Y ANUNCIOS</Box></Typography>
                     </Grid>

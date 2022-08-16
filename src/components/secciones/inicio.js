@@ -98,11 +98,20 @@ function Inicio({pageChange}){
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
             <Grid container direction="row" justifyContent="center" alignItems="center">
+            <Box sx={{ display: { xs: 'block', md: 'none' }}}>
+            <Tabs value={value} onChange={handleChange}
+            sx={{borderRight: 1, borderColor: 'divider' }} centered>
+                <Tab label="Ciudadanos" {...a11yProps(0)} />
+                <Tab label="Empresas" {...a11yProps(1)} />
+            </Tabs>
+            </Box> 
+            <Box sx={{ display: { xs: 'none', md: 'block' }}}>
             <Tabs orientation="vertical" value={value} onChange={handleChange}
             sx={{borderRight: 1, borderColor: 'divider' }} centered>
                 <Tab label="Ciudadanos" {...a11yProps(0)} />
                 <Tab label="Empresas" {...a11yProps(1)} />
             </Tabs>
+            </Box>
             <TabPanel value={value} index={0}>
                 <List>
                     <ListItem disablePadding>
@@ -176,7 +185,7 @@ function Inicio({pageChange}){
                     <Typography gutterBottom variant="h5" component="div">
                     <Box sx={{ fontWeight: 'bold'}}>Saludo del alcalde</Box>
                     </Typography>
-                    <Typography variant="body1">
+                    <Typography variant="subtitle1">
                     {saludo}
                     </Typography>
                 </CardContent>
