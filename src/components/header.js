@@ -28,6 +28,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import OpacityIcon from '@mui/icons-material/Opacity';
 import PublicIcon from '@mui/icons-material/Public';
+import CloseIcon from '@mui/icons-material/Close';
 
 import {subsecciones,secciones} from '../data.js';
 
@@ -220,9 +221,18 @@ const Header = ({pageChange}) => {
         variant="persistent" anchor="left"open={openDR} onMouseLeave={handleDrawerClose}
       >
         <DrawerHeader sx={{  justifyContent:'center', backgroundColor: "white"}}>
-            <Typography component="h2" variant="h6" color="#e53935" align="center" noWrap >
-              <Box sx={{fontWeight: 'bold', fontSize: 'h5.fontSize' }}>Información</Box>
-            </Typography>
+            <Grid container direction="row" alignItems="center">
+              <Grid item sx={{ display: { xs: 'block', md: 'none' }}} xs={1}>
+              <IconButton onClick={handleDrawerClose}>
+                <CloseIcon /> 
+              </IconButton>
+              </Grid>
+              <Grid item xs={11}>
+              <Typography component="h2" variant="h6" color="#e53935" align="center" noWrap >
+                <Box sx={{fontWeight: 'bold', fontSize: 'h5.fontSize' }}>Información</Box>
+              </Typography>
+              </Grid>
+           </Grid> 
         </DrawerHeader>
         <Divider />
         <List component="nav" >

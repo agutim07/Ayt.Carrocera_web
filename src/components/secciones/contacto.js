@@ -48,6 +48,57 @@ const RedSwitch = styled(Switch)(({ theme }) => ({
     },
 }));
 
+const MobileSwitch = styled((props) => (
+    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+  ))(({ theme }) => ({
+    width: 36,
+    height: 20,
+    padding: 0,
+    '& .MuiSwitch-switchBase': {
+      padding: 0,
+      margin: 1.5,
+      transitionDuration: '300ms',
+      '&.Mui-checked': {
+        transform: 'translateX(16px)',
+        color: red[600],
+        '& + .MuiSwitch-track': {
+          backgroundColor: red[600],
+          opacity: 1,
+          border: 0,
+        },
+        '&.Mui-disabled + .MuiSwitch-track': {
+          opacity: 0.5,
+        },
+      },
+      '&.Mui-focusVisible .MuiSwitch-thumb': {
+        color: '#33cf4d',
+        border: '6px solid #fff',
+      },
+      '&.Mui-disabled .MuiSwitch-thumb': {
+        color:
+          theme.palette.mode === 'light'
+            ? theme.palette.grey[100]
+            : theme.palette.grey[600],
+      },
+      '&.Mui-disabled + .MuiSwitch-track': {
+        opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+      },
+    },
+    '& .MuiSwitch-thumb': {
+      boxSizing: 'border-box',
+      width: 16,
+      height: 16,
+    },
+    '& .MuiSwitch-track': {
+      borderRadius: 20 / 2,
+      backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+      opacity: 1,
+      transition: theme.transitions.create(['background-color'], {
+        duration: 500,
+      }),
+    },
+  }));
+
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -169,10 +220,10 @@ const Contacto = ({pageChange}) => {
             </Grid></Box>
 
             <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{mb:3, mt:1.5}}>
-                <Typography display="inline"><Box sx={{ mt:2, fontSize:20, fontWeight: 'bold'}}>INFORMACIÓN DE CONTACTO</Box></Typography>
+                <Typography align="center" display="inline"><Box sx={{ mt:2, fontSize:20, fontWeight: 'bold'}}>INFORMACIÓN DE CONTACTO</Box></Typography>
                 <Divider sx={{ width:'40%', bgcolor: "#424242", my:0.5 }} variant="middle"/>
-                <Typography display="inline">Puede dirigirse al ayuntamiento mediante los siguientes métodos de contacto:</Typography>
-                <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"darkred", width: "60%", margin:1, 
+                <Typography display="inline" align="center" sx={{ml:2}}>Puede dirigirse al ayuntamiento mediante los siguientes métodos de contacto:</Typography>
+                <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"darkred", width: { xs: "85%", md:"60%" }, margin:1, 
                 padding:1, my: 0.5, border: "1px solid black", boxShadow: "3px 3px 3px black" }}>
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
                         <Grid container direction="row" alignItems="center">
@@ -181,8 +232,14 @@ const Contacto = ({pageChange}) => {
                             <Typography display="inline" sx={{mr:1}}>Dirección</Typography>
                             </Grid>
                             <Grid item xs={8} align="left">
+                            <Box sx={{ display: { xs: 'block', md: 'none' }}}>
+                            <Chip onClick={handleLocationClick} icon={<PlaceIcon />} 
+                            label="Plaza Mayor, 1. Carrocera" variant="outlined" />
+                            </Box>
+                            <Box sx={{ display: { xs: 'none', md: 'block' }}}>
                             <Chip onClick={handleLocationClick} icon={<PlaceIcon />} 
                             label="Plaza Mayor, 1. Carrocera - León (España). C.P.: 24123" variant="outlined" />
+                            </Box>
                             </Grid>
                         </Grid>
                         <Grid container direction="row" alignItems="center" sx={{my:1}}>
@@ -210,30 +267,10 @@ const Contacto = ({pageChange}) => {
             <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{mb:3}}>
                 <Typography display="inline"><Box sx={{ color:"#e53935", mt:2, fontSize:20, fontWeight: 'bold'}}>CONSULTA DIRECTA</Box></Typography>
                 <Divider sx={{ width:'40%', bgcolor: "#424242", my:0.5 }} variant="middle"/>
-                <Typography display="inline" align="center" sx={{width: "60%"}}>Para cualquier consulta puede ponerse en contacto mediante el siguiente formulario indicándonos una dirección de correo electrónico a la que poder responderle.</Typography>
-                <Paper elevation={12} sx={{ backgroundColor: "black", color:"white", width: "60%", margin:1, 
+                <Typography display="inline" align="center" sx={{width: { xs: "85%", md:"60%" }}}>Para cualquier consulta puede ponerse en contacto mediante el siguiente formulario indicándonos una dirección de correo electrónico a la que poder responderle.</Typography>
+                <Paper elevation={12} sx={{ backgroundColor: "black", color:"white", width: { xs: "85%", md:"60%" }, margin:1, 
                 padding:1, my: 0.5, border: "1px solid #e53935", boxShadow: "3px 3px 3px #e53935" }}>
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
-                    <Collapse in={openError}>
-                        <MuiAlert severity="error"
-                        action={
-                            <IconButton
-                            aria-label="close"
-                            color="inherit"
-                            size="small"
-                            onClick={() => {
-                                setOpenError(false);
-                            }}
-                            >
-                            <CloseIcon fontSize="inherit" />
-                            </IconButton>
-                        }
-                        sx={{ mb: 3 }}
-                        >
-                        <AlertTitle>No se ha podido enviar la consulta</AlertTitle>
-                        <strong>{error}</strong>
-                        </MuiAlert>
-                    </Collapse>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ m: 0.5, mr: 3 }}>
                         <CustomTextField margin="normal" required fullWidth id="email" label="Correo Electrónico" name="email" 
                         autoComplete="email"  sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} 
@@ -248,15 +285,40 @@ const Contacto = ({pageChange}) => {
                         onChange={e => setDetails({...details, consulta: e.target.value})} value={details.consulta} 
                         />
                         <Grid container direction="row" alignItems="center" justifyContent="left">
-                            <Typography>He leido y acepto la<Button onClick={() => handleOpenDialog()} sx={{color:"red"}}>
+                            <Typography sx={{fontSize:{xs:10, sm:""}}}>He leido y acepto la<Button sx={{fontSize:{xs:10, sm:""}, color:"red"}} onClick={() => handleOpenDialog()}>
                             Política de Privacidad</Button></Typography> 
+                            <Box sx={{ display: { xs: 'block', sm: 'none' }}}>
+                            <MobileSwitch size="small" checked={checked} onChange={handleChange} color="primary" />
+                            </Box>
+                            <Box sx={{ display: { xs: 'none', sm: 'block' }}}>
                             <RedSwitch checked={checked} onChange={handleChange} color="primary" />
+                            </Box>
                         </Grid>
                         <Box sx={{ fontStyle: 'italic' }}>(*): estos campos son obligatorios</Box>
                         <Button type="submit" fullWidth variant="contained" sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: '#e53935', }}}>
                             Enviar consulta
                         </Button>
                     </Box>
+                    <Collapse in={openError}>
+                        <MuiAlert severity="error"
+                        action={
+                            <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                                setOpenError(false);
+                            }}
+                            >
+                            <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                        sx={{ width: { xs: "80%", md:"100%" }, mb: 3 }}
+                        >
+                        <AlertTitle>No se ha podido enviar la consulta</AlertTitle>
+                        <strong>{error}</strong>
+                        </MuiAlert>
+                    </Collapse>
                     {(loading) ? (
                     <Box sx={{ display: 'flex' }}>
                         <CircularProgress />

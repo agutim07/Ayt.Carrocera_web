@@ -23,6 +23,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import CallIcon from '@mui/icons-material/Call';
 import ShareIcon from '@mui/icons-material/Share';
+import PublicIcon from '@mui/icons-material/Public';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
 import PeopleIcon from '@mui/icons-material/People';
@@ -94,9 +95,20 @@ function Inicio({pageChange}){
     const handleClickCont = (event) => {setAnchorEl(event.currentTarget);};
     const handleCloseCont = () => {setAnchorEl(null);};
 
+    function sedeLink(){
+        window.open("https://aytocarrocera.sedelectronica.es/", '_blank', 'noopener,noreferrer');
+    }
+
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
+            <Box sx={{display: { xs: 'block', md: 'none' }, width:"100%", mt:1, mb:3}}>
+            <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center">
+                <Button onClick={() => sedeLink()} sx={{ bgcolor:"#e53935"}} variant="contained" startIcon={<PublicIcon />}>
+                    SEDE ELECTRÓNICA
+                </Button>
+            </Grid>
+            </Box>
             <Grid container direction="row" justifyContent="center" alignItems="center">
             <Box sx={{ display: { xs: 'block', md: 'none' }}}>
             <Tabs value={value} onChange={handleChange}

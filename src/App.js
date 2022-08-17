@@ -124,7 +124,7 @@ function App() {
               <Typography variant="body1">
                 <Box sx={{ fontWeight: 'bold'}}>Ayuntamiento de Carrocera</Box>
               </Typography>
-              <Typography variant="body1">
+              <Typography variant="body1" sx={{fontSize: {xs:12, sm:16, md:"body1"}}}>
                 Plaza Mayor, 1 - C.P.: 24123 - Carrocera (León - España)
                 <br />
                 Teléfono: 987 592 071
