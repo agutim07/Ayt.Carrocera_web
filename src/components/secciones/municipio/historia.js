@@ -38,18 +38,9 @@ const Historia = ({pageChange}) => {
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
-            <Box sx={{width:"100%", maxHeight: 3, mb:3}}><Grid container spacing={0} direction="row">
-                <Typography component="h2" variant="body2" >
-                <Link color="#4a4948" href="#" onClick={() => pageChange("inicio")} underline="none">
-                    Inicio / 
-                </Link>
-                </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Municipio / Introducción Histórica</Typography>
-            </Grid></Box>
-
             <Grid container direction="row" justifyContent="center" alignItems="center">
             <Card sx={{ display: 'flex', maxWidth: "90%", m:2}}>
-                <Grid container spacing={0} direction="column" justifyContent="center">
+                <Grid container sx={{display: { xs: 'none', md: 'flex' }}} spacing={0} direction="column" justifyContent="center">
                     <CardMedia
                         component="img"
                         image="/vacceos.png"
@@ -58,6 +49,11 @@ const Historia = ({pageChange}) => {
                 </Grid>
                 <Box sx={{ display: 'flex', flexDirection: 'column', width:"90%" }}> 
                 <CardContent>
+                    <CardMedia sx={{display: { xs: 'flex', md: 'none' }, mb:2}}
+                        component="img"
+                        image="/vacceos.png"
+                        alt="green iguana"
+                    />
                     <Typography gutterBottom variant="h5" component="div">
                     <Box sx={{ fontWeight: 'bold'}}>Historia del municipio</Box>
                     </Typography>

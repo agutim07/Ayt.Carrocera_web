@@ -26,6 +26,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Cancel';
 import CardMedia from '@mui/material/CardMedia';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 
 const Estadisticas = ({pageChange}) => {
     const [open, setOpen] = React.useState(false);
@@ -36,20 +38,21 @@ const Estadisticas = ({pageChange}) => {
     };
     const handleClose = () => {setOpen(false);};
 
+    const theme = useTheme();
+    const isXS = useMediaQuery(theme.breakpoints.down('sm'));
+    const isSM = useMediaQuery(theme.breakpoints.down('md'));
+
+    function getSize() {
+        if(isXS){return "50vh";}
+        if(isSM){return "75vh";}
+        return "100vh";
+    }
+
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
-            <Box sx={{width:"100%", maxHeight: 3, mb:3}}><Grid container spacing={0} direction="row">
-                <Typography component="h2" variant="body2" >
-                <Link color="#4a4948" href="#" onClick={() => pageChange("inicio")} underline="none">
-                    Inicio / 
-                </Link>
-                </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Municipio / Estadísticas Demográficas</Typography>
-            </Grid></Box>
-
             <Grid container sx={{my:1}} spacing={0.5} direction="row" justifyContent="center">
-            <Card sx={{maxWidth: "70%", m:2}}>
+            <Card sx={{maxWidth: {xs:"90%",sm:"80%",md:"70%"}, m:2}}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Evolución de la población de 1900 a 2020</Box>
@@ -65,7 +68,7 @@ const Estadisticas = ({pageChange}) => {
             </Grid>
 
             <Grid container sx={{my:1}} spacing={0.5} direction="row" justifyContent="center">
-            <Card sx={{maxWidth: "70%", m:2}}>
+            <Card sx={{maxWidth: {xs:"90%",sm:"80%",md:"70%"}, m:2}}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Población por localidades</Box>
@@ -81,7 +84,7 @@ const Estadisticas = ({pageChange}) => {
             </Grid>
 
             <Grid container sx={{my:1}} spacing={0.5} direction="row" justifyContent="center">
-            <Card sx={{maxWidth: "70%", m:2}}>
+            <Card sx={{maxWidth: {xs:"90%",sm:"80%",md:"70%"}, m:2}}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Población por edad y sexo</Box>
@@ -100,7 +103,7 @@ const Estadisticas = ({pageChange}) => {
                 <DialogTitle>Visor de imágenes</DialogTitle>
                 <DialogContent>
                     <Grid container spacing={0} direction="column" alignItems="center"justifyContent="center">
-                    <Box component="img" height="100vh" display="flex" flexDirection="column" src={image}/>
+                    <Box component="img" height={getSize()} display="flex" flexDirection="column" src={image}/>
                     </Grid>
                 </DialogContent>
                 <DialogActions>

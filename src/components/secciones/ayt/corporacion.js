@@ -24,15 +24,6 @@ const Corporacion = ({pageChange}) => {
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
-            <Box sx={{width:"100%", maxHeight: 3, mb:3}}><Grid container spacing={0} direction="row">
-                <Typography component="h2" variant="body2" >
-                <Link color="#4a4948" href="#" onClick={() => pageChange("inicio")} underline="none">
-                    Inicio / 
-                </Link>
-                </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Ayuntamiento / Corporación municipal</Typography>
-            </Grid></Box>
-
             <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'center'}}>
             <Card sx={{display:"flex", m:1, width:"87%", border:1, borderColor: 'black', borderRadius: '9px'}}>
                 <Grid container direction="column" justifyContent="center" alignItems="center">
@@ -146,8 +137,8 @@ const Corporacion = ({pageChange}) => {
                 <CardContent>
                     <CardMedia sx={{maxHeight:200}} component="img" image="/pp.png"/>
                     <Grid container sx={{mb:1}} direction="row" alignItems="center">
-                        <Grid item xs={2} align="left">
-                            <Typography display="inline" sx={{fontSize:12,color:'blue'}}>Concejal</Typography>
+                        <Grid item xs={2} align="left" >
+                            <Typography display="inline" sx={{fontSize:12,mr:2,color:'blue'}}>Concejal</Typography>
                         </Grid>
                         <Grid item xs={0.5} />
                         <Grid item xs={9.5} align="right">
@@ -156,7 +147,7 @@ const Corporacion = ({pageChange}) => {
                     </Grid>
                     <Grid container direction="row" alignItems="center">
                         <Grid item xs={2} align="left">
-                            <Typography display="inline" sx={{fontSize:12,color:'blue'}}>Concejal</Typography>
+                            <Typography display="inline" sx={{fontSize:12,mr:2,color:'blue'}}>Concejal</Typography>
                         </Grid>
                         <Grid item xs={0.5} />
                         <Grid item xs={9.5} align="right">

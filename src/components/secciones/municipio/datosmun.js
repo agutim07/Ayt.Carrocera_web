@@ -46,17 +46,8 @@ const Datosmun = ({pageChange}) => {
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
-            <Box sx={{width:"100%", maxHeight: 3, mb:3}}><Grid container spacing={0} direction="row">
-                <Typography component="h2" variant="body2" >
-                <Link color="#4a4948" href="#" onClick={() => pageChange("inicio")} underline="none">
-                    Inicio / 
-                </Link>
-                </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Municipio / Datos del Municipio</Typography>
-            </Grid></Box>
-
-        <Grid container sx={{my:1}} spacing={0.5} direction="row" justifyContent="center">
-            <Grid item xs={6} align="center">
+            <Grid container sx={{my:1}} spacing={0.5} direction="row" justifyContent="center">
+            <Grid item xs={12} md={6} align="center">
             <Box
                 component="img"
                 onClick={() => handleClickOpen("/datosmun_1.png")}
@@ -66,8 +57,9 @@ const Datosmun = ({pageChange}) => {
                 src="/datosmun_1.png"
             />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
                 <Grid container spacing={0} direction="column" justifyContent="center">
+                <Grid container direction="column" spacing={0} justifyContent="center" alignItems="center">
                 <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"#3a41af", width: "70%", margin:1, 
                 padding:1, my: 0.5, border: "1px solid black", boxShadow: "3px 3px 3px black" }}>
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
@@ -109,6 +101,8 @@ const Datosmun = ({pageChange}) => {
                         </Grid>
                     </Grid>
                 </Paper>
+                </Grid>
+                <Grid container direction="column" spacing={0} justifyContent="center" alignItems="center">
                 <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"red", width: "70%", margin:1, 
                 padding:1, my: 0.5, border: "1px solid black", boxShadow: "3px 3px 3px black", mt: 1.5 }}>
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
@@ -123,12 +117,24 @@ const Datosmun = ({pageChange}) => {
                             </Grid> 
                             </Grid>
                         </Grid>
-                        <Grid container spacing={0.5} sx={{borderRadius: '16px',border: "0.5px solid grey", width:"95%", mb:1}} direction="row" alignItems="center">
+                        <Grid container spacing={0.5} sx={{display: { xs: 'none', sm: 'flex' }, borderRadius: '16px',border: "0.5px solid grey", width:"95%", mb:1}} direction="row" alignItems="center">
                             <Grid item xs={0.5}></Grid>
                             <Grid item xs={4} align="center">
                             <Typography display="inline" sx={{mr:1}}>Coordenadas</Typography>
                             </Grid>
                             <Grid item xs={7.5} align="left">
+                                <Grid container direction="column" justifyContent="center" alignItems="center">
+                                    <Chip sx={{mb:0.5}} label="Longitud: 42º 47' 45'' N" variant="outlined" />
+                                    <Chip sx={{mb:1}} label="Latitud: 5º 44' 35'' O" variant="outlined" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={0.5} sx={{display: { xs: 'flex', sm: 'none' }, borderRadius: '16px',border: "0.5px solid grey", width:"95%", mb:1}} direction="row" alignItems="center">
+                            <Grid item xs={0.5}></Grid>
+                            <Grid item xs={2} align="center">
+                            <Typography display="inline" sx={{mr:1}}>Coor.</Typography>
+                            </Grid>
+                            <Grid item xs={9.5} align="left">
                                 <Grid container direction="column" justifyContent="center" alignItems="center">
                                     <Chip sx={{mb:0.5}} label="Longitud: 42º 47' 45'' N" variant="outlined" />
                                     <Chip sx={{mb:1}} label="Latitud: 5º 44' 35'' O" variant="outlined" />
@@ -151,6 +157,7 @@ const Datosmun = ({pageChange}) => {
                         </Grid>
                     </Grid>
                 </Paper>
+                </Grid>
                 </Grid>
             </Grid>
         </Grid>

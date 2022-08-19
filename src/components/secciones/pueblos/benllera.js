@@ -31,17 +31,7 @@ import CardMedia from '@mui/material/CardMedia';
 const Benllera = ({pageChange}) => {
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
-        mt:1, justifyContent:"center",  flexDirection: 'column'}}>
-            <Box sx={{width:"100%", maxHeight: 3, mb:3}}><Grid container spacing={0} direction="row">
-                <Typography component="h2" variant="body2" >
-                <Link color="#4a4948" href="#" onClick={() => pageChange("inicio")} underline="none">
-                    Inicio /  
-                </Link>
-                </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Pueblos</Typography>
-            </Grid></Box>
-
-            <Box sx={{width:"100%", mb:3}}>
+        mt:1, justifyContent:"center",  flexDirection: 'column'}}><Box sx={{width:"100%", mb:3}}>
                 <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center">
                     <Typography sx={{color: 'blue', fontFamily: 'Oswald', fontWeight: 'bold'}} variant="h3">Benllera</Typography>
                 </Grid>

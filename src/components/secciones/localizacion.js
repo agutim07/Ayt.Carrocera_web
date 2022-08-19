@@ -9,6 +9,9 @@ import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
+
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const pueblosLoc = [
     "https://maps.google.com/maps?q=Benllera,%20Le%C3%B3n&t=&z=17&ie=UTF8&iwloc=&output=embed",
@@ -29,30 +32,33 @@ const Localizacion = ({pageChange}) => {
         setLoc(pueblosLoc[parseInt(newAlignment, 10)]);
     };
 
+    const theme = useTheme();
+    const mobileScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const buttonProps = {
+        orientation: mobileScreen ? "vertical" : "horizontal",
+    };
+
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
-            <Box sx={{width:"100%", maxHeight: 3, mb:3}}><Grid container spacing={0} direction="row">
-                <Typography component="h2" variant="body2" >
-                <Link color="#4a4948" href="#" onClick={() => pageChange("inicio")} underline="none">
-                    Inicio / 
-                </Link>
-                </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Localización</Typography>
-            </Grid></Box>
-
             <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{mb:3, mt:1.5}}>
                 <Typography display="inline"><Box sx={{ mt:2, fontSize:20, fontWeight: 'bold'}}>AYUNTAMIENTO</Box></Typography>
                 <Divider sx={{ width:'40%', bgcolor: "#424242", my:0.5, mb:1 }} variant="middle"/>
-                <Box sx={{ display: 'flex', border:1, borderColor: 'red'}}>
+                <Box sx={{ display: { xs: 'none', md: 'flex' }, border:1, borderColor: 'red'}}>
                 <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=Plaza%20Mayor%20N%C2%BA1,%20Carrocera,%20Le%C3%B3n&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" />
+                </Box>
+                <Box sx={{ display: { xs:'none', sm: 'flex', md: 'none' }, border:1, borderColor: 'red'}}>
+                <iframe width="430" height="450" id="gmap_canvas" src="https://maps.google.com/maps?q=Plaza%20Mayor%20N%C2%BA1,%20Carrocera,%20Le%C3%B3n&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" />
+                </Box>
+                <Box sx={{ display: { xs: 'flex', sm: 'none' }, border:1, borderColor: 'red'}}>
+                <iframe width="280" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=Plaza%20Mayor%20N%C2%BA1,%20Carrocera,%20Le%C3%B3n&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" />
                 </Box>
             </Grid>
 
             <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{mb:3, mt:1.5}}>
                 <Typography display="inline"><Box sx={{ mt:2, fontSize:20, fontWeight: 'bold'}}>PUEBLOS</Box></Typography>
                 <Divider sx={{ width:'40%', bgcolor: "#424242", my:0.5, mb:1 }} variant="middle"/>
-                <ToggleButtonGroup sx={{mb:2}} color="primary" value={pueblo} exclusive onChange={handleChange} >
+                <ToggleButtonGroup {...buttonProps} sx={{mb:2}} color="primary" value={pueblo} exclusive onChange={handleChange} >
                     <ToggleButton size="small" value="0">Benllera</ToggleButton>
                     <ToggleButton size="small" value="1">Carrocera</ToggleButton>
                     <ToggleButton size="small" value="2">Cuevas de Viñayo</ToggleButton>
@@ -61,8 +67,14 @@ const Localizacion = ({pageChange}) => {
                     <ToggleButton size="small" value="5">Santiago de las Villas</ToggleButton>
                     <ToggleButton size="small" value="6">Viñayo</ToggleButton>
                 </ToggleButtonGroup>
-                <Box sx={{ display: 'flex', border:1, borderColor: 'blue'}}>
+                <Box sx={{ display: { xs: 'none', md: 'flex' }, border:1, borderColor: 'red'}}>
                 <iframe width="600" height="500" id="gmap_canvas" src={loc} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                </Box>
+                <Box sx={{ display: { xs:'none', sm: 'flex', md: 'none' }, border:1, borderColor: 'red'}}>
+                <iframe width="430" height="450" id="gmap_canvas" src={loc} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                </Box>
+                <Box sx={{ display: { xs: 'flex', sm: 'none' }, border:1, borderColor: 'red'}}>
+                <iframe width="280" height="400" id="gmap_canvas" src={loc} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                 </Box>
             </Grid>
         </Box> 

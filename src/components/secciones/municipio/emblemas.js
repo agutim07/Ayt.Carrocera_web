@@ -39,18 +39,9 @@ const Emblemas = ({pageChange}) => {
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
-            <Box sx={{width:"100%", maxHeight: 3, mb:3}}><Grid container spacing={0} direction="row">
-                <Typography component="h2" variant="body2" >
-                <Link color="#4a4948" href="#" onClick={() => pageChange("inicio")} underline="none">
-                    Inicio / 
-                </Link>
-                </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Municipio / Escudo y Bandera</Typography>
-            </Grid></Box>
-
             <Grid container direction="row" justifyContent="center" alignItems="center">
             <Card sx={{ display: 'flex', maxWidth: "90%", m:2}}>
-                <Grid sx={{maxWidth:"30%"}} container spacing={0} direction="column" justifyContent="center">
+                <Grid sx={{display: { xs: 'none', md: 'flex' }, maxWidth:"30%"}} container spacing={0} direction="column" justifyContent="center">
                     <CardMedia
                         component="img"
                         image="/escudo2.png"
@@ -60,6 +51,12 @@ const Emblemas = ({pageChange}) => {
                 </Grid>
                 <Box sx={{ display: 'flex', flexDirection: 'column'}}> 
                 <CardContent>
+                    <CardMedia sx={{display: { xs: 'flex', md: 'none' }, mb:2}}
+                        component="img"
+                        image="/escudo2.png"
+                        alt="green iguana"
+                        onClick={() => handleClickOpen("/escudo2.png")}
+                    />
                     <Typography gutterBottom variant="h5" component="div">
                     <Box sx={{ fontWeight: 'bold'}}>Escudo</Box>
                     </Typography>
@@ -77,7 +74,7 @@ const Emblemas = ({pageChange}) => {
 
             <Grid container direction="row" justifyContent="center" alignItems="center">
             <Card sx={{ display: 'flex', maxWidth: "90%", m:2}}>
-                <Grid container sx={{maxWidth:"30%"}} spacing={0} direction="column" justifyContent="center">
+                <Grid container sx={{display: { xs: 'none', md: 'flex' }, maxWidth:"30%"}} spacing={0} direction="column" justifyContent="center">
                     <CardMedia
                         component="img"
                         image="/bandera.png"
@@ -87,6 +84,12 @@ const Emblemas = ({pageChange}) => {
                 </Grid>
                 <Box sx={{ display: 'flex', flexDirection: 'column'}}> 
                 <CardContent>
+                    <CardMedia sx={{display: { xs: 'flex', md: 'none' }, mb:2}}
+                        component="img"
+                        image="/bandera.png"
+                        alt="green iguana"
+                        onClick={() => handleClickOpen("/bandera.png")}
+                    />
                     <Typography gutterBottom variant="h5" component="div">
                     <Box sx={{ fontWeight: 'bold'}}>Bandera</Box>
                     </Typography>

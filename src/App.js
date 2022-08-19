@@ -22,6 +22,13 @@ import Historia from './components/secciones/municipio/historia';
 import Emblemas from './components/secciones/municipio/emblemas';
 import Benllera from './components/secciones/pueblos/benllera';
 
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+
 
 const theme = createTheme({
   typography: {
@@ -69,6 +76,7 @@ function App() {
   }
 
   return (
+    <Router>
     <ThemeProvider theme={theme}>
       <Box sx={{ mx: "7.5%"}}> 
         <Header pageChange={pageChange}/>
@@ -89,17 +97,19 @@ function App() {
                 </Grid>
               </Grid>
               <Grid item>
-              {(page==="inicio") ? (<Inicio pageChange={pageChange}/>) : ""}
-              {(page==="contacto") ? (<Contacto pageChange={pageChange}/>) : ""}
-              {(page==="telefonos") ? (<Telefonos pageChange={pageChange}/>) : ""}
-              {(page==="corporacion") ? (<Corporacion pageChange={pageChange}/>) : ""}
-              {(page==="localizacion") ? (<Localizacion pageChange={pageChange}/>) : ""}
-              {(page==="urbanistica") ? (<Urbanistica pageChange={pageChange}/>) : ""}
-              {(page==="datosmun") ? (<Datosmun pageChange={pageChange}/>) : ""}
-              {(page==="estats") ? (<Estadisticas pageChange={pageChange}/>) : ""}
-              {(page==="historia") ? (<Historia pageChange={pageChange}/>) : ""}
-              {(page==="emblemas") ? (<Emblemas pageChange={pageChange}/>) : ""}
-              {(page==="benllera") ? (<Benllera pageChange={pageChange}/>) : ""}
+              <Routes>
+                <Route path="/" exact element={<Inicio/>} />
+                <Route path="/contacto" element={<Contacto/>} />
+                <Route path="/ayt/telefonos" element={<Telefonos/>} />
+                <Route path="/ayt/corporacion" element={<Corporacion/>} />
+                <Route path="/localizacion" element={<Localizacion/>} />
+                <Route path="/normativa/urbanistica" element={<Urbanistica/>} />
+                <Route path="/municipio/datos" element={<Datosmun/>} />
+                <Route path="/municipio/estadisticas" element={<Estadisticas/>} />
+                <Route path="/municipio/historia" element={<Historia/>} />
+                <Route path="/municipio/emblemas" element={<Emblemas/>} />
+                <Route path="/pueblos/benllera" element={<Benllera/>} />
+              </Routes>
               </Grid>
           </Grid>
 
@@ -137,6 +147,7 @@ function App() {
         </Box>
       </Box>
     </ThemeProvider>
+    </Router>
   );
 }
 

@@ -32,6 +32,8 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import {subsecciones,secciones} from '../data.js';
 
+import {useNavigate} from 'react-router-dom';
+
 const theme = createTheme({
     typography: {
       fontFamily: [
@@ -102,13 +104,15 @@ const Header = ({pageChange}) => {
   }};
   const handleCloseExMenu = () => { setExtraMenu(null); };
 
+  const navigate = useNavigate();
+  
   const newPage = page => {
     console.log(page);
     if(page==="INICIO"){
-      pageChange("inicio");
+      navigate('/', {replace: true});
     }
     if(page==="Teléfonos de Interés"){
-      pageChange("telefonos");
+      navigate('/ayt/telefonos', {replace: true});
     }
     if(page==="Corporación Municipal"){
       pageChange("corporacion");
@@ -166,7 +170,7 @@ const Header = ({pageChange}) => {
             </Grid>
           </Grid>
           <Grid item xs={3} sm={2} align="right">
-            <IconButton disableElevation disableRipple size="small" onClick={() => pageChange("inicio")}
+            <IconButton disableElevation disableRipple size="small" onClick={() => newPage("INICIO")}
               sx={{ ml: 1, "&.MuiButtonBase-root:hover": {bgcolor: "transparent"}}}
             >
             <Box component="img" sx={{ height: logoWidth*1.094, width: logoWidth}}

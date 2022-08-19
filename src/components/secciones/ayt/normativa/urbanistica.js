@@ -30,17 +30,8 @@ const Urbanistica = ({pageChange}) => {
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
-            <Box sx={{width:"100%", maxHeight: 3, mb:3}}><Grid container spacing={0} direction="row">
-                <Typography component="h2" variant="body2" >
-                <Link color="#4a4948" href="#" onClick={() => pageChange("inicio")} underline="none">
-                    Inicio / 
-                </Link>
-                </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Ayuntamiento / Normativa municipal / Normativa urbanística</Typography>
-            </Grid></Box>
-
             <Grid container alignItems="center" justifyContent="center" display="flex">
-            <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor:'black'}}>
+            <Card sx={{ maxWidth: { xs: '90%', md: '80%' }, m:2, border:1, borderColor:'black'}}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                     <Box sx={{ fontWeight: 'bold'}} color="#e53935">Normativa Urbanística</Box>
@@ -56,7 +47,7 @@ const Urbanistica = ({pageChange}) => {
                         <ListItemText primary={<span style={{fontWeight: 'bold'}}>Enlaces</span>}/>
                     </ListItem>
                     <Divider sx={{ bgcolor: "#e53935" }} variant="middle"  component="li" />
-                    <ListItem sx={{display:"flex", alignItems:"center", textAlign:"center", justifyContent:"center"}}>
+                    <ListItem sx={{display:"flex",alignItems:"center", textAlign:"center", justifyContent:"center"}}>
                         <ListItemButton onClick={() => links(1)} >
                         <ListItemText primary="Planeamiento Urbanístico en información pública"/>
                         </ListItemButton>

@@ -36,6 +36,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
 import {saludo} from '../../data.js';
+import {useNavigate} from 'react-router-dom';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -71,7 +72,7 @@ function a11yProps(index) {
     };
 }
 
-function Inicio({pageChange}){
+function Inicio(){
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -94,6 +95,13 @@ function Inicio({pageChange}){
     const openCont = Boolean(anchorEl);
     const handleClickCont = (event) => {setAnchorEl(event.currentTarget);};
     const handleCloseCont = () => {setAnchorEl(null);};
+
+    const navigate = useNavigate();
+  
+    function pageChange(page) {
+        if(page==="telefonos"){navigate('/ayt/telefonos', {replace: true});}
+        if(page==="contacto"){navigate('/contacto', {replace: true});}
+    }
 
     function sedeLink(){
         window.open("https://aytocarrocera.sedelectronica.es/", '_blank', 'noopener,noreferrer');

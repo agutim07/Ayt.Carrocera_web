@@ -4,7 +4,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -12,22 +11,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import PhoneIcon from '@mui/icons-material/Phone';
 import PlaceIcon from '@mui/icons-material/Place';
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Radio from '@mui/material/Radio'
 
-const Telefonos = ({pageChange}) => {
+import {Link} from "react-router-dom";
+
+const Telefonos = () => {
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
-            <Box sx={{width:"100%", maxHeight: 3, mb:3}}><Grid container spacing={0} direction="row">
-                <Typography component="h2" variant="body2" >
-                <Link color="#4a4948" href="#" onClick={() => pageChange("inicio")} underline="none">
-                    Inicio / 
-                </Link>
-                </Typography>
-                <Typography component="h2" variant="body2" sx={{ml:0.5}}> Ayuntamiento / Teléfonos de interés del municipio</Typography>
-            </Grid></Box>
-
             <Grid container rowSpacing={2} direction="row" alignItems="center" sx={{ml:"3.5%", mb:3, mt:1.5}}>
                 <Grid item xs={11} md={5} align="right">
                 <Card sx={{ display: 'flex', border:1, borderColor: 'black', borderRadius: '9px'}}>
