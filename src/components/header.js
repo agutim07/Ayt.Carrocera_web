@@ -115,7 +115,7 @@ const Header = ({pageChange}) => {
       navigate('/ayt/telefonos', {replace: true});
     }
     if(page==="Corporación Municipal"){
-      pageChange("corporacion");
+      navigate('/ayt/corporacion', {replace: true});
     }
     if(page==="Trámites y Solicitudes"){
       window.open("https://aytocarrocera.sedelectronica.es/dossier.0", '_blank', 'noopener,noreferrer');
@@ -124,28 +124,28 @@ const Header = ({pageChange}) => {
       window.open("https://aytocarrocera.sedelectronica.es/board", '_blank', 'noopener,noreferrer');
     }
     if(page==="LOCALIZACIÓN"){
-      pageChange("localizacion");
+      navigate('/localizacion', {replace: true});
     }
     if(page==="Normativa urbanística"){
-      pageChange("urbanistica");
+      navigate('/ayt/normativa/urbanistica', {replace: true});
     }
     if(page==="Datos del Municipio"){
-      pageChange("datosmun");
+      navigate('/municipio/datos', {replace: true});
     }
     if(page==="Estadísticas"){
-      pageChange("estats");
+      navigate('/municipio/estadisticas', {replace: true});
     }
     if(page==="Introducción Histórica"){
-      pageChange("historia");
+      navigate('/municipio/historia', {replace: true});
     }
     if(page==="Escudo y Bandera"){
-      pageChange("emblemas");
+      navigate('/municipio/emblemas', {replace: true});
     }
     if(page==="El Tiempo"){
       window.open("https://www.eltiempo.es/carrocera.html", '_blank', 'noopener,noreferrer');
     }
     if(page==="Benllera"){
-      pageChange("benllera");
+      navigate('/pueblos/benllera', {replace: true});
     }
     handleDrawerClose();
   }
@@ -291,6 +291,10 @@ const Header = ({pageChange}) => {
             </div>
           )}
         </List>
+        <Grid container direction="row" justifyContent="center" alignItems="center">
+        <Box component="img" sx={{ mt:2, height: logoWidth*1.094, width: logoWidth}} alt="Escudo de Carrocera." 
+        src="/escudo.png" />
+        </Grid>
       </Drawer>
     </div>
   );

@@ -27,13 +27,45 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Cancel';
 import CardMedia from '@mui/material/CardMedia';
+import PeopleIcon from '@mui/icons-material/People';
+import Divider from '@mui/material/Divider';
+import PlaceIcon from '@mui/icons-material/Place';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 const Benllera = ({pageChange}) => {
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}><Box sx={{width:"100%", mb:3}}>
-                <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center">
-                    <Typography sx={{color: 'blue', fontFamily: 'Oswald', fontWeight: 'bold'}} variant="h3">Benllera</Typography>
+                <Grid container spacing={0} sx={{mt:2}} direction="row" alignItems="center" justifyContent="center">
+                    <Typography sx={{color: 'orange', fontWeight: 'bold'}} variant="h3">BENLLERA</Typography>
+                </Grid>
+                <Grid container spacing={0.5} sx={{mt:1, height:50}} direction="row" alignItems="center" justifyContent="center">
+                    <Grid item xs={5} align="right" alignItems="right" justifyContent="right" alignText="right">
+                    <Grid container direction="row" alignItems="right" justifyContent="right" alignText="right">
+                        <PeopleIcon sx={{ mr:1, fontSize: "30px" }}/>
+                        <Typography display="inline" align="right">
+                            71 habitantes
+                        </Typography>
+                        <Divider sx={{ml:3, bgcolor:"black"}} orientation="vertical" flexItem />
+                    </Grid>
+                    </Grid>
+                    <Grid item xs={2} align="center" alignText="center">
+                    <Grid container direction="row" alignItems="center" justifyContent="center" alignText="center">
+                        <PlaceIcon sx={{ mr:1, fontSize: "30px" }}/>
+                        <Typography display="inline" align="center">
+                            Localización
+                        </Typography>
+                    </Grid>
+                    </Grid> 
+                    <Grid item xs={5} align="left" alignText="left">
+                    <Grid container direction="row" alignItems="left" justifyContent="left" alignText="left">
+                        <Divider sx={{mr:3, bgcolor:"black"}} orientation="vertical" flexItem />
+                        <FacebookIcon sx={{ mr:1, fontSize: "30px" }}/>
+                        <Typography display="inline" align="left">
+                            Facebook
+                        </Typography>
+                    </Grid>
+                    </Grid> 
                 </Grid>
             </Box>
         </Box>

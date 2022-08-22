@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 
 import { Typography } from '@mui/material';
+import {useNavigate} from 'react-router-dom';
 
 export const useScript = url => {
     useEffect(() => {
@@ -26,6 +27,8 @@ export const useScript = url => {
 };
 
 function Sidenav({pageChange}){
+    const navigate = useNavigate();
+
     return(
         <Grid container direction="column">
         <Grid item>
@@ -57,7 +60,7 @@ function Sidenav({pageChange}){
                         </Grid>
                     </Link>
                 </Paper>
-                <Button onClick={() => pageChange("contacto")}>
+                <Button onClick={() => navigate('/contacto', {replace: true})}>
                 <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/contacto.jpg"})`, 
                 '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: "100%", height:115, margin:1, padding:1, 
                 my: 1.5, ml:1, border: "1px solid white"}}>

@@ -103,7 +103,7 @@ function App() {
                 <Route path="/ayt/telefonos" element={<Telefonos/>} />
                 <Route path="/ayt/corporacion" element={<Corporacion/>} />
                 <Route path="/localizacion" element={<Localizacion/>} />
-                <Route path="/normativa/urbanistica" element={<Urbanistica/>} />
+                <Route path="/ayt/normativa/urbanistica" element={<Urbanistica/>} />
                 <Route path="/municipio/datos" element={<Datosmun/>} />
                 <Route path="/municipio/estadisticas" element={<Estadisticas/>} />
                 <Route path="/municipio/historia" element={<Historia/>} />
