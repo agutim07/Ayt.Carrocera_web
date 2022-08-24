@@ -21,6 +21,9 @@ import Estadisticas from './components/secciones/municipio/estats';
 import Historia from './components/secciones/municipio/historia';
 import Emblemas from './components/secciones/municipio/emblemas';
 import Benllera from './components/secciones/pueblos/benllera';
+import Carrocera from './components/secciones/pueblos/carrocera';
+import Cuevas from './components/secciones/pueblos/cuevas';
+import Otero from './components/secciones/pueblos/otero';
 
 import {
   BrowserRouter as Router,
@@ -28,6 +31,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+
+
 
 
 const theme = createTheme({
@@ -109,6 +114,9 @@ function App() {
                 <Route path="/municipio/historia" element={<Historia/>} />
                 <Route path="/municipio/emblemas" element={<Emblemas/>} />
                 <Route path="/pueblos/benllera" element={<Benllera/>} />
+                <Route path="/pueblos/carrocera" element={<Carrocera/>} />
+                <Route path="/pueblos/cuevas" element={<Cuevas/>} />
+                <Route path="/pueblos/otero" element={<Otero/>} />
               </Routes>
               </Grid>
           </Grid>

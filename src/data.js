@@ -48,3 +48,39 @@ export const introduccionhistorica = [
     De enorme importancia fueron los `,<span style={{fontWeight: 'bold'}}>Monasterios de Tusinos y Otero de las Dueñas</span>,`, cuya fundación data de los siglos XI al XIII, cuyas Monjas siguieron la Regla de San Benito (Orden del Cister). Carrocera, en el año de 1840 era la capital del Concejo llamado `,<span style={{fontWeight: 'bold'}}>Val de Viñayo</span>,`.`,<br/>,<br/>,`
     Disueltos los Concejos, los pueblos del Municipio formaron Ayuntamiento en unión de los pueblos de Rioseco, Espinosa y Tapia, siendo entonces su `,<span style={{fontWeight: 'bold'}}>capital Benllera, hasta el año de 1870</span>,`. En estas fechas se traslada el Ayuntamiento a Carrocera, como punto céntrico, al segregarse los citados pueblos de Rioseco, Espinosa y Tapia.`,<br/>,<br/>
 ]
+
+export const benllera0 = [
+    `El casco antiguo de Benllera forma parte del Área de Protección delimitada por las NUM (Normas Urbanísticas Municipales), donde se conservan bastantes muestras de `,<span style={{fontWeight: 'bold'}}>arquitectura tradicional</span>,`:`,<br/>,`
+    - Edificio blasonado en la calle La Iglesia, casa-patio con zaguán (construcción de un modelo de arquitectura tradicional no muy frecuente en la zona) con dos pórticos blasonados que forman parte del cerramiento de la misma finca y asoman lateralmente por detrás y por delante de la Iglesia.`,<br/>,`
+    - `,<span style={{fontWeight: 'bold'}}>La Casona de la Señorita de Benllera</span>,`.`,<br/>,`
+    - Edificio residencial con portón en arco de piedra labrada, en la Plaza del Maestro D. Victorino Álvarez.`,<br/>,`
+    - `,<span style={{fontWeight: 'bold'}}>Iglesia Parroquial</span>,`, Edificación aislada con ábside elevado campanario y espadaña. Cubierta de teja cerámica. Conserva una capilla señorial, con un sepulcro gótico que rematan dos estatuas yacentes (`,<span style={{fontWeight: 'bold'}}>capilla privada donde fueron enterrados antepasados del Señorío de los Tusinos, vinculados al origen legendario de la Reconquista</span>,`).`,<br/>,<br/>,`
+
+    La `,<span style={{fontWeight: 'bold'}}>Plaza de Benllera</span>,` conserva una muestra valiosa de aquel patrimonio etnográfico: Fuente con pilón, ubicado en el entorno de la Iglesia y de las edificaciones con escudos y blasones.
+    El acceso a la Plaza se realiza atravesando un arroyo, “La Reguera” que, cuando lleva agua, se cruza a través del “Pontón”.`,<br/>,`
+    Un elemento de importante interés que salpica toda la población son los hornos domésticos visibles en la silueta exterior de muchas edificaciones.`
+]
+
+export const benllera_casona = [
+    `La Casona de la Señorita de Benllera, Casa de los Álvarez de Miranda, casa solariega del siglo XVI con dos portalones blasonados, con una edificación de uso residencial y otros anejos para usos ganaderos y agrícolas. Integra un conjunto protegido del recogidos el catálogo de elementos protegidos, con la calificación de PROTECCIÓN INTEGRAL, del que forman parte varios edificios del entorno de la Iglesia y de la Plaza del Maestro Victorino Álvarez.`,<br/>,<br/>,`
+    Descendiente del linaje de Los Tusinos, La 'Señorita' de Benllera: Manuela Álvarez de Miranda y Cuenllas, 'Doña Manuela', vivió hasta principios de los años cincuenta del pasado siglo XX en esta casona blasonada que domina la plaza, después de haber sido `,<span style={{fontWeight: 'bold'}}>alcaldesa de Carrocera antes de la guerra civil, la primera mujer que presidió un ayuntamiento en la provincia de León</span>,`.`
+]
+
+export const carrocera0 = [
+    <span style={{fontWeight: 'bold'}}>Carrocera es la actual cabecera municipal del municipio con su mismo nombre, donde se ubica la sede del ayuntamiento.</span>,``,<br/>,<br/>,` En Carrocera confluyen los valles de Cuevas de Viñayo y de Santiago de las Villas, que dan curso al Tusinos y al Torre. A este ángulo de la comarca de Luna, fronteriza con los pueblos de Alba, Gordón y Ordás, se le llama `,<span style={{fontWeight: 'bold'}}>el Rincón</span>,`, que es una forma directa de bautizar su situación esquinada respecto al curso del río que da nombre a la zona. En los años del miedo por la posible rotura de los embalses, cuando reventó Ribadelago con su saldo más que centenario de muertes, los habitantes del Rincón dormían más tranquilos que los ribereños del Luna. Unos habían asistido a la construcción del pantano de Los Barrios y otros estaban al tanto de las sisas de material, así que durante al menos una década ninguna noche faltó el pánico, por si les alcanzaba la riada en la cama. Años más tarde, fueron viendo caerse los viaductos sobre el lago, que en su derrota mostraban una construcción tramposa, en la que apenas una lámina de cemento revestía la estructura de tierra.`,<br/>,<br/>,`
+    Carrocera y sus aledaños no están de paso hacia ninguna parte y sólo se llega a ellos por elección, nunca por azar. Carrocera preside una amplia vega, que se prolonga hacia Otero de las Dueñas y va a morir en el embalse de Selga, adonde asoma Benllera. Eso, mirando hacia el Luna. Pero si volvemos la vista hacia las estribaciones de la Cordillera Cantábrica, se convierte en excelente lanzadera para disfrutar de los valles y puertos de verano de Cuevas y Santiago. Son travesías de media montaña, sin riesgos de treparriscos, que combinan el reto de los repechos con el frescor sombreado del paseo entre arboleda.`
+]
+
+export const cuevas0 = [
+    `Cuevas de Viñayo es un `,<span style={{fontWeight: 'bold'}}>pequeño pueblo de montaña</span>,` en el que acaba la carretera, un entorno donde encontrarás descanso y paz.`,<br/>,
+    `Por Cuevas se ofrece `,<span style={{fontWeight: 'bold'}}>la leyenda de Tusinos</span>,` (versión montañesa de la hazaña de Clavijo), cuyo penúltimo despojo fue el retablo gótico que actualmente se encuentra depositado en el Museo del Prado. Vendido en el verano de 1929 al dueño de la línea de autobuses Beltrán, fue intervenido por la policía en Madrid, donde el abogado Ramiro Gavilanes ya lo tenía embalado para un anticuario de París.`,<br/>,`
+    Actualmente Cuevas alberga `,<span style={{fontWeight: 'bold'}}>siete casas de turismo rural</span>,`, abiertas durante todo el año.`
+]
+
+export const otero0 = [
+    `Otero de las Dueñas, que incluye en su territorio el barrio de las "Casas Baratas" y de la Magdalena, así como el polígono industrial de "Los Avezales", `,<span style={{fontWeight: 'bold'}}>es la localidad más grande del municipio</span>,`, aportando casi la mitad de su población.`,<br/>,<br/>,
+    `Los primeros datos escritos sobre Otero aparecen en el `,<span style={{fontWeight: 'bold'}}>Siglo IX</span>,`, aunque su situación primitiva no estaba en el lugar en que hoy lo conocemos. La antigua ubicación estaba cerca de lo que los oriundos de este pueblo conocen como `,<span style={{fontWeight: 'bold'}}>“El Alto de las Eras”</span>,`, el lugar llamado el Castro.
+    Desde este lugar se divisa todo el territorio, tanto hacia el este como hacia el oeste. Actualmente se ubica aquí la base de operaciones de la autopista AP66`,<br/>,<br/>,`
+    Otero de las Dueñas perteneció hasta 1954 a la diócesis de Oviedo, fecha en que pasa a la de León, como resultado de la reestructuración territorial de estas diócesis. `,<span style={{fontWeight: 'bold'}}>La Iglesia</span>,`, según nos cuenta D. Antonio Viñayo, abad emérito de San Isidoro e hijo de este pueblo, `,<span style={{fontWeight: 'bold'}}>fue construida a principios del siglo pasado</span>,`. 
+    Se coloca la primera piedra en el año 1.903, pero el verdadero impulso de su construcción comienza en 1.907, finalizando la misma en 1.914. La torre se elevó un piso más en la década de los 60. `
+]

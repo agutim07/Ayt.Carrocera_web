@@ -35,18 +35,17 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CottageIcon from '@mui/icons-material/Cottage';
 
-import {benllera0, benllera_casona} from '../../../data.js';
+import {cuevas0} from '../../../data.js';
 
-const Benllera = () => {
+const Cuevas = () => {
 
     function redirect(to){
-        if(to==="location"){window.open("https://goo.gl/maps/JqAaREs8TxcPBwBw5", '_blank', 'noopener,noreferrer');}
-        if(to==="facebook"){window.open("http://www.facebook.com/pages/Benllera/211930895498605?sk=wall", '_blank', 'noopener,noreferrer');}
-        if(to==="casa1"){window.open("https://www.elnidoazul.com/", '_blank', 'noopener,noreferrer');}
-        if(to==="casa2"){window.open("https://entrevalles.info/", '_blank', 'noopener,noreferrer');}
+        if(to==="location"){window.open("https://goo.gl/maps/2ZPYrB54tSX4uDtQ7", '_blank', 'noopener,noreferrer');}
+        if(to==="facebook"){window.open("https://es-es.facebook.com/encuevasrural/", '_blank', 'noopener,noreferrer');}
+        if(to==="casa"){window.open("http://www.encuevas.com/", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/benllera0.jpg', '/benllera1.jpg', '/benllera2.jpg']
+    const images = ['/cuevas0.jpg', '/cuevas1.jpg', '/cuevas2.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);
@@ -67,14 +66,14 @@ const Benllera = () => {
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}><Box sx={{width:"100%", mb:3}}>
                 <Grid container spacing={0} sx={{mt:2}} direction="row" alignItems="center" justifyContent="center">
-                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: 45}}>BENLLERA</Typography>
+                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: {xs:30,sm:45}}}>CUEVAS DE VIÑAYO</Typography>
                 </Grid>
                 <Grid container spacing={0.5} sx={{mt:1}} direction="row" alignItems="center" justifyContent="center">
                     <Grid item xs={6} sm={4.5} align="right" alignItems="center" justifyContent="right" alignText="right">
                     <div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right', alignText: 'right', flexWrap: 'wrap'}}>
                         <PeopleIcon sx={{ mr:1, fontSize: "30px" }}/>
                         <Typography display="inline" align="right">
-                            71 habitantes
+                            10 habitantes
                         </Typography>
                     </div>
                     </Grid>
@@ -104,52 +103,25 @@ const Benllera = () => {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
                 <Paper elevation={6} sx={{backgroundSize: "cover", backgroundImage: `url(${img})`, mt:2 , width: "80%", height:{xs: 200, sm:300, md:400}}} >
                         <IconButton sx={{justifyContent:"flex-end"}} onClick={() => nextImage("down")}> 
-                            <ChevronLeftIcon sx={{ fontSize: "30px", color: 'white' }}/>
+                            <ChevronLeftIcon sx={{ fontSize: "30px", color: 'black' }}/>
                         </IconButton>
                         <IconButton sx={{justifyContent:"flex-end"}} onClick={() => nextImage("up")}> 
-                            <ChevronRightIcon sx={{ fontSize: "30px", color: 'white' }}/>
+                            <ChevronRightIcon sx={{ fontSize: "30px", color: 'black' }}/>
                         </IconButton>
                 </Paper>
                 <Box sx={{mt:2, width:"80%"}}>
                 <Typography variant="subtitle1">
-                    {benllera0}
+                    {cuevas0}
                 </Typography>
                 </Box> 
                 </div>
-                <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
-                    <CardMedia
-                        component="img"
-                        image="/benllera_casona.jpg"
-                    />
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>La casona de la señorita</Box>
-                        </Typography>
-                        <Typography align="center" variant="subtitle1">
-                        {benllera_casona}
-                        </Typography>
-                    </CardContent>
-                </Card>
-                </Grid>
-                <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
-                        </Typography>
-                        <Typography align="center" variant="subtitle1">
-                        San Roque y San Roquín, los dias 16 y 17 de Agosto.
-                        </Typography>
-                    </CardContent>
-                </Card>
+                <Grid container sx={{mt:3}} direction="row" justifyContent="center" alignItems="center">
                 <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Casas Rurales</Box>
                         </Typography>
-                        <Chip sx={{mr:{xs:0, sm:1}, mb:{xs:1, sm:0}}} onClick={() => redirect("casa1")} label="El Nido Azul" variant="outlined" icon={<CottageIcon />} clickable />
-                        <Chip onClick={() => redirect("casa2")} label="Entre Valles" variant="outlined" icon={<CottageIcon />} clickable />
+                        <Chip onClick={() => redirect("casa")} label="Encuevas" variant="outlined" icon={<CottageIcon />} clickable />
                     </CardContent>
                 </Card>
                 </Grid>
@@ -158,4 +130,4 @@ const Benllera = () => {
     );
 }
 
-export default Benllera;
+export default Cuevas;

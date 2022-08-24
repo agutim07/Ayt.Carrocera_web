@@ -147,6 +147,15 @@ const Header = ({pageChange}) => {
     if(page==="Benllera"){
       navigate('/pueblos/benllera', {replace: true});
     }
+    if(page==="Carrocera"){
+      navigate('/pueblos/carrocera', {replace: true});
+    }
+    if(page==="Cuevas de Viñayo"){
+      navigate('/pueblos/cuevas', {replace: true});
+    }
+    if(page==="Otero de las Dueñas"){
+      navigate('/pueblos/otero', {replace: true});
+    }
     handleDrawerClose();
   }
 

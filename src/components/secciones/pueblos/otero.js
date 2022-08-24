@@ -35,18 +35,17 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CottageIcon from '@mui/icons-material/Cottage';
 
-import {benllera0, benllera_casona} from '../../../data.js';
+import {otero0, benllera_casona} from '../../../data.js';
 
-const Benllera = () => {
+const Otero = () => {
 
     function redirect(to){
-        if(to==="location"){window.open("https://goo.gl/maps/JqAaREs8TxcPBwBw5", '_blank', 'noopener,noreferrer');}
-        if(to==="facebook"){window.open("http://www.facebook.com/pages/Benllera/211930895498605?sk=wall", '_blank', 'noopener,noreferrer');}
+        if(to==="location"){window.open("https://goo.gl/maps/haq22ph4ehe8eQgn9", '_blank', 'noopener,noreferrer');}
         if(to==="casa1"){window.open("https://www.elnidoazul.com/", '_blank', 'noopener,noreferrer');}
         if(to==="casa2"){window.open("https://entrevalles.info/", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/benllera0.jpg', '/benllera1.jpg', '/benllera2.jpg']
+    const images = ['/otero0.jpg', '/otero1.jpg', '/otero2.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);
@@ -67,39 +66,28 @@ const Benllera = () => {
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}><Box sx={{width:"100%", mb:3}}>
                 <Grid container spacing={0} sx={{mt:2}} direction="row" alignItems="center" justifyContent="center">
-                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: 45}}>BENLLERA</Typography>
+                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: {xs:25,sm:45}}}>OTERO DE LAS DUEÑAS</Typography>
                 </Grid>
                 <Grid container spacing={0.5} sx={{mt:1}} direction="row" alignItems="center" justifyContent="center">
-                    <Grid item xs={6} sm={4.5} align="right" alignItems="center" justifyContent="right" alignText="right">
+                    <Grid item xs={6} sm={5.5} align="right" alignItems="center" justifyContent="right" alignText="right">
                     <div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right', alignText: 'right', flexWrap: 'wrap'}}>
                         <PeopleIcon sx={{ mr:1, fontSize: "30px" }}/>
                         <Typography display="inline" align="right">
-                            71 habitantes
+                            220 habitantes
                         </Typography>
-                    </div>
+                        </div>
                     </Grid>
-                    <Grid item xs={3.5} sm={3} align="center" alignText="center">
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
-                        <Divider sx={{mr: { xs: 1, sm: 3 }, bgcolor:"black"}} orientation="vertical" variant="middle" flexItem />
+                    <Grid item xs={3.5} sm={6.5} align="center" alignText="center">
+                    <div style={{ display: 'flex', alignItems: 'left', justifyContent: 'left', alignText: 'left', flexWrap: 'wrap'}}>
+                        <Divider sx={{ml:{ xs: 1, sm: 3 }, mr: { xs: 1, sm: 3 }, bgcolor:"black"}} orientation="vertical" variant="middle" flexItem />
                         <IconButton sx={{mr:1}} onClick={() => redirect("location")}> 
                         <PlaceIcon sx={{ fontSize: "30px", color: 'black' }}/>
                         </IconButton>
-                        <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="center">
+                        <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="left">
                             Localización
                         </Typography>
-                        <Divider sx={{ml: { xs: 0, sm: 3 }, bgcolor:"black"}} orientation="vertical" variant="middle" flexItem />
                     </div>
-                    </Grid> 
-                    <Grid item xs={2.5} sm={4.5}>
-                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
-                        <IconButton sx={{mr:1}} onClick={() => redirect("facebook")}> 
-                        <FacebookIcon sx={{ fontSize: "30px", color: 'black' }}/>
-                        </IconButton>
-                        <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="left">
-                            Facebook
-                        </Typography>
-                    </div>
-                    </Grid> 
+                    </Grid>  
                 </Grid>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
                 <Paper elevation={6} sx={{backgroundSize: "cover", backgroundImage: `url(${img})`, mt:2 , width: "80%", height:{xs: 200, sm:300, md:400}}} >
@@ -112,7 +100,7 @@ const Benllera = () => {
                 </Paper>
                 <Box sx={{mt:2, width:"80%"}}>
                 <Typography variant="subtitle1">
-                    {benllera0}
+                    {otero0}
                 </Typography>
                 </Box> 
                 </div>
@@ -158,4 +146,4 @@ const Benllera = () => {
     );
 }
 
-export default Benllera;
+export default Otero;

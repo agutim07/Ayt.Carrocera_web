@@ -30,23 +30,22 @@ import CardMedia from '@mui/material/CardMedia';
 import PeopleIcon from '@mui/icons-material/People';
 import Divider from '@mui/material/Divider';
 import PlaceIcon from '@mui/icons-material/Place';
-import FacebookIcon from '@mui/icons-material/Facebook';
+import WebIcon from '@mui/icons-material/Language';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CottageIcon from '@mui/icons-material/Cottage';
 
-import {benllera0, benllera_casona} from '../../../data.js';
+import {carrocera0} from '../../../data.js';
 
-const Benllera = () => {
+const Carrocera = () => {
 
     function redirect(to){
-        if(to==="location"){window.open("https://goo.gl/maps/JqAaREs8TxcPBwBw5", '_blank', 'noopener,noreferrer');}
-        if(to==="facebook"){window.open("http://www.facebook.com/pages/Benllera/211930895498605?sk=wall", '_blank', 'noopener,noreferrer');}
-        if(to==="casa1"){window.open("https://www.elnidoazul.com/", '_blank', 'noopener,noreferrer');}
-        if(to==="casa2"){window.open("https://entrevalles.info/", '_blank', 'noopener,noreferrer');}
+        if(to==="location"){window.open("https://goo.gl/maps/iz6f1J7dnwFHi4Zp7", '_blank', 'noopener,noreferrer');}
+        if(to==="web"){window.open("https://www.carrocera.com/", '_blank', 'noopener,noreferrer');}
+        if(to==="casa"){window.open("https://www.casasrurales.net/casas-rurales/la-oca--c2039", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/benllera0.jpg', '/benllera1.jpg', '/benllera2.jpg']
+    const images = ['/carrocera0.jpg', '/carrocera1.jpg', '/carrocera2.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);
@@ -67,14 +66,14 @@ const Benllera = () => {
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}><Box sx={{width:"100%", mb:3}}>
                 <Grid container spacing={0} sx={{mt:2}} direction="row" alignItems="center" justifyContent="center">
-                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: 45}}>BENLLERA</Typography>
+                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: 45}}>CARROCERA</Typography>
                 </Grid>
                 <Grid container spacing={0.5} sx={{mt:1}} direction="row" alignItems="center" justifyContent="center">
                     <Grid item xs={6} sm={4.5} align="right" alignItems="center" justifyContent="right" alignText="right">
-                    <div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right', alignText: 'right', flexWrap: 'wrap'}}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'right', alignText: 'right', flexWrap: 'wrap'}}>
                         <PeopleIcon sx={{ mr:1, fontSize: "30px" }}/>
                         <Typography display="inline" align="right">
-                            71 habitantes
+                            44 habitantes
                         </Typography>
                     </div>
                     </Grid>
@@ -92,11 +91,11 @@ const Benllera = () => {
                     </Grid> 
                     <Grid item xs={2.5} sm={4.5}>
                     <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
-                        <IconButton sx={{mr:1}} onClick={() => redirect("facebook")}> 
-                        <FacebookIcon sx={{ fontSize: "30px", color: 'black' }}/>
+                        <IconButton sx={{mr:1}} onClick={() => redirect("web")}> 
+                        <WebIcon sx={{ fontSize: "30px", color: 'black' }}/>
                         </IconButton>
                         <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="left">
-                            Facebook
+                            Web
                         </Typography>
                     </div>
                     </Grid> 
@@ -112,34 +111,18 @@ const Benllera = () => {
                 </Paper>
                 <Box sx={{mt:2, width:"80%"}}>
                 <Typography variant="subtitle1">
-                    {benllera0}
+                    {carrocera0}
                 </Typography>
                 </Box> 
                 </div>
-                <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
-                    <CardMedia
-                        component="img"
-                        image="/benllera_casona.jpg"
-                    />
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>La casona de la señorita</Box>
-                        </Typography>
-                        <Typography align="center" variant="subtitle1">
-                        {benllera_casona}
-                        </Typography>
-                    </CardContent>
-                </Card>
-                </Grid>
-                <Grid container direction="row" justifyContent="center" alignItems="center">
+                <Grid container sx={{mt:3}} direction="row" justifyContent="center" alignItems="center">
                 <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
                         </Typography>
                         <Typography align="center" variant="subtitle1">
-                        San Roque y San Roquín, los dias 16 y 17 de Agosto.
+                        El Carmen y el "Carmín", los días 16 y 17 de Julio.
                         </Typography>
                     </CardContent>
                 </Card>
@@ -148,8 +131,7 @@ const Benllera = () => {
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Casas Rurales</Box>
                         </Typography>
-                        <Chip sx={{mr:{xs:0, sm:1}, mb:{xs:1, sm:0}}} onClick={() => redirect("casa1")} label="El Nido Azul" variant="outlined" icon={<CottageIcon />} clickable />
-                        <Chip onClick={() => redirect("casa2")} label="Entre Valles" variant="outlined" icon={<CottageIcon />} clickable />
+                        <Chip onClick={() => redirect("casa")} label="La Oca" variant="outlined" icon={<CottageIcon />} clickable />
                     </CardContent>
                 </Card>
                 </Grid>
@@ -158,4 +140,4 @@ const Benllera = () => {
     );
 }
 
-export default Benllera;
+export default Carrocera;
