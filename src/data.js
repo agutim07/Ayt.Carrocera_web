@@ -13,7 +13,7 @@ export const secciones = [
 export const subsecciones = [
     {id:0, parent: "Normativa Municipal", title: "INICIO", content: Array("Actas", "Ordenanzas", "Reglamentos", "Normativa urbanística")}
 ];
-/* `,<span style={{fontWeight: 'bold'}}> </span>,`*/
+
 export const saludo = [
     `Saliendo de León por la carretera CL 623 y a tan sólo 21 km nos encontramos el municipio de Carrocera.`,<br/>,
     `Así que cualquier día es bueno para conocer las siete poblaciones que lo integran, cada una de ellas con personalidad propia: `,<span style={{fontWeight: 'bold'}}>Benllera, Carrocera, Cuevas de Viñayo, Otero de las Dueñas, Piedrasecha, Santiago de las Villas y Viñayo.</span>,``,<br/>,
@@ -83,4 +83,28 @@ export const otero0 = [
     Desde este lugar se divisa todo el territorio, tanto hacia el este como hacia el oeste. Actualmente se ubica aquí la base de operaciones de la autopista AP66`,<br/>,<br/>,`
     Otero de las Dueñas perteneció hasta 1954 a la diócesis de Oviedo, fecha en que pasa a la de León, como resultado de la reestructuración territorial de estas diócesis. `,<span style={{fontWeight: 'bold'}}>La Iglesia</span>,`, según nos cuenta D. Antonio Viñayo, abad emérito de San Isidoro e hijo de este pueblo, `,<span style={{fontWeight: 'bold'}}>fue construida a principios del siglo pasado</span>,`. 
     Se coloca la primera piedra en el año 1.903, pero el verdadero impulso de su construcción comienza en 1.907, finalizando la misma en 1.914. La torre se elevó un piso más en la década de los 60. `
+]
+
+export const otero_monasterio = [
+    `El Monasterio de Santa María de Otero de las Dueñas fue fundado en 1240 por `,<span style={{fontWeight: 'bold'}}>doña María Núñez de Guzmán</span>,`, monja del monasterio de Carrizo, condesa de Villalba de la Loma, hija del conde Nuño Meléndez y de Urraca López de Haro. Ésta fue hija del conde Lope Díaz de Haro, señor de Vizcaya, y de Aldonza, tercera esposa de Fernando II, rey de León, con quien tuvo descendencia antes de contraer matrimonio.`,<br/>,<br/>,`
+    Estos orígenes dinásticos de la fundadora hicieron que el monasterio de Otero de las Dueñas naciera con una gran dote de heredades y derechos que habían pertenecido a los ascendientes de la fundadora, viéndose enriquecido el monasterio con un abundante patrimonio documental que acreditaba la propiedad, por doble rama condal, de estos bienes poseídos por su fundadora y donados al monasterio. Estas propiedades se extendían por las zonas norte y noroeste de León y por otros lugares leoneses y en territorios asturianos limítrofes con León.`,<br/>,`
+    Con razón se ha dicho, por cuantos han estudiado este fondo documental de Otero de las Dueñas, que `,<span style={{fontWeight: 'bold'}}>nos encontramos con el más importante archivo nobiliario alto medieval de España.</span>,`
+    El archivo no sólo recibió gran cantidad de documentos anteriores a la fecha de fundación, sino que la propia fundadora, sus sucesoras y allegados los incrementaron con más documentos, fruto de nuevas acciones administrativas y jurídicas. Desconocemos el montante al que ascendía su patrimonio documental.`,<br/>,<br/>,`
+    La historia del monasterio está llena de incidencias. Se crea bajo la orden del Cister, pero pronto surgen los pleitos con el monasterio de monjas cistercienses de Gradefes, al exigir éste que el de Otero estuviera bajo su jurisdicción, ratione filiationis, como el de Gradefes lo estaba del de las Huelgas de Burgos. Durante varios siglos estuvieron litigando, hasta que `,<span style={{fontWeight: 'bold'}}>el Papa Pío VI, en 1796, abolió toda dependencia del monasterio de Otero de cualquier otra jurisdicción monástica</span>,`, no solo del de Gradefes, sino también del superior general de la Orden del Cister, quedando sujeto únicamente a la jurisdicción del obispo de León. 
+    Así continuó hasta la revolución del año `,<span style={{fontWeight: 'bold'}}>1868</span>,`, en que, el día 30 de noviembre, `,<span style={{fontWeight: 'bold'}}>fueron expulsadas violentamente del monasterio las monjas que allí habitaban</span>,` e incautados monasterio y propiedades.`,<br/>,<br/>,`
+    Si el archivo estuvo intacto en el monasterio hasta esta fecha, estos incidentes darán origen a una nueva y triste etapa: fue entonces, en 1868, cuando se disgregó, pasando una parte de la documentación a: El Estado (conservada hoy en el Archivo Histórico Nacional), la casi totalidad al obispado de León, algunos documentos y libros se dispersaron en casas particulares de la zona del monasterio, y también una fracción pasó a formar parte del archivo del monasterio de Otero el Fondo Torbado, compuesto por un centenar de pergaminos.`,<br/>,`
+    Parece oportuno indicar que `,<span style={{fontWeight: 'bold'}}>el documento más antiguo del que se tiene noticia del archivo monástico de Otero estaba dotado el 6 de mayo del 854</span>,` y pertenecía a este Fondo Torbado; se trata de una donación de Ordoño I de la villa de Orede (Valdoré) y fue publicado por primera vez por D. Claudio Sánchez-Albornoz. Este documento desapareció del fondo Torbado con anterioridad a su fallecimiento y consta que fue utilizado por Floriano Cumbreño en su Diplomática Española del período astur.`,<br/>,<br/>,`
+    En `,<span style={{fontWeight: 'bold'}}>agosto de 1.882 se trasladan las dos únicas monjas que vivían en el convento</span>,` al monasterio de Gradefes.
+    De la desaparición de la iglesia del convento, sabemos que:`,<br/>,`
+    ● Un retablo se trasladó al Palacio Episcopal de León.`,<br/>,`
+    ● Que la nave principal, con su retablo barroco, está en la iglesia de Cuadros.`,<br/>,`
+    ● En el Palacio Episcopal de Astorga, en el Museo de los Caminos, está un relieve de alabastro policromado de “Santiago el Peregrino”, etc.`
+]
+
+export const piedrasecha0 = [
+    `Piedrasecha se localiza en un valle montañoso rodeado de bosques de robles, sabinares,… y bellas montañas que forman la `,<span style={{fontWeight: 'bold'}}>precordillera Cantábrica</span>,`. Un lugar ideal para disfrutar de la `,<span style={{fontWeight: 'bold'}}>vegetación y de la fauna en estado puro</span>,`, de hecho aquí se inicia una de las más bellas y desconocidas rutas del norte de León: `,<span style={{fontWeight: 'bold'}}>el Desfiladero de los Calderones.</span>,``,<br/>,<br/>,`
+
+    Piedrasecha es una pequeña población de montaña situada a una altitud de 1.180 metros sobre el nivel mar. En esta villa viven a penas 20 personas que disfrutan de un entorno tranquilo presidido por la naturaleza. Hecho a medida para los que buscan tranquilidad y descanso alejado del bullicio de la gran ciudad.`,<br/>,<br/>,`
+    
+    De entre todas las casas tradicionales construidas en piedra y madera `,<span style={{fontWeight: 'bold'}}>destaca por su altura y monumentalidad la Iglesia del pueblo</span>,`. El edificio está construido en mampostería y en el se puede observar una gloriosa espadaña.`
 ]

@@ -156,6 +156,9 @@ const Header = ({pageChange}) => {
     if(page==="Otero de las Dueñas"){
       navigate('/pueblos/otero', {replace: true});
     }
+    if(page==="Piedrasecha"){
+      navigate('/pueblos/piedrasecha', {replace: true});
+    }
     handleDrawerClose();
   }
 

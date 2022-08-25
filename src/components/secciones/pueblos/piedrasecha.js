@@ -30,22 +30,21 @@ import CardMedia from '@mui/material/CardMedia';
 import PeopleIcon from '@mui/icons-material/People';
 import Divider from '@mui/material/Divider';
 import PlaceIcon from '@mui/icons-material/Place';
-import WebIcon from '@mui/icons-material/Language';
+import FacebookIcon from '@mui/icons-material/Facebook';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import CottageIcon from '@mui/icons-material/Cottage';
+import HotelIcon from '@mui/icons-material/Hotel';
 
-import {carrocera0} from '../../../data.js';
+import {piedrasecha0, otero_monasterio} from '../../../data.js';
 
-const Carrocera = () => {
+const Piedrasecha = () => {
 
     function redirect(to){
-        if(to==="location"){window.open("https://goo.gl/maps/iz6f1J7dnwFHi4Zp7", '_blank', 'noopener,noreferrer');}
-        if(to==="web"){window.open("https://www.carrocera.com/", '_blank', 'noopener,noreferrer');}
-        if(to==="casa"){window.open("https://www.casasrurales.net/casas-rurales/la-oca--c2039", '_blank', 'noopener,noreferrer');}
+        if(to==="location"){window.open("https://goo.gl/maps/LVET9uSJfrJArJvK8", '_blank', 'noopener,noreferrer');}
+        if(to==="hotel"){window.open("http://www.hotelsantalucia.es/", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/carrocera0.jpg', '/carrocera1.jpg', '/carrocera2.jpg']
+    const images = ['/piedrasecha0.jpg', '/piedrasecha1.jpg', '/piedrasecha2.jpg', '/piedrasecha3.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);
@@ -62,44 +61,34 @@ const Carrocera = () => {
         setImage(newNum);
         setImg(images[newNum]);
     }
-
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}><Box sx={{width:"100%", mb:3}}>
                 <Grid container spacing={0} sx={{mt:2}} direction="row" alignItems="center" justifyContent="center">
-                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: 45}}>CARROCERA</Typography>
+                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: 45}}>PIEDRASECHA</Typography>
                 </Grid>
                 <Grid container spacing={0.5} sx={{mt:1}} direction="row" alignItems="center" justifyContent="center">
-                    <Grid item xs={6} sm={4.5} align="right" alignItems="center" justifyContent="right" alignText="right">
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'right', alignText: 'right', flexWrap: 'wrap'}}>
+                    <Grid item xs={6} sm={5.5} align="right" alignItems="center" justifyContent="right" alignText="right">
+                    <div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right', alignText: 'right', flexWrap: 'wrap'}}>
                         <PeopleIcon sx={{ mr:1, fontSize: "30px" }}/>
                         <Typography display="inline" align="right">
-                            44 habitantes
+                            12 habitantes
                         </Typography>
-                    </div>
+                        </div>
                     </Grid>
-                    <Grid item xs={3.5} sm={3} align="center" alignText="center">
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
-                        <Divider sx={{mr: { xs: 1, sm: 3 }, bgcolor:"black"}} orientation="vertical" variant="middle" flexItem />
+                    <Grid item xs={3.5} sm={6.5} align="center" alignText="center">
+                    <div style={{ display: 'flex', alignItems: 'left', justifyContent: 'left', alignText: 'left', flexWrap: 'wrap'}}>
+                        <Divider sx={{ml:{ xs: 1, sm: 3 }, mr: { xs: 1, sm: 3 }, bgcolor:"black"}} orientation="vertical" variant="middle" flexItem />
+                        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
                         <IconButton sx={{mr:1}} onClick={() => redirect("location")}> 
                         <PlaceIcon sx={{ fontSize: "30px", color: 'black' }}/>
                         </IconButton>
-                        <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="center">
+                        <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="left">
                             Localización
                         </Typography>
-                        <Divider sx={{ml: { xs: 0, sm: 3 }, bgcolor:"black"}} orientation="vertical" variant="middle" flexItem />
+                        </div>
                     </div>
-                    </Grid> 
-                    <Grid item xs={2.5} sm={4.5}>
-                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
-                        <IconButton sx={{mr:1}} onClick={() => redirect("web")}> 
-                        <WebIcon sx={{ fontSize: "30px", color: 'black' }}/>
-                        </IconButton>
-                        <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="left">
-                            Web
-                        </Typography>
-                    </div>
-                    </Grid> 
+                    </Grid>  
                 </Grid>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
                 <Paper elevation={6} sx={{backgroundSize: "cover", backgroundImage: `url(${img})`, mt:2 , width: "80%", height:{xs: 200, sm:300, md:400}}} >
@@ -112,27 +101,43 @@ const Carrocera = () => {
                 </Paper>
                 <Box sx={{mt:2, width:"80%"}}>
                 <Typography variant="subtitle1">
-                    {carrocera0}
+                    {piedrasecha0}
                 </Typography>
                 </Box> 
                 </div>
-                <Grid container sx={{mt:3}} direction="row" justifyContent="center" alignItems="center">
+                <Grid container direction="row" justifyContent="center" alignItems="center">
+                <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
+                    <CardMedia
+                        component="img"
+                        image="/otero_monasterio.jpg"
+                    />
+                    <CardContent display="flex" justifyContent="center">
+                        <Typography align="center" gutterBottom variant="h5" component="div">
+                        <Box sx={{ fontWeight: 'bold'}}>Monasterio de Santa María</Box>
+                        </Typography>
+                        <Typography align="center" variant="subtitle1">
+                        {otero_monasterio}
+                        </Typography>
+                    </CardContent>
+                </Card>
+                </Grid>
+                <Grid container direction="row" justifyContent="center" alignItems="center">
                 <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
                         </Typography>
                         <Typography align="center" variant="subtitle1">
-                        El Carmen y el "Carmín", los días 16 y 17 de Julio.
+                        El último fin de semana del mes Agosto. {<br></br>} Están dedicadas a los patrones del pueblo, San Justo y San Pastor.
                         </Typography>
                     </CardContent>
                 </Card>
                 <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Casas Rurales</Box>
+                        <Box sx={{ fontWeight: 'bold'}}>Hoteles</Box>
                         </Typography>
-                        <Chip onClick={() => redirect("casa")} label="La Oca" variant="outlined" icon={<CottageIcon />} clickable />
+                        <Chip onClick={() => redirect("hotel")} label="Hotel Santa Lucia" variant="outlined" icon={<HotelIcon />} clickable />
                     </CardContent>
                 </Card>
                 </Grid>
@@ -141,4 +146,4 @@ const Carrocera = () => {
     );
 }
 
-export default Carrocera;
+export default Piedrasecha;

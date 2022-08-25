@@ -24,6 +24,7 @@ import Benllera from './components/secciones/pueblos/benllera';
 import Carrocera from './components/secciones/pueblos/carrocera';
 import Cuevas from './components/secciones/pueblos/cuevas';
 import Otero from './components/secciones/pueblos/otero';
+import Piedrasecha from './components/secciones/pueblos/piedrasecha';
 
 import {
   BrowserRouter as Router,
@@ -117,6 +118,7 @@ function App() {
                 <Route path="/pueblos/carrocera" element={<Carrocera/>} />
                 <Route path="/pueblos/cuevas" element={<Cuevas/>} />
                 <Route path="/pueblos/otero" element={<Otero/>} />
+                <Route path="/pueblos/piedrasecha" element={<Piedrasecha/>} />
               </Routes>
               </Grid>
           </Grid>

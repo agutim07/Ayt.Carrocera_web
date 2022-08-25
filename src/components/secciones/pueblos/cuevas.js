@@ -54,10 +54,10 @@ const Cuevas = () => {
         let newNum;
         if(move==="up"){
             newNum = image+1;
-            if(newNum>2) newNum = 0;
+            if(newNum>=images.length) newNum = 0;
         }else if(move==="down"){
             newNum = image-1;
-            if(newNum<0) newNum = 2;
+            if(newNum<0) newNum = (images.length-1);
         }
         setImage(newNum);
         setImg(images[newNum]);

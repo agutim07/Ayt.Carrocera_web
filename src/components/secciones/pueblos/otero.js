@@ -33,16 +33,15 @@ import PlaceIcon from '@mui/icons-material/Place';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import CottageIcon from '@mui/icons-material/Cottage';
+import HotelIcon from '@mui/icons-material/Hotel';
 
-import {otero0, benllera_casona} from '../../../data.js';
+import {otero0, otero_monasterio} from '../../../data.js';
 
 const Otero = () => {
 
     function redirect(to){
         if(to==="location"){window.open("https://goo.gl/maps/haq22ph4ehe8eQgn9", '_blank', 'noopener,noreferrer');}
-        if(to==="casa1"){window.open("https://www.elnidoazul.com/", '_blank', 'noopener,noreferrer');}
-        if(to==="casa2"){window.open("https://entrevalles.info/", '_blank', 'noopener,noreferrer');}
+        if(to==="hotel"){window.open("http://www.hotelsantalucia.es/", '_blank', 'noopener,noreferrer');}
     }
 
     const images = ['/otero0.jpg', '/otero1.jpg', '/otero2.jpg']
@@ -54,10 +53,10 @@ const Otero = () => {
         let newNum;
         if(move==="up"){
             newNum = image+1;
-            if(newNum>2) newNum = 0;
+            if(newNum>=images.length) newNum = 0;
         }else if(move==="down"){
             newNum = image-1;
-            if(newNum<0) newNum = 2;
+            if(newNum<0) newNum = (images.length-1);
         }
         setImage(newNum);
         setImg(images[newNum]);
@@ -80,12 +79,14 @@ const Otero = () => {
                     <Grid item xs={3.5} sm={6.5} align="center" alignText="center">
                     <div style={{ display: 'flex', alignItems: 'left', justifyContent: 'left', alignText: 'left', flexWrap: 'wrap'}}>
                         <Divider sx={{ml:{ xs: 1, sm: 3 }, mr: { xs: 1, sm: 3 }, bgcolor:"black"}} orientation="vertical" variant="middle" flexItem />
+                        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
                         <IconButton sx={{mr:1}} onClick={() => redirect("location")}> 
                         <PlaceIcon sx={{ fontSize: "30px", color: 'black' }}/>
                         </IconButton>
                         <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="left">
                             Localización
                         </Typography>
+                        </div>
                     </div>
                     </Grid>  
                 </Grid>
@@ -108,14 +109,14 @@ const Otero = () => {
                 <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
                     <CardMedia
                         component="img"
-                        image="/benllera_casona.jpg"
+                        image="/otero_monasterio.jpg"
                     />
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>La casona de la señorita</Box>
+                        <Box sx={{ fontWeight: 'bold'}}>Monasterio de Santa María</Box>
                         </Typography>
                         <Typography align="center" variant="subtitle1">
-                        {benllera_casona}
+                        {otero_monasterio}
                         </Typography>
                     </CardContent>
                 </Card>
@@ -127,17 +128,16 @@ const Otero = () => {
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
                         </Typography>
                         <Typography align="center" variant="subtitle1">
-                        San Roque y San Roquín, los dias 16 y 17 de Agosto.
+                        El último fin de semana del mes Agosto.
                         </Typography>
                     </CardContent>
                 </Card>
                 <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Casas Rurales</Box>
+                        <Box sx={{ fontWeight: 'bold'}}>Hoteles</Box>
                         </Typography>
-                        <Chip sx={{mr:{xs:0, sm:1}, mb:{xs:1, sm:0}}} onClick={() => redirect("casa1")} label="El Nido Azul" variant="outlined" icon={<CottageIcon />} clickable />
-                        <Chip onClick={() => redirect("casa2")} label="Entre Valles" variant="outlined" icon={<CottageIcon />} clickable />
+                        <Chip onClick={() => redirect("hotel")} label="Hotel Santa Lucia" variant="outlined" icon={<HotelIcon />} clickable />
                     </CardContent>
                 </Card>
                 </Grid>
