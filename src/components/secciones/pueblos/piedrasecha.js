@@ -33,15 +33,19 @@ import PlaceIcon from '@mui/icons-material/Place';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import HotelIcon from '@mui/icons-material/Hotel';
+import CastleIcon from '@mui/icons-material/Castle';
+import CottageIcon from '@mui/icons-material/Cottage';
+import HikingIcon from '@mui/icons-material/Hiking';
 
-import {piedrasecha0, otero_monasterio} from '../../../data.js';
+import {piedrasecha0, calderones0, calderones1, calderones2, calderones3, calderones4} from '../../../data.js';
 
 const Piedrasecha = () => {
 
     function redirect(to){
         if(to==="location"){window.open("https://goo.gl/maps/LVET9uSJfrJArJvK8", '_blank', 'noopener,noreferrer');}
-        if(to==="hotel"){window.open("http://www.hotelsantalucia.es/", '_blank', 'noopener,noreferrer');}
+        if(to==="casa1"){window.open("http://www.loscalderones.com/", '_blank', 'noopener,noreferrer');}
+        if(to==="casa2"){window.open("http://www.hotelsantalucia.es/castillo-piedrasecha/", '_blank', 'noopener,noreferrer');}
+        if(to==="ruta"){window.open("https://es.wikiloc.com/rutas-senderismo/piedrasecha-cueva-de-las-palomas-y-ermita-del-manadero-desfiladero-de-los-calderones-santa-marta-co-14815290", '_blank', 'noopener,noreferrer');}
     }
 
     const images = ['/piedrasecha0.jpg', '/piedrasecha1.jpg', '/piedrasecha2.jpg', '/piedrasecha3.jpg']
@@ -65,7 +69,7 @@ const Piedrasecha = () => {
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}><Box sx={{width:"100%", mb:3}}>
                 <Grid container spacing={0} sx={{mt:2}} direction="row" alignItems="center" justifyContent="center">
-                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: 45}}>PIEDRASECHA</Typography>
+                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: {xs:35,sm:45}}}>PIEDRASECHA</Typography>
                 </Grid>
                 <Grid container spacing={0.5} sx={{mt:1}} direction="row" alignItems="center" justifyContent="center">
                     <Grid item xs={6} sm={5.5} align="right" alignItems="center" justifyContent="right" alignText="right">
@@ -109,15 +113,44 @@ const Piedrasecha = () => {
                 <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
                     <CardMedia
                         component="img"
-                        image="/otero_monasterio.jpg"
+                        image="/calderones0.jpg"
                     />
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Monasterio de Santa María</Box>
+                        <Box sx={{ fontWeight: 'bold'}}>Ruta de los calderones</Box>
                         </Typography>
                         <Typography align="center" variant="subtitle1">
-                        {otero_monasterio}
+                        {calderones0}
                         </Typography>
+                        <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
+                        <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones1.jpg"/>
+                        </Grid>
+                        <Typography align="center" variant="subtitle1">
+                        {calderones1}
+                        </Typography>
+                        <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
+                        <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones2.jpg"/>
+                        </Grid>
+                        <Typography align="center" variant="subtitle1">
+                        {calderones2}
+                        </Typography>
+                        <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
+                        <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones3.jpg"/>
+                        </Grid>
+                        <Typography align="center" variant="subtitle1">
+                        {calderones3}
+                        </Typography>
+                        <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
+                        <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones4.jpg"/>
+                        </Grid>
+                        <Typography align="center" variant="subtitle1">
+                        {calderones4}
+                        </Typography>
+                        <Grid container spacing={0} sx={{mt:3, mb:2}} direction="row" alignItems="center" justifyContent="center">
+                            <Button onClick={() => redirect("ruta")} sx={{ bgcolor:"#298A08"}} variant="contained" startIcon={<HikingIcon />}>
+                                Mapa de la Ruta 
+                            </Button>
+                        </Grid>
                     </CardContent>
                 </Card>
                 </Grid>
@@ -135,9 +168,10 @@ const Piedrasecha = () => {
                 <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Hoteles</Box>
+                        <Box sx={{ fontWeight: 'bold'}}>Casas Rurales</Box>
                         </Typography>
-                        <Chip onClick={() => redirect("hotel")} label="Hotel Santa Lucia" variant="outlined" icon={<HotelIcon />} clickable />
+                        <Chip sx={{mr:{xs:0, sm:1}, mb:{xs:1, sm:0}}} onClick={() => redirect("casa1")} label="Los Calderones" variant="outlined" icon={<CottageIcon />} clickable />
+                        <Chip onClick={() => redirect("casa2")} label="Castillo (Hotel Santa Lucia)" variant="outlined" icon={<CastleIcon />} clickable />
                     </CardContent>
                 </Card>
                 </Grid>

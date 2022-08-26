@@ -106,5 +106,31 @@ export const piedrasecha0 = [
 
     Piedrasecha es una pequeña población de montaña situada a una altitud de 1.180 metros sobre el nivel mar. En esta villa viven a penas 20 personas que disfrutan de un entorno tranquilo presidido por la naturaleza. Hecho a medida para los que buscan tranquilidad y descanso alejado del bullicio de la gran ciudad.`,<br/>,<br/>,`
     
-    De entre todas las casas tradicionales construidas en piedra y madera `,<span style={{fontWeight: 'bold'}}>destaca por su altura y monumentalidad la Iglesia del pueblo</span>,`. El edificio está construido en mampostería y en el se puede observar una gloriosa espadaña.`
+    De entre todas las casas tradicionales construidas en piedra y madera `,<span style={{fontWeight: 'bold'}}>destaca por su altura y monumentalidad la Iglesia del pueblo</span>,`. El edificio está construido en mampostería y en el se puede observar una gloriosa espadaña.`,<br/>,<br/>,`
+    Según cuenta una leyenda de la zona, Piedrasecha debería su nombre a la lucha que mantuvieron las gentes de la zona contra el invasor musulmán. Según cuentan, al intuir que los moros querían conquistar dicho pueblo, estos bravíos montañeses escalaron los riscos más altos de las montañas a ambos lados del camino que lleva al pueblo. `,<span style={{fontWeight: 'bold'}}>Cuando divisaron a los moros que venían por el camino, empezaron a lanzar piedras y fue tal el aluvión de ellas, que los sarracenos emprendieron la retirada al grito de: “¡Piedras echan! ¡Piedras echan!”</span>,`. De ahí el nombre de Piedrasecha.`,<br/>,`
+    Como todas las leyendas por muy bonita que sea puede ser simplemente eso, una leyenda, y el origen del topónimo podría venir también de piedra secta, o lo que es lo mismo, piedra cortada.`
+]
+
+export const calderones0 = [
+    `Una ruta sencilla, pero maravillosa. La ruta de los Calderones es una de las rutas más bonitas y transitadas de León, sin duda el destino más remarcable dentro del municipio. Tanto para ir en familia como con amigos, si no la conocéis deberíais hacerlo ya.`,<br/>,<br/>,`
+    La ruta se incia al final del pueblo pasado el bar-restaurante “Manadero”, una buena opción para parar de regreso de la ruta. Al comenzar se distingirá una peculiar gran roca silícica, muy llamativa por los líquenes amarillentos que la colonizan, `,<span style={{fontWeight: 'bold'}}>es El Serrón</span>,`. Los transeúntes seguirán un sendero entre verdes y apacibles prados que va paralelo al arroyo de Los Calderones y sus cristalinas aguas.
+    Pronto se llega a la `,<span style={{fontWeight: 'bold'}}>Fuente del Manadero</span>,` y un poco más allá, `,<span style={{fontWeight: 'bold'}}>la Cueva de las Palomas</span>,` alberga una sencilla Ermita rupestre que custodia la imagen de la `,<span style={{fontWeight: 'bold'}}>Virgen del Manadero</span>,`, objeto de una multitudinaria romería que tiene lugar cada verano el último domingo de julio, congregando a vecinos de toda la comarca.`,<br/>,<br/>,`
+    Al seguir con la ruta se observa que el río ya no fluye en superficie, sino que su circulación es subterránea (fenómeno de los terrenos de naturaleza caliza): este es el indicador de que se ha alcanzado`,<span style={{fontWeight: 'bold'}}> el desfiladero de los Calderones</span>,`, uno de los pasillos naturales más bellos del norte leonés, con paredes verticales que en algunos puntos casi llegan a tocarse. Es un Punto de Interés Geológico, ya que las rocas calizas que lo forman, se originaron por sedimentos de hace 360 millones de años, cuando la zona estaba cubierta por un mar.
+    El desfiladero es un tramo relativamente corto en el que tendremos que avanzar de piedra en piedra y que dependiendo de la época del año puede ser que nos tengamos que mojar los pies.`
+
+]
+
+export const calderones1 = [
+    `El desfiladero empezará a despejarse y volveremos a escuchar el sonido del arroyo, encontrándonos con el tramo más bonito que nos ofrece el mismo. Veremos `,<span style={{fontWeight: 'bold'}}>una preciosa cascada y una poza</span>,` en la que poder bañarse en días de mucho calor.`
+]
+
+export const calderones2 = [
+    `Nuestra ruta desembocará en `,<span style={{fontWeight: 'bold'}}>Santas Martas</span>,`. Se trata de un antiguo poblado que desapareció años atrás, donde actualmente solo queda una pequeña cabaña de piedra a la que se puede acceder. Santa Martas marca también el el fin de la ruta principal.`
+]
+export const calderones3 = [
+    `Para los más aventureros se puede proseguir la ruta en un ascenso constante pero tampoco duro, en el cual tras varios minutos más llegaremos al `,<span style={{fontWeight: 'bold'}}>Collado del Fito</span>,` (1676 metros), donde podremos disfrutar de unas vistas privilegiadas de todo el valle.`
+]
+
+export const calderones4 = [
+    `Finalmente si proseguimos por el camino realizaremos la ruta al completo llegando a `,<span style={{fontWeight: 'bold'}}>las Vegas del Palomar</span>,`, amplia depresión tapizada de pastizales a la que antaño subían los ganados trashumantes.`
 ]
