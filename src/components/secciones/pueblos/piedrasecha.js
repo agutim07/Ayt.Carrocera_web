@@ -161,7 +161,7 @@ const Piedrasecha = () => {
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
                         </Typography>
                         <Typography align="center" variant="subtitle1">
-                        El último fin de semana del mes Agosto. {<br></br>} Están dedicadas a los patrones del pueblo, San Justo y San Pastor.
+                        Santos Justo y Pastor, último fin de semana de Agosto. 
                         </Typography>
                     </CardContent>
                 </Card>

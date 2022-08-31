@@ -116,6 +116,16 @@ const Cuevas = () => {
                 </Box> 
                 </div>
                 <Grid container sx={{mt:3}} direction="row" justifyContent="center" alignItems="center">
+                <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
+                    <CardContent display="flex" justifyContent="center">
+                        <Typography align="center" gutterBottom variant="h5" component="div">
+                        <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
+                        </Typography>
+                        <Typography align="center" variant="subtitle1">
+                        San Nicolás de Bari, 10 de Septiembre.
+                        </Typography>
+                    </CardContent>
+                </Card>
                 <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">

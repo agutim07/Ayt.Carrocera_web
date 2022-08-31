@@ -101,6 +101,7 @@ function Inicio(){
     function pageChange(page) {
         if(page==="telefonos"){navigate('/ayt/telefonos', {replace: true});}
         if(page==="contacto"){navigate('/contacto', {replace: true});}
+        if(page==="pueblos"){navigate('/pueblos', {replace: true});}
     }
 
     function sedeLink(){
@@ -211,7 +212,7 @@ function Inicio(){
                 </CardContent>
                 <CardActions>
                     <Grid container direction="row">
-                    <Button size="small">Leer el texto completo</Button>
+                    <Button onClick={() => pageChange("pueblos")} size="small">Los pueblos del municipio</Button>
                     <SpeedDial
                         ariaLabel="share" FabProps={{ size: "small" }} 
                         icon={<ShareIcon />} direction="right" sx={{ml:2}}

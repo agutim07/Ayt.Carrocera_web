@@ -30,37 +30,24 @@ import CardMedia from '@mui/material/CardMedia';
 import PeopleIcon from '@mui/icons-material/People';
 import Divider from '@mui/material/Divider';
 import PlaceIcon from '@mui/icons-material/Place';
-import FacebookIcon from '@mui/icons-material/Facebook';
+import WebIcon from '@mui/icons-material/Language';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import HotelIcon from '@mui/icons-material/Hotel';
-import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
+import CottageIcon from '@mui/icons-material/Cottage';
 
-import {otero0, otero_monasterio} from '../../../data.js';
+import {viñayo0} from '../../../data.js';
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-const Otero = () => {
+const Viñayo = () => {
 
     function redirect(to){
-        if(to==="location"){window.open("https://goo.gl/maps/haq22ph4ehe8eQgn9", '_blank', 'noopener,noreferrer');}
-        if(to==="hotel1"){window.open("http://www.hotelsantalucia.es/", '_blank', 'noopener,noreferrer');}
-        if(to==="hotel2"){handleOpenAlert();}
+        if(to==="location"){window.open("https://goo.gl/maps/B8H31DmFgXa2B2abA", '_blank', 'noopener,noreferrer');}
+        if(to==="web"){window.open("https://vinayo.wordpress.com/", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/otero0.jpg', '/otero1.jpg', '/otero2.jpg']
+    const images = ['/viñayo0.jpg', '/viñayo1.jpg', '/viñayo2.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);
-
-    const [openAlert, setOpenAlert] = React.useState(false);
-    const handleCloseAlert = (event, reason) => {
-        if (reason === 'clickaway') {return;}
-        setOpenAlert(false);
-    };
-    const handleOpenAlert = (event, reason) => {setOpenAlert(true);};
     
     function nextImage(move){
         let newNum;
@@ -74,97 +61,75 @@ const Otero = () => {
         setImage(newNum);
         setImg(images[newNum]);
     }
+
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}><Box sx={{width:"100%", mb:3}}>
                 <Grid container spacing={0} sx={{mt:2}} direction="row" alignItems="center" justifyContent="center">
-                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: {xs:25,sm:45}}}>OTERO DE LAS DUEÑAS</Typography>
+                    <Typography sx={{color: 'orange', fontWeight: 'bold', fontSize: 45}}>VIÑAYO</Typography>
                 </Grid>
                 <Grid container spacing={0.5} sx={{mt:1}} direction="row" alignItems="center" justifyContent="center">
-                    <Grid item xs={6} sm={5.5} align="right" alignItems="center" justifyContent="right" alignText="right">
-                    <div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right', alignText: 'right', flexWrap: 'wrap'}}>
+                    <Grid item xs={6} sm={4.5} align="right" alignItems="center" justifyContent="right" alignText="right">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'right', alignText: 'right', flexWrap: 'wrap'}}>
                         <PeopleIcon sx={{ mr:1, fontSize: "30px" }}/>
                         <Typography display="inline" align="right">
-                            220 habitantes
+                            43 habitantes
                         </Typography>
-                        </div>
+                    </div>
                     </Grid>
-                    <Grid item xs={3.5} sm={6.5} align="center" alignText="center">
-                    <div style={{ display: 'flex', alignItems: 'left', justifyContent: 'left', alignText: 'left', flexWrap: 'wrap'}}>
-                        <Divider sx={{ml:{ xs: 1, sm: 3 }, mr: { xs: 1, sm: 3 }, bgcolor:"black"}} orientation="vertical" variant="middle" flexItem />
-                        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
+                    <Grid item xs={3.5} sm={3} align="center" alignText="center">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
+                        <Divider sx={{mr: { xs: 1, sm: 3 }, bgcolor:"black"}} orientation="vertical" variant="middle" flexItem />
                         <IconButton sx={{mr:1}} onClick={() => redirect("location")}> 
                         <PlaceIcon sx={{ fontSize: "30px", color: 'black' }}/>
                         </IconButton>
-                        <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="left">
+                        <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="center">
                             Localización
                         </Typography>
-                        </div>
+                        <Divider sx={{ml: { xs: 0, sm: 3 }, bgcolor:"black"}} orientation="vertical" variant="middle" flexItem />
                     </div>
-                    </Grid>  
+                    </Grid> 
+                    <Grid item xs={2.5} sm={4.5}>
+                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
+                        <IconButton sx={{mr:1}} onClick={() => redirect("web")}> 
+                        <WebIcon sx={{ fontSize: "30px", color: 'black' }}/>
+                        </IconButton>
+                        <Typography sx={{ display: { xs: 'none', md: 'inline' }}} display="inline" align="left">
+                            Web
+                        </Typography>
+                    </div>
+                    </Grid> 
                 </Grid>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
                 <Paper elevation={6} sx={{backgroundSize: "cover", backgroundImage: `url(${img})`, mt:2 , width: "80%", height:{xs: 200, sm:300, md:400}}} >
                         <IconButton sx={{justifyContent:"flex-end"}} onClick={() => nextImage("down")}> 
-                            <ChevronLeftIcon sx={{ fontSize: "30px", color: 'white' }}/>
+                            <ChevronLeftIcon sx={{ fontSize: "30px", color: 'black' }}/>
                         </IconButton>
                         <IconButton sx={{justifyContent:"flex-end"}} onClick={() => nextImage("up")}> 
-                            <ChevronRightIcon sx={{ fontSize: "30px", color: 'white' }}/>
+                            <ChevronRightIcon sx={{ fontSize: "30px", color: 'black' }}/>
                         </IconButton>
                 </Paper>
                 <Box sx={{mt:2, width:"80%"}}>
                 <Typography variant="subtitle1">
-                    {otero0}
+                    {viñayo0}
                 </Typography>
                 </Box> 
                 </div>
-                <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
-                    <CardMedia
-                        component="img"
-                        image="/otero_monasterio.jpg"
-                    />
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Monasterio de Santa María</Box>
-                        </Typography>
-                        <Typography align="center" variant="subtitle1">
-                        {otero_monasterio}
-                        </Typography>
-                    </CardContent>
-                </Card>
-                </Grid>
-                <Grid container direction="row" justifyContent="center" alignItems="center">
+                <Grid container sx={{mt:3}} direction="row" justifyContent="center" alignItems="center">
                 <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
                         </Typography>
                         <Typography align="center" variant="subtitle1">
-                        Ntra. señora de Fátima, último fin de semana de Agosto.
+                        Octava de Corpus, Miércoles siguiente al día de Corpus.
                         </Typography>
-                    </CardContent>
-                </Card>
-                <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Hoteles</Box>
-                        </Typography>
-                        <Chip sx={{mr:{xs:0, sm:1}, mb:{xs:1, sm:0}}} onClick={() => redirect("hotel1")} label="Hotel Santa Lucia" variant="outlined" icon={<HotelIcon />} clickable />
-                        <Chip onClick={() => redirect("hotel2")} label="Hostal El Crucero" variant="outlined" icon={<HolidayVillageIcon />} clickable />
                     </CardContent>
                 </Card>
                 </Grid>
             </Box>
-
-            <Snackbar open={openAlert} autoHideDuration={10000} onClose={handleCloseAlert}>
-                <Alert onClose={handleCloseAlert} severity="info">
-                    Teléfono de contacto de El Crucero: 987 58 10 24
-                </Alert>
-            </Snackbar>
-
         </Box>
     );
 }
 
-export default Otero;
+export default Viñayo;

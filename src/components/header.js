@@ -51,7 +51,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 
-const Header = ({pageChange}) => {
+const Header = () => {
   let logoWidth = 80;
   const drawerWidth = 300;
 
@@ -107,7 +107,7 @@ const Header = ({pageChange}) => {
   const navigate = useNavigate();
   
   const newPage = page => {
-    console.log(page);
+
     if(page==="INICIO"){
       navigate('/', {replace: true});
     }
@@ -159,6 +159,24 @@ const Header = ({pageChange}) => {
     if(page==="Piedrasecha"){
       navigate('/pueblos/piedrasecha', {replace: true});
     }
+    if(page==="Santiago de las Villas"){
+      navigate('/pueblos/santiago', {replace: true});
+    }
+    if(page==="Viñayo"){
+      navigate('/pueblos/vinayo', {replace: true});
+    }
+    if(page==="SEDE ELECTRÓNICA"){
+      window.open("https://aytocarrocera.sedelectronica.es/", '_blank', 'noopener,noreferrer');
+    }
+    if(page==="Ordenanzas y reglamentos"){
+      window.open("https://aytocarrocera.sedelectronica.es/board/97521486-f59b-11de-b600-00237da12c6a/", '_blank', 'noopener,noreferrer');
+    }
+    if(page==="Alojamientos"){
+      navigate('/turismo/alojamientos', {replace: true});
+    }
+
+    if(page==="contacto"){navigate('/contacto', {replace: true});}
+
     handleDrawerClose();
   }
 
@@ -206,7 +224,7 @@ const Header = ({pageChange}) => {
               </IconButton>
               <Menu anchorEl={extraMenu} open={Boolean(extraMenu)} onClose={handleCloseExMenu}
               MenuListProps={{ onMouseLeave: handleCloseExMenu }}>
-                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => pageChange("inicio")}>
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("INICIO")}>
                   <ListItemIcon><HomeIcon fontSize="small"/></ListItemIcon>
                   INICIO
                 </MenuItem>
@@ -214,7 +232,7 @@ const Header = ({pageChange}) => {
                   <ListItemIcon><MapIcon fontSize="small"/></ListItemIcon>
                   MAPA WEB
                 </MenuItem>
-                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => pageChange("contacto")}>
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("contacto")}>
                   <ListItemIcon><ContactSupportIcon fontSize="small"/></ListItemIcon>
                   CONTACTO
                 </MenuItem>
@@ -259,8 +277,6 @@ const Header = ({pageChange}) => {
                 <ListItemText sx={{color: 'white'}} primary={seccion.title} />
                 {(seccion.title=="INICIO") ? (<HomeIcon sx={{color: 'white'}}/>) : ""}
                 {(seccion.title=="LOCALIZACIÓN") ? (<MapIcon sx={{color: 'white'}}/>) : ""}
-                {(seccion.title=="PAGO A PROVEEDORES") ? (<PaidIcon sx={{color: 'white'}}/>) : ""}
-                {(seccion.title=="PORTAL DE TRANSPARENCIA") ? (<OpacityIcon sx={{color: 'white'}}/>) : ""}
                 {(seccion.title=="SEDE ELECTRÓNICA") ? (<PublicIcon sx={{color: 'white'}}/>) : ""}
               </ListItemButton>
             ) :  (

@@ -5,13 +5,11 @@ export const secciones = [
     {id:3, title: "MUNICIPIO", content: Array("Datos del Municipio", "Estadísticas", "Introducción Histórica", "Escudo y Bandera", "Galería Fotográfica", "El Tiempo")},
     {id:4, title: "LOS PUEBLOS", content: Array("Benllera","Carrocera","Cuevas de Viñayo","Otero de las Dueñas","Piedrasecha","Santiago de las Villas","Viñayo")},
     {id:5, title: "TURISMO Y OCIO", content: Array("Alojamientos","Bares y Restaurantes","Artesanía","Espacios Naturales","Ferias, Fiestas y Tradiciones","Patrimonio","Productos Agroalimentarios")},
-    {id:6, title: "PAGO A PROVEEDORES", content: Array()},
-    {id:7, title: "PORTAL DE TRANSPARENCIA", content: Array()},
-    {id:7, title: "SEDE ELECTRÓNICA", content: Array()}
+    {id:6, title: "SEDE ELECTRÓNICA", content: Array()}
 ];
 
 export const subsecciones = [
-    {id:0, parent: "Normativa Municipal", title: "INICIO", content: Array("Actas", "Ordenanzas", "Reglamentos", "Normativa urbanística")}
+    {id:0, parent: "Normativa Municipal", title: "INICIO", content: Array("Ordenanzas y reglamentos", "Normativa urbanística")}
 ];
 
 export const saludo = [
@@ -67,13 +65,13 @@ export const benllera_casona = [
 ]
 
 export const carrocera0 = [
-    <span style={{fontWeight: 'bold'}}>Carrocera es la actual cabecera municipal del municipio con su mismo nombre, donde se ubica la sede del ayuntamiento.</span>,``,<br/>,<br/>,` En Carrocera confluyen los valles de Cuevas de Viñayo y de Santiago de las Villas, que dan curso al Tusinos y al Torre. A este ángulo de la comarca de Luna, fronteriza con los pueblos de Alba, Gordón y Ordás, se le llama `,<span style={{fontWeight: 'bold'}}>el Rincón</span>,`, que es una forma directa de bautizar su situación esquinada respecto al curso del río que da nombre a la zona. En los años del miedo por la posible rotura de los embalses, cuando reventó Ribadelago con su saldo más que centenario de muertes, los habitantes del Rincón dormían más tranquilos que los ribereños del Luna. Unos habían asistido a la construcción del pantano de Los Barrios y otros estaban al tanto de las sisas de material, así que durante al menos una década ninguna noche faltó el pánico, por si les alcanzaba la riada en la cama. Años más tarde, fueron viendo caerse los viaductos sobre el lago, que en su derrota mostraban una construcción tramposa, en la que apenas una lámina de cemento revestía la estructura de tierra.`,<br/>,<br/>,`
+    <span style={{fontWeight: 'bold'}}>Carrocera es la actual cabecera municipal del municipio con su mismo nombre, donde se ubica la sede del ayuntamiento.</span>,``,<br/>,<br/>,` En Carrocera confluyen los valles de Cuevas de Viñayo y de Santiago de las Villas, que dan curso al Tusinos y al Torre. En los años del miedo por la posible rotura de los embalses, cuando reventó Ribadelago con su saldo más que centenario de muertes, los habitantes del pueblo dormían más tranquilos que los ribereños del Luna. Unos habían asistido a la construcción del pantano de Los Barrios y otros estaban al tanto de las sisas de material, así que durante al menos una década ninguna noche faltó el pánico, por si les alcanzaba la riada en la cama. Años más tarde, fueron viendo caerse los viaductos sobre el lago, que en su derrota mostraban una construcción tramposa, en la que apenas una lámina de cemento revestía la estructura de tierra.`,<br/>,<br/>,`
     Carrocera y sus aledaños no están de paso hacia ninguna parte y sólo se llega a ellos por elección, nunca por azar. Carrocera preside una amplia vega, que se prolonga hacia Otero de las Dueñas y va a morir en el embalse de Selga, adonde asoma Benllera. Eso, mirando hacia el Luna. Pero si volvemos la vista hacia las estribaciones de la Cordillera Cantábrica, se convierte en excelente lanzadera para disfrutar de los valles y puertos de verano de Cuevas y Santiago. Son travesías de media montaña, sin riesgos de treparriscos, que combinan el reto de los repechos con el frescor sombreado del paseo entre arboleda.`
 ]
 
 export const cuevas0 = [
-    `Cuevas de Viñayo es un `,<span style={{fontWeight: 'bold'}}>pequeño pueblo de montaña</span>,` en el que acaba la carretera, un entorno donde encontrarás descanso y paz.`,<br/>,
-    `Por Cuevas se ofrece `,<span style={{fontWeight: 'bold'}}>la leyenda de Tusinos</span>,` (versión montañesa de la hazaña de Clavijo), cuyo penúltimo despojo fue el retablo gótico que actualmente se encuentra depositado en el Museo del Prado. Vendido en el verano de 1929 al dueño de la línea de autobuses Beltrán, fue intervenido por la policía en Madrid, donde el abogado Ramiro Gavilanes ya lo tenía embalado para un anticuario de París.`,<br/>,`
+    `Cuevas de Viñayo es un `,<span style={{fontWeight: 'bold'}}>pequeño pueblo de montaña</span>,` en el que acaba la carretera, un entorno donde encontrarás descanso y paz.`,<br/>,<br/>,
+    `Por Cuevas se ofrece `,<span style={{fontWeight: 'bold'}}>la leyenda de Tusinos</span>,` (versión montañesa de la hazaña de Clavijo), cuyo penúltimo despojo fue el retablo gótico que actualmente se encuentra depositado en el Museo del Prado. Vendido en el verano de 1929 al dueño de la línea de autobuses Beltrán, fue intervenido por la policía en Madrid, donde el abogado Ramiro Gavilanes ya lo tenía embalado para un anticuario de París.`,<br/>,<br/>,`
     Actualmente Cuevas alberga `,<span style={{fontWeight: 'bold'}}>siete casas de turismo rural</span>,`, abiertas durante todo el año.`
 ]
 
@@ -133,4 +131,26 @@ export const calderones3 = [
 
 export const calderones4 = [
     `Finalmente si proseguimos por el camino realizaremos la ruta al completo llegando a `,<span style={{fontWeight: 'bold'}}>las Vegas del Palomar</span>,`, amplia depresión tapizada de pastizales a la que antaño subían los ganados trashumantes.`
+]
+
+export const santiago0 = [
+    `Santiago de las Villas es un pequeño pueblo que reposa en un pequeño valle a la sombra de altas laderas montañosas y de la representativa Peña del Castillo. Debido a este ángulo en el cual el pueblo se asienta se le apoda habitualmente `,<span style={{fontWeight: 'bold'}}>el Rincón</span>,`, que es una forma directa de bautizar su situación esquinada respecto al curso del río que da nombre a la zona.`,<br/>,<br/>,`
+    El valle de Santiago da curso al `,<span style={{fontWeight: 'bold'}}>río Torre</span>,`, que nace unos kilómetros montaña arriba y que sin ser demasiado caudaloso el agua fluye durante todo el año, sin llegar nunca a secarse, en suficiente abundancia para suplir a todos los habitantes del Rincón.
+    Como edificio más significativo del pueblo nos encontramos con su preciosa `,<span style={{fontWeight: 'bold'}}>Iglesia de San Cipriano</span>,`, que ha sido reformada recientemente dando lugar a un edifico en perfecto estado cuyos orígenes datan de incluso antes del siglo X.`,<br/>,<br/>,`
+    El pueblo se asienta a la sombra de `,<span style={{fontWeight: 'bold'}}>la Peña del Castillo</span>,`, una gran peña que se puede observar desde toda la localidad y que cualquiera que visite el pueblo la asociará con el mismo. La peña del Castillo tiene un peñasco gemelo al otro lado del río, desde donde se controlaba este paso natural. Por la ladera rocosa se observa `,<span style={{fontWeight: 'bold'}}>el canal tallado por los romanos</span>,` para conducir el agua hasta las médulas del Órbigo, en Villarroquel.`
+]
+
+export const santiago1 = [
+    `Según historias transmitidas de boca en boca a lo largo de los siglos el pueblo debe su nombre 
+    a siete villas de pueblos celtas que ocupaban el valle antes de la llegada de los romanos. Cuando estas villas se unificaron en una sola surgió el nombre de 'Santiago de las Villas'.`,<br/>,<br/>,`
+    Desde Santiago, el valle del Torre da paso hacia Gordón por el ramal jacobeo ("`,<span style={{fontWeight: 'bold'}}>Viejo Camino de Santiago</span>,`" o "Camino de la Montaña") que aprovechó el cordel trashumante de la Vereda de Buiza: la leyenda de Camposagrado vendría a justificar la tradición del peregrinaje. Actualmente está en proceso de recuperación este Camino Olvidado.`
+]
+
+export const viñayo0 = [
+    `Viñayo está localizado entre Piedrasecha y Otero de las Dueñas. Fue uno de los primeros pueblos leoneses, `,<span style={{fontWeight: 'bold'}}>fundado en el año 783</span>,` alrededor de un monasterio llamado Santa Eulalia.`,<br/>,<br/>,`
+    Con fecha de 28 de diciembre del año 873. El obispo Fruminio I de la diócesis de León redacta un documento testamentario, de su puño y letra, a favor del monasterio de Santiago apóstol y `,<span style={{fontWeight: 'bold'}}>Santa Eulalia</span>,`, ubicado en Viñayo (conocido antes como Vinagio), una serie de libros y objetos de plata, además de una villa culla extensión va desde la casa de Froilán, hasta el término de Leonia, y por la otra parte hasta Piedrasecha (Petra secta), y añade media villa que se llama Benllera, y árboles, ganado, pastos y dos vasallos.
+    Se entiende que en esa fecha ya existía el citado núcleo de población, con probabilidad el valle estuviera poblado desde la prehistoria. El lugar en el que se supone estaba el monasterio, es en las proximidades de la Vallina del señor Santiago, a la entrada del valle.
+    Del asentamiento del Monasterio no queda ningún vestigio.`,<br/>,<br/>,`
+    En época más cercana, también se arrancó de las entrañas de la tierra, `,<span style={{fontWeight: 'bold'}}>el carbón en varios montes del valle</span>,`, unos, pequeños chamizos, y una explotación de cierta consideración (`,<span style={{fontWeight: 'bold'}}>la mina de Pacho</span>,`); todas estas explotaciones ya pasaron a la historia, y de ellas solo queda el recuerdo y en algunos de esos lugares las manchas negras de sus escombreras.
+    Durante los años de la minería, el pueblo tenia tal densidad de población, que no había una sola casa del pueblo sin habitar por alguna familia, hasta en sitios tan pequeños, que hoy hubiera sido impensable su ocupación. Uno de los grandes accidentes de las minas de Viñayo fue en el año 1962 en el mes de Junio se hundió una galería y murieron 5 personas.`
 ]

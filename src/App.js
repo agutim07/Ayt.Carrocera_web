@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CssBaseline from "@mui/material/CssBaseline";
+import Link2 from '@mui/material/Link';
 
 import Header from './components/header.js';
 import Sidenav from './components/sidenav.js';
@@ -25,6 +26,10 @@ import Carrocera from './components/secciones/pueblos/carrocera';
 import Cuevas from './components/secciones/pueblos/cuevas';
 import Otero from './components/secciones/pueblos/otero';
 import Piedrasecha from './components/secciones/pueblos/piedrasecha';
+import Santiago from './components/secciones/pueblos/santiago';
+import Viñayo from './components/secciones/pueblos/viñayo';
+import Pueblos from './components/secciones/pueblos';
+import Alojamientos from './components/secciones/turismo/alojamientos';
 
 import {
   BrowserRouter as Router,
@@ -32,7 +37,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
 
 
 
@@ -51,10 +55,10 @@ function App() {
   }
 
   const images = [
-    "http://www.aytocarrocera.es/export/sites/aytocarrocera/galerias/imagenes/plantilla/cabecera.jpg",
-    "http://www.aytocarrocera.es/export/sites/aytocarrocera/galerias/imagenes/plantilla/cabecera1.png",
-    "http://www.aytocarrocera.es/export/sites/aytocarrocera/galerias/imagenes/plantilla/cabecera2.png",
-    "http://www.aytocarrocera.es/export/sites/aytocarrocera/galerias/imagenes/espacios-naturales/Collage_panorxmicaTODAS.jpg"
+    "/back0.jpg",
+    "/back1.png",
+    "/back2.png",
+    "/back3.jpg"
   ]
   const [img, setImg] = useState(images[0]);
   const [change, setChange] = React.useState(true);
@@ -115,10 +119,14 @@ function App() {
                 <Route path="/municipio/historia" element={<Historia/>} />
                 <Route path="/municipio/emblemas" element={<Emblemas/>} />
                 <Route path="/pueblos/benllera" element={<Benllera/>} />
+                <Route path="/pueblos" element={<Pueblos/>} />
                 <Route path="/pueblos/carrocera" element={<Carrocera/>} />
                 <Route path="/pueblos/cuevas" element={<Cuevas/>} />
                 <Route path="/pueblos/otero" element={<Otero/>} />
                 <Route path="/pueblos/piedrasecha" element={<Piedrasecha/>} />
+                <Route path="/pueblos/santiago" element={<Santiago/>} />
+                <Route path="/pueblos/vinayo" element={<Viñayo/>} />
+                <Route path="/turismo/alojamientos" element={<Alojamientos/>} />
               </Routes>
               </Grid>
           </Grid>
@@ -150,6 +158,10 @@ function App() {
                 Teléfono: 987 592 071
                 <br />
                 e-mail: info@aytocarrocera.es
+                <br />
+                <Link2 rel="noopener noreferrer" target="_blank" href="http://www.aytocarrocera.es/" underline="none">
+                  Web de la Diputación
+                </Link2>
               </Typography>
             </Grid>
           </Grid>
