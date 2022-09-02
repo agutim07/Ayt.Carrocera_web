@@ -186,6 +186,12 @@ const Header = () => {
     if(page==="Fiestas"){
       navigate('/turismo/fiestas', {replace: true});
     }
+    if(page==="Productos Agroalimentarios"){
+      navigate('/turismo/agroalimentarios', {replace: true});
+    }
+    if(page==="mapaweb"){
+      navigate('/mapaweb', {replace: true});
+    }
 
     if(page==="contacto"){navigate('/contacto', {replace: true});}
 
@@ -240,7 +246,7 @@ const Header = () => {
                   <ListItemIcon><HomeIcon fontSize="small"/></ListItemIcon>
                   INICIO
                 </MenuItem>
-                <MenuItem sx={{color:"blue", fontSize: 15}}>
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("mapaweb")}>
                   <ListItemIcon><MapIcon fontSize="small"/></ListItemIcon>
                   MAPA WEB
                 </MenuItem>

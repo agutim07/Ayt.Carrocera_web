@@ -198,9 +198,8 @@ function Inicio(){
             <Card sx={{ maxWidth: "90%", m:2}}>
                 <CardMedia
                     component="img"
-                    height="140"
-                    image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-                    alt="green iguana"
+                    image="/casa_consistorial.jpg"
+                    alt="casa consistorial"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">

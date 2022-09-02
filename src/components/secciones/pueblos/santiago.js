@@ -54,7 +54,7 @@ const Santiago = () => {
         if(to==="web"){window.open("http://www.santiagodelasvillas.com/", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/santiago0.jpg', '/santiago1.jpg', '/santiago2.jpg']
+    const images = ['/santiago0.jpg', '/santiago1.jpg', '/santiago2.jpg', '/santiago4.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);

@@ -35,6 +35,9 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ChurchIcon from '@mui/icons-material/Church';
 import HikingIcon from '@mui/icons-material/Hiking';
 import CastleIcon from '@mui/icons-material/Castle';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import LandscapeIcon from '@mui/icons-material/Landscape';
 
 import { Casona } from '../pueblos/benllera';
 import { Monasterio } from '../pueblos/otero';
@@ -64,6 +67,7 @@ const ButtonHover = styled(Button)({
 
 const Button2 = styled(Button)({
     backgroundColor: '#13AF1A',
+    fontWeight: 'bold',
     '&:hover': {
         backgroundColor: 'black',
         color: 'white'
@@ -84,11 +88,31 @@ const Naturaleza = () => {
     };
 
     const [actual, setActual] = React.useState();
+    const [torreState, setTorreState] = React.useState(false);
 
     const changeState = (nuevo) => {
-        if(nuevo==="cald"){setActual(Calderones);};
-        if(nuevo==="mon"){setActual(Monasterio);};
-        if(nuevo==="cas"){setActual(Casona);};
+        if(nuevo==="cald"){setTorreState(false); setActual(Calderones);};
+        if(nuevo==="mon"){setTorreState(false); setActual(Monasterio);};
+        if(nuevo==="cas"){setTorreState(false); setActual(Casona);};
+        if(nuevo==="torre"){setTorreState(true);};
+    }
+
+    const images = ['/torre0.jpg', '/torre1.jpg', '/torre2.jpg', '/torre3.jpg', '/torre4.jpg', '/torre5.jpg', '/torre6.jpg',]
+
+    const [image, setImage] = React.useState(0);
+    const [img, setImg] = React.useState(images[0]);
+    
+    function nextImage(move){
+        let newNum;
+        if(move==="up"){
+            newNum = image+1;
+            if(newNum>=images.length) newNum = 0;
+        }else if(move==="down"){
+            newNum = image-1;
+            if(newNum<0) newNum = (images.length-1);
+        }
+        setImage(newNum);
+        setImg(images[newNum]);
     }
 
     return(
@@ -111,9 +135,23 @@ const Naturaleza = () => {
                             La Casona de la Señorita
                         </Button2>
                     </Grid>
+                    <Grid item>
+                        <Button2 onClick={() => changeState("torre")} variant="contained" startIcon={<LandscapeIcon />}>
+                            Torre
+                        </Button2>
+                    </Grid>
                 </Grid>
                 <Grid container direction="row" justifyContent="center" alignItems="center" sx={{my:2}}>
-                    {actual}
+                    {(torreState) ? (
+                    <Paper elevation={6} sx={{backgroundSize: "cover", border:1, borderColor:'black', backgroundImage: `url(${img})`, my:2 , width: "80%", height:{xs: 200, sm:300, md:400}}} >
+                        <IconButton sx={{justifyContent:"flex-end"}} onClick={() => nextImage("down")}> 
+                            <ChevronLeftIcon sx={{ fontSize: "30px", color: 'black' }}/>
+                        </IconButton>
+                        <IconButton sx={{justifyContent:"flex-end"}} onClick={() => nextImage("up")}> 
+                            <ChevronRightIcon sx={{ fontSize: "30px", color: 'black' }}/>
+                        </IconButton>
+                    </Paper>
+                    ) : (<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>{actual}</div>)}
                 </Grid>
             </ThemeProvider>
         </Box>

@@ -34,6 +34,8 @@ import Bares from './components/secciones/turismo/bares';
 import Artesania from './components/secciones/turismo/artesania';
 import Naturaleza from './components/secciones/turismo/naturaleza';
 import Fiestas from './components/secciones/turismo/fiestas';
+import Agroalimentarios from './components/secciones/turismo/agroalimentarios';
+import MapaWeb from './components/secciones/mapaweb';
 
 import {
   BrowserRouter as Router,
@@ -41,6 +43,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+
+
 
 
 const theme = createTheme({
@@ -113,6 +117,7 @@ function App() {
               <Routes>
                 <Route path="/" exact element={<Inicio/>} />
                 <Route path="/contacto" element={<Contacto/>} />
+                <Route path="/mapaweb" element={<MapaWeb/>} />
                 <Route path="/ayt/telefonos" element={<Telefonos/>} />
                 <Route path="/ayt/corporacion" element={<Corporacion/>} />
                 <Route path="/localizacion" element={<Localizacion/>} />
@@ -134,6 +139,7 @@ function App() {
                 <Route path="/turismo/artesania" element={<Artesania/>} />
                 <Route path="/turismo/naturaleza" element={<Naturaleza/>} />
                 <Route path="/turismo/fiestas" element={<Fiestas/>} />
+                <Route path="/turismo/agroalimentarios" element={<Agroalimentarios/>} />
               </Routes>
               </Grid>
           </Grid>
