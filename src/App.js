@@ -30,6 +30,10 @@ import Santiago from './components/secciones/pueblos/santiago';
 import Viñayo from './components/secciones/pueblos/viñayo';
 import Pueblos from './components/secciones/pueblos';
 import Alojamientos from './components/secciones/turismo/alojamientos';
+import Bares from './components/secciones/turismo/bares';
+import Artesania from './components/secciones/turismo/artesania';
+import Naturaleza from './components/secciones/turismo/naturaleza';
+import Fiestas from './components/secciones/turismo/fiestas';
 
 import {
   BrowserRouter as Router,
@@ -37,7 +41,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
 
 
 const theme = createTheme({
@@ -127,6 +130,10 @@ function App() {
                 <Route path="/pueblos/santiago" element={<Santiago/>} />
                 <Route path="/pueblos/vinayo" element={<Viñayo/>} />
                 <Route path="/turismo/alojamientos" element={<Alojamientos/>} />
+                <Route path="/turismo/restaurantes" element={<Bares/>} />
+                <Route path="/turismo/artesania" element={<Artesania/>} />
+                <Route path="/turismo/naturaleza" element={<Naturaleza/>} />
+                <Route path="/turismo/fiestas" element={<Fiestas/>} />
               </Routes>
               </Grid>
           </Grid>

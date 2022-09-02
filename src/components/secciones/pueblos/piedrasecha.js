@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import Chip from '@mui/material/Chip';
+import Chip2 from '@mui/material/Chip';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -39,13 +39,83 @@ import HikingIcon from '@mui/icons-material/Hiking';
 
 import {piedrasecha0, calderones0, calderones1, calderones2, calderones3, calderones4} from '../../../data.js';
 
+const Chip = styled(Chip2)({
+    borderColor: 'black',
+    "& .MuiChip-icon": {
+        color: 'black'
+    },
+    "& .MuiChip-iconSmall": {
+        color: 'black'
+    }
+});
+
+const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+});
+
+const ButtonHover = styled(Button)({
+    '&:hover': {
+        backgroundColor: 'white',
+        color: 'black'
+    }
+});
+
+export const Calderones = () => {
+    return(
+        <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
+            <CardMedia
+                component="img"
+                image="/calderones0.jpg"
+            />
+            <CardContent display="flex" justifyContent="center">
+                <Typography align="center" gutterBottom variant="h5" component="div">
+                <Box sx={{ fontWeight: 'bold'}}>Ruta de los calderones</Box>
+                </Typography>
+                <Typography align="center" variant="subtitle1">
+                {calderones0}
+                </Typography>
+                <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
+                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones1.jpg"/>
+                </Grid>
+                <Typography align="center" variant="subtitle1">
+                {calderones1}
+                </Typography>
+                <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
+                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones2.jpg"/>
+                </Grid>
+                <Typography align="center" variant="subtitle1">
+                {calderones2}
+                </Typography>
+                <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
+                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones3.jpg"/>
+                </Grid>
+                <Typography align="center" variant="subtitle1">
+                {calderones3}
+                </Typography>
+                <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
+                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones4.jpg"/>
+                </Grid>
+                <Typography align="center" variant="subtitle1">
+                {calderones4}
+                </Typography>
+                <Grid container spacing={0} sx={{mt:3, mb:2}} direction="row" alignItems="center" justifyContent="center">
+                    <ButtonHover onClick={() => window.open("https://es.wikiloc.com/rutas-senderismo/piedrasecha-cueva-de-las-palomas-y-ermita-del-manadero-desfiladero-de-los-calderones-santa-marta-co-14815290", '_blank', 'noopener,noreferrer')} sx={{ bgcolor:"#298A08"}} variant="contained" startIcon={<HikingIcon />}>
+                        Mapa de la Ruta 
+                    </ButtonHover>
+                </Grid>
+            </CardContent>
+        </Card>
+    );
+}
+
 const Piedrasecha = () => {
 
     function redirect(to){
         if(to==="location"){window.open("https://goo.gl/maps/LVET9uSJfrJArJvK8", '_blank', 'noopener,noreferrer');}
         if(to==="casa1"){window.open("http://www.loscalderones.com/", '_blank', 'noopener,noreferrer');}
         if(to==="casa2"){window.open("http://www.hotelsantalucia.es/castillo-piedrasecha/", '_blank', 'noopener,noreferrer');}
-        if(to==="ruta"){window.open("https://es.wikiloc.com/rutas-senderismo/piedrasecha-cueva-de-las-palomas-y-ermita-del-manadero-desfiladero-de-los-calderones-santa-marta-co-14815290", '_blank', 'noopener,noreferrer');}
     }
 
     const images = ['/piedrasecha0.jpg', '/piedrasecha1.jpg', '/piedrasecha2.jpg', '/piedrasecha3.jpg']
@@ -110,52 +180,12 @@ const Piedrasecha = () => {
                 </Box> 
                 </div>
                 <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
-                    <CardMedia
-                        component="img"
-                        image="/calderones0.jpg"
-                    />
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Ruta de los calderones</Box>
-                        </Typography>
-                        <Typography align="center" variant="subtitle1">
-                        {calderones0}
-                        </Typography>
-                        <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
-                        <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones1.jpg"/>
-                        </Grid>
-                        <Typography align="center" variant="subtitle1">
-                        {calderones1}
-                        </Typography>
-                        <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
-                        <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones2.jpg"/>
-                        </Grid>
-                        <Typography align="center" variant="subtitle1">
-                        {calderones2}
-                        </Typography>
-                        <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
-                        <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones3.jpg"/>
-                        </Grid>
-                        <Typography align="center" variant="subtitle1">
-                        {calderones3}
-                        </Typography>
-                        <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
-                        <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones4.jpg"/>
-                        </Grid>
-                        <Typography align="center" variant="subtitle1">
-                        {calderones4}
-                        </Typography>
-                        <Grid container spacing={0} sx={{mt:3, mb:2}} direction="row" alignItems="center" justifyContent="center">
-                            <Button onClick={() => redirect("ruta")} sx={{ bgcolor:"#298A08"}} variant="contained" startIcon={<HikingIcon />}>
-                                Mapa de la Ruta 
-                            </Button>
-                        </Grid>
-                    </CardContent>
-                </Card>
+                <ThemeProvider theme={darkTheme}>
+                <Calderones />
+                </ThemeProvider>
                 </Grid>
                 <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
+                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(236,8,8,1) 13%, rgba(235,59,59,0.5522584033613445) 40%)", maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
@@ -165,7 +195,7 @@ const Piedrasecha = () => {
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
+                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(8,51,236,1) 13%, rgba(71,94,221,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Casas Rurales</Box>

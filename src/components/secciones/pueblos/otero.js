@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import Chip from '@mui/material/Chip';
+import Chip2 from '@mui/material/Chip';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -41,6 +41,41 @@ import {otero0, otero_monasterio} from '../../../data.js';
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
+const Chip = styled(Chip2)({
+    borderColor: 'black',
+    "& .MuiChip-icon": {
+        color: 'black'
+    },
+    "& .MuiChip-iconSmall": {
+        color: 'black'
+    }
+});
+
+const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+});
+
+export const Monasterio = () => {
+    return(
+        <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
+            <CardMedia
+                component="img"
+                image="/otero_monasterio.jpg"
+            />
+            <CardContent display="flex" justifyContent="center">
+                <Typography align="center" gutterBottom variant="h5" component="div">
+                <Box sx={{ fontWeight: 'bold'}}>Monasterio de Santa María</Box>
+                </Typography>
+                <Typography align="center" variant="subtitle1">
+                {otero_monasterio}
+                </Typography>
+            </CardContent>
+        </Card>
+    );
+}
 
 const Otero = () => {
 
@@ -119,23 +154,12 @@ const Otero = () => {
                 </Box> 
                 </div>
                 <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
-                    <CardMedia
-                        component="img"
-                        image="/otero_monasterio.jpg"
-                    />
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Monasterio de Santa María</Box>
-                        </Typography>
-                        <Typography align="center" variant="subtitle1">
-                        {otero_monasterio}
-                        </Typography>
-                    </CardContent>
-                </Card>
+                <ThemeProvider theme={darkTheme}> 
+                <Monasterio />
+                </ThemeProvider>
                 </Grid>
                 <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
+                <Card sx={{backgroundImage: "linear-gradient(180deg, rgba(236,8,8,1) 13%, rgba(235,59,59,0.5522584033613445) 40%)", maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
@@ -145,7 +169,7 @@ const Otero = () => {
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
+                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(8,51,236,1) 13%, rgba(71,94,221,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Hoteles</Box>

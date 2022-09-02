@@ -26,6 +26,7 @@ import {useNavigate} from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { orange,green } from '@mui/material/colors';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { styled } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
@@ -38,6 +39,14 @@ const theme = createTheme({
   },
 });
 
+const ButtonHover = styled(Button)({
+    fontWeight: 'bold',
+    '&:hover': {
+        color: 'black',
+        backgroundColor: '#FEAC44'
+    }
+  });
+
 const Pueblos = () => {
     const navigate = useNavigate();
 
@@ -47,13 +56,13 @@ const Pueblos = () => {
     };
 
     const buttons = [
-        <Button sx={{fontWeight: "bold"}} onClick={() => navigate('/pueblos/benllera', {replace: true})} key="one">Benllera</Button>,
-        <Button sx={{fontWeight: "bold"}} onClick={() => navigate('/pueblos/carrocera', {replace: true})}key="two">Carrocera</Button>,
-        <Button sx={{fontWeight: "bold"}} onClick={() => navigate('/pueblos/cuevas', {replace: true})}key="three">Cuevas de Viñayo</Button>,
-        <Button sx={{fontWeight: "bold"}} onClick={() => navigate('/pueblos/otero', {replace: true})}key="four">Otero de las Dueñas</Button>,
-        <Button sx={{fontWeight: "bold"}} onClick={() => navigate('/pueblos/piedrasecha', {replace: true})}key="five">Piedrasecha</Button>,
-        <Button sx={{fontWeight: "bold"}} onClick={() => navigate('/pueblos/santiago', {replace: true})}key="six">Santiago de las Villas</Button>,
-        <Button sx={{fontWeight: "bold"}} onClick={() => navigate('/pueblos/vinayo', {replace: true})}key="seven">Viñayo</Button>
+        <ButtonHover onClick={() => navigate('/pueblos/benllera', {replace: true})} key="one">Benllera</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/carrocera', {replace: true})}key="two">Carrocera</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/cuevas', {replace: true})}key="three">Cuevas de Viñayo</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/otero', {replace: true})}key="four">Otero de las Dueñas</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/piedrasecha', {replace: true})}key="five">Piedrasecha</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/santiago', {replace: true})}key="six">Santiago de las Villas</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/vinayo', {replace: true})}key="seven">Viñayo</ButtonHover>
     ];
 
     return(
@@ -70,9 +79,9 @@ const Pueblos = () => {
                 src="/datosmun_1.png"
             />
             </Grid>
-            <Grid item xs={12} md={6} align="center" sx={{mt:3}}>
-                <Paper elevation={12} direction="column" justifyContent="center" sx={{verticalAlign:'middle',width: "70%", margin:1, padding:1, my: 0.5}}>
-                        <ButtonGroup {...buttonProps} color='primary' orientation="vertical" variant="text">
+            <Grid item xs={12} md={6} align="center">
+                <Paper elevation={12} direction="column" justifyContent="center" sx={{backgroundImage: "linear-gradient(180deg, rgba(0,0,0,1) 13%, rgba(41,41,212,0.45702030812324934) 71%)", verticalAlign:'middle',width: "70%", height:{xs:"90%", md:"95%"}, margin:1, padding:1, my: 0.5, mt:{xs:2, md:0}}}>
+                        <ButtonGroup {...buttonProps} sx={{width:"100%"}} color='primary' orientation="vertical" variant="text">
                             {buttons}
                         </ButtonGroup>
                 </Paper>

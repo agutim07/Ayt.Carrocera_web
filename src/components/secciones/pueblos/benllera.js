@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import Chip from '@mui/material/Chip';
+import Chip2 from '@mui/material/Chip';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -36,6 +36,41 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CottageIcon from '@mui/icons-material/Cottage';
 
 import {benllera0, benllera_casona} from '../../../data.js';
+
+const Chip = styled(Chip2)({
+    borderColor: 'black',
+    "& .MuiChip-icon": {
+        color: 'black'
+    },
+    "& .MuiChip-iconSmall": {
+        color: 'black'
+    }
+});
+
+const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+});
+
+export const Casona = () => {
+    return(
+        <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
+            <CardMedia
+                component="img"
+                image="/benllera_casona.jpg"
+            />
+            <CardContent display="flex" justifyContent="center">
+                <Typography align="center" gutterBottom variant="h5" component="div">
+                <Box sx={{ fontWeight: 'bold'}}>La casona de la señorita</Box>
+                </Typography>
+                <Typography align="center" variant="subtitle1">
+                {benllera_casona}
+                </Typography>
+            </CardContent>
+        </Card>
+    );
+}
 
 const Benllera = () => {
 
@@ -117,23 +152,12 @@ const Benllera = () => {
                 </Box> 
                 </div>
                 <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
-                    <CardMedia
-                        component="img"
-                        image="/benllera_casona.jpg"
-                    />
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>La casona de la señorita</Box>
-                        </Typography>
-                        <Typography align="center" variant="subtitle1">
-                        {benllera_casona}
-                        </Typography>
-                    </CardContent>
-                </Card>
+                <ThemeProvider theme={darkTheme}> 
+                <Casona />
+                </ThemeProvider>
                 </Grid>
                 <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
+                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(236,8,8,1) 13%, rgba(235,59,59,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
@@ -143,7 +167,7 @@ const Benllera = () => {
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card sx={{ maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
+                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(8,51,236,1) 13%, rgba(71,94,221,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Casas Rurales</Box>

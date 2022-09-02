@@ -22,9 +22,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Cancel';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
 });
 
 const Datosmun = ({pageChange}) => {
@@ -60,7 +67,8 @@ const Datosmun = ({pageChange}) => {
             <Grid item xs={12} md={6}>
                 <Grid container spacing={0} direction="column" justifyContent="center">
                 <Grid container direction="column" spacing={0} justifyContent="center" alignItems="center">
-                <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"#3a41af", width: "70%", margin:1, 
+                <ThemeProvider theme={darkTheme}>
+                <Paper elevation={12} sx={{color:"#44CBFE", width: "70%", margin:1, 
                 padding:1, my: 0.5, border: "1px solid black", boxShadow: "3px 3px 3px black" }}>
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
                         <Grid container direction="row" alignItems="center">
@@ -101,12 +109,14 @@ const Datosmun = ({pageChange}) => {
                         </Grid>
                     </Grid>
                 </Paper>
+                </ThemeProvider>
                 </Grid>
                 <Grid container direction="column" spacing={0} justifyContent="center" alignItems="center">
-                <Paper elevation={12} sx={{ backgroundColor: "#ffffff", color:"red", width: "70%", margin:1, 
+                <ThemeProvider theme={darkTheme}>
+                <Paper elevation={12} sx={{ color:"red", width: "70%", margin:1, 
                 padding:1, my: 0.5, border: "1px solid black", boxShadow: "3px 3px 3px black", mt: 1.5 }}>
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
-                        <Grid container spacing={0.5} sx={{borderRadius: '16px', border: "0.5px solid grey", width:"95%", mb:1}} direction="row" alignItems="center">
+                        <Grid container spacing={0.5} sx={{borderRadius: '16px', border: "0.5px solid white", width:"95%", mb:1}} direction="row" alignItems="center">
                             <Grid item xs={0.5}></Grid>
                             <Grid item xs={4} align="center">
                             <Typography display="inline" sx={{mr:1}}>Capital</Typography>
@@ -117,7 +127,7 @@ const Datosmun = ({pageChange}) => {
                             </Grid> 
                             </Grid>
                         </Grid>
-                        <Grid container spacing={0.5} sx={{display: { xs: 'none', sm: 'flex' }, borderRadius: '16px',border: "0.5px solid grey", width:"95%", mb:1}} direction="row" alignItems="center">
+                        <Grid container spacing={0.5} sx={{display: { xs: 'none', sm: 'flex' }, borderRadius: '16px',border: "0.5px solid white", width:"95%", mb:1}} direction="row" alignItems="center">
                             <Grid item xs={0.5}></Grid>
                             <Grid item xs={4} align="center">
                             <Typography display="inline" sx={{mr:1}}>Coordenadas</Typography>
@@ -129,7 +139,7 @@ const Datosmun = ({pageChange}) => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid container spacing={0.5} sx={{display: { xs: 'flex', sm: 'none' }, borderRadius: '16px',border: "0.5px solid grey", width:"95%", mb:1}} direction="row" alignItems="center">
+                        <Grid container spacing={0.5} sx={{display: { xs: 'flex', sm: 'none' }, borderRadius: '16px',border: "0.5px solid white", width:"95%", mb:1}} direction="row" alignItems="center">
                             <Grid item xs={0.5}></Grid>
                             <Grid item xs={2} align="center">
                             <Typography display="inline" sx={{mr:1}}>Coor.</Typography>
@@ -141,22 +151,23 @@ const Datosmun = ({pageChange}) => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid container spacing={0.5} sx={{borderRadius: '16px',border: "0.5px solid grey", width:"95%", mb:1}} direction="row" alignItems="center" >
+                        <Grid container spacing={0.5} sx={{borderRadius: '16px',border: "0.5px solid white", width:"95%", mb:1}} direction="row" alignItems="center" >
                             <Grid item xs={0.5}></Grid>
                             <Grid item xs={4} align="center">
                             <Typography display="inline" >Distancias</Typography>
                             </Grid>
                             <Grid item xs={7.5} align="left">
                             <Grid container direction="column" justifyContent="center" alignItems="center">
-                                <Chip sx={{mb:0.5}} label="León: 30 km" variant="outlined" />
-                                <Chip sx={{mb:0.5}} label="Valladolid: 178 km" variant="outlined" />
-                                <Chip sx={{mb:0.5}} label="Madrid: 373 km" variant="outlined" />
-                                <Chip sx={{mb:1}} label="Bruselas: 1546 km" variant="outlined" /> 
+                                <Chip sx={{mb:0.5}} label="León: 30km" variant="outlined" />
+                                <Chip sx={{mb:0.5}} label="Valladolid: 178km" variant="outlined" />
+                                <Chip sx={{mb:0.5}} label="Madrid: 373km" variant="outlined" />
+                                <Chip sx={{mb:1}} label="Bruselas: 1546km" variant="outlined" /> 
                             </Grid> 
                             </Grid>
                         </Grid>
                     </Grid>
                 </Paper>
+                </ThemeProvider>
                 </Grid>
                 </Grid>
             </Grid>

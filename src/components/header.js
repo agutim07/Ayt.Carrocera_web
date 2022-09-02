@@ -174,6 +174,18 @@ const Header = () => {
     if(page==="Alojamientos"){
       navigate('/turismo/alojamientos', {replace: true});
     }
+    if(page==="Bares y Restaurantes"){
+      navigate('/turismo/restaurantes', {replace: true});
+    }
+    if(page==="Artesanía"){
+      navigate('/turismo/artesania', {replace: true});
+    }
+    if(page==="Espacios Naturales y Patrimonio"){
+      navigate('/turismo/naturaleza', {replace: true});
+    }
+    if(page==="Fiestas"){
+      navigate('/turismo/fiestas', {replace: true});
+    }
 
     if(page==="contacto"){navigate('/contacto', {replace: true});}
 

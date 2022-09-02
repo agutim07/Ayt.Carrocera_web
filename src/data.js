@@ -4,7 +4,7 @@ export const secciones = [
     {id:2, title: "LOCALIZACIÓN", content: Array()},
     {id:3, title: "MUNICIPIO", content: Array("Datos del Municipio", "Estadísticas", "Introducción Histórica", "Escudo y Bandera", "Galería Fotográfica", "El Tiempo")},
     {id:4, title: "LOS PUEBLOS", content: Array("Benllera","Carrocera","Cuevas de Viñayo","Otero de las Dueñas","Piedrasecha","Santiago de las Villas","Viñayo")},
-    {id:5, title: "TURISMO Y OCIO", content: Array("Alojamientos","Bares y Restaurantes","Artesanía","Espacios Naturales","Ferias, Fiestas y Tradiciones","Patrimonio","Productos Agroalimentarios")},
+    {id:5, title: "TURISMO Y OCIO", content: Array("Alojamientos","Bares y Restaurantes","Artesanía","Espacios Naturales y Patrimonio","Fiestas","Productos Agroalimentarios")},
     {id:6, title: "SEDE ELECTRÓNICA", content: Array()}
 ];
 
@@ -76,7 +76,7 @@ export const cuevas0 = [
 ]
 
 export const otero0 = [
-    `Otero de las Dueñas, que incluye en su territorio el barrio de las "Casas Baratas" y de la Magdalena, así como el polígono industrial de "Los Avezales", `,<span style={{fontWeight: 'bold'}}>es la localidad más grande del municipio</span>,`, aportando casi la mitad de su población.`,<br/>,<br/>,
+    `Otero de las Dueñas, que incluye en su territorio el barrio de las "`,<span style={{fontWeight: 'bold'}}>Casas Baratas</span>,`" y de `,<span style={{fontWeight: 'bold'}}>la Magdalena</span>,`, así como el polígono industrial de "Los Avezales", `,<span style={{fontWeight: 'bold'}}>es la localidad más grande del municipio</span>,`, aportando casi la mitad de su población.`,<br/>,<br/>,
     `Los primeros datos escritos sobre Otero aparecen en el `,<span style={{fontWeight: 'bold'}}>Siglo IX</span>,`, aunque su situación primitiva no estaba en el lugar en que hoy lo conocemos. La antigua ubicación estaba cerca de lo que los oriundos de este pueblo conocen como `,<span style={{fontWeight: 'bold'}}>“El Alto de las Eras”</span>,`, el lugar llamado el Castro.
     Desde este lugar se divisa todo el territorio, tanto hacia el este como hacia el oeste. Actualmente se ubica aquí la base de operaciones de la autopista AP66`,<br/>,<br/>,`
     Otero de las Dueñas perteneció hasta 1954 a la diócesis de Oviedo, fecha en que pasa a la de León, como resultado de la reestructuración territorial de estas diócesis. `,<span style={{fontWeight: 'bold'}}>La Iglesia</span>,`, según nos cuenta D. Antonio Viñayo, abad emérito de San Isidoro e hijo de este pueblo, `,<span style={{fontWeight: 'bold'}}>fue construida a principios del siglo pasado</span>,`. 
@@ -137,7 +137,7 @@ export const santiago0 = [
     `Santiago de las Villas es un pequeño pueblo que reposa en un pequeño valle a la sombra de altas laderas montañosas y de la representativa Peña del Castillo. Debido a este ángulo en el cual el pueblo se asienta se le apoda habitualmente `,<span style={{fontWeight: 'bold'}}>el Rincón</span>,`, que es una forma directa de bautizar su situación esquinada respecto al curso del río que da nombre a la zona.`,<br/>,<br/>,`
     El valle de Santiago da curso al `,<span style={{fontWeight: 'bold'}}>río Torre</span>,`, que nace unos kilómetros montaña arriba y que sin ser demasiado caudaloso el agua fluye durante todo el año, sin llegar nunca a secarse, en suficiente abundancia para suplir a todos los habitantes del Rincón.
     Como edificio más significativo del pueblo nos encontramos con su preciosa `,<span style={{fontWeight: 'bold'}}>Iglesia de San Cipriano</span>,`, que ha sido reformada recientemente dando lugar a un edifico en perfecto estado cuyos orígenes datan de incluso antes del siglo X.`,<br/>,<br/>,`
-    El pueblo se asienta a la sombra de `,<span style={{fontWeight: 'bold'}}>la Peña del Castillo</span>,`, una gran peña que se puede observar desde toda la localidad y que cualquiera que visite el pueblo la asociará con el mismo. La peña del Castillo tiene un peñasco gemelo al otro lado del río, desde donde se controlaba este paso natural. Por la ladera rocosa se observa `,<span style={{fontWeight: 'bold'}}>el canal tallado por los romanos</span>,` para conducir el agua hasta las médulas del Órbigo, en Villarroquel.`
+    El pueblo se asienta a la sombra de `,<span style={{fontWeight: 'bold'}}>la Peña del Castillo</span>,`, una gran peña que se puede observar desde toda la localidad y que cualquiera que visite el pueblo la asociará con el mismo. La peña del Castillo tiene un peñasco gemelo al otro lado del río, desde donde se controlaba este paso natural. Por la ladera rocosa se observa `,<span style={{fontWeight: 'bold'}}>el canal tallado por los romanos</span>,` en época Romano Altoimperial para conducir el agua desde el río Torre hasta las médulas del Órbigo, en Villarroquel. Este canal es apodado `,<span style={{fontWeight: 'bold'}}>La Presa de la Griega</span>,`, yacimiento incluido en el Inventario Arqueológico de Castilla y León.`
 ]
 
 export const santiago1 = [
