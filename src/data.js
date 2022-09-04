@@ -2,7 +2,7 @@ export const secciones = [
     {id:0, title: "INICIO", content: Array()},
     {id:1, title: "AYUNTAMIENTO", content: Array("Corporación Municipal", "Normativa Municipal", "Tablón de Anuncios", "Teléfonos de Interés", "Trámites y Solicitudes", "Eventos", "Noticias")},
     {id:2, title: "LOCALIZACIÓN", content: Array()},
-    {id:3, title: "MUNICIPIO", content: Array("Datos del Municipio", "Estadísticas", "Introducción Histórica", "Escudo y Bandera", "Galería Fotográfica", "El Tiempo")},
+    {id:3, title: "MUNICIPIO", content: Array("Datos del Municipio", "Estadísticas", "Introducción Histórica", "Escudo y Bandera", "El Tiempo")},
     {id:4, title: "LOS PUEBLOS", content: Array("Benllera","Carrocera","Cuevas de Viñayo","Otero de las Dueñas","Piedrasecha","Santiago de las Villas","Viñayo")},
     {id:5, title: "TURISMO Y OCIO", content: Array("Alojamientos","Bares y Restaurantes","Artesanía","Espacios Naturales y Patrimonio","Fiestas","Productos Agroalimentarios")},
     {id:6, title: "SEDE ELECTRÓNICA", content: Array()}
@@ -137,12 +137,13 @@ export const santiago0 = [
     `Santiago de las Villas es un pequeño pueblo que reposa en un pequeño valle a la sombra de altas laderas montañosas y de la representativa Peña del Castillo. Debido a este ángulo en el cual el pueblo se asienta se le apoda habitualmente `,<span style={{fontWeight: 'bold'}}>el Rincón</span>,`, que es una forma directa de bautizar su situación esquinada respecto al curso del río que da nombre a la zona.`,<br/>,<br/>,`
     El valle de Santiago da curso al `,<span style={{fontWeight: 'bold'}}>río Torre</span>,`, que nace unos kilómetros montaña arriba y que sin ser demasiado caudaloso el agua fluye durante todo el año, sin llegar nunca a secarse, en suficiente abundancia para suplir a todos los habitantes del Rincón.
     Como edificio más significativo del pueblo nos encontramos con su preciosa `,<span style={{fontWeight: 'bold'}}>Iglesia de San Cipriano</span>,`, que ha sido reformada recientemente dando lugar a un edifico en perfecto estado cuyos orígenes datan de incluso antes del siglo X.`,<br/>,<br/>,`
-    El pueblo se asienta a la sombra de `,<span style={{fontWeight: 'bold'}}>la Peña del Castillo</span>,`, una gran peña que se puede observar desde toda la localidad y que cualquiera que visite el pueblo la asociará con el mismo. La peña del Castillo tiene un peñasco gemelo al otro lado del río, desde donde se controlaba este paso natural. Por la ladera rocosa se observa `,<span style={{fontWeight: 'bold'}}>el canal tallado por los romanos</span>,` en época Romano Altoimperial para conducir el agua desde el río Torre hasta las médulas del Órbigo, en Villarroquel. Este canal es apodado `,<span style={{fontWeight: 'bold'}}>La Presa de la Griega</span>,`, yacimiento incluido en el Inventario Arqueológico de Castilla y León.`
+    El pueblo se asienta a la sombra de `,<span style={{fontWeight: 'bold'}}>la Peña del Castillo</span>,`, una gran peña que se puede observar desde toda la localidad y que cualquiera que visite el pueblo la asociará con el mismo. La peña del Castillo tiene un peñasco gemelo al otro lado del río, desde donde se controlaba este paso natural. Por la ladera rocosa se pueden observar dos canales: uno es `,<span style={{fontWeight: 'bold'}}>el canal tallado por los romanos</span>,` en época Romano Altoimperial para conducir el agua desde el río Torre hasta las médulas del Órbigo, en Villarroquel. Este canal es apodado `,<span style={{fontWeight: 'bold'}}>La Presa de la Griega</span>,`, yacimiento incluido en el Inventario Arqueológico de Castilla y León.
+    Respecto al otro canal se puede apreciar que desemboca en la dicha Peña del Castillo, donde según historias antiguas los romanos edificaron una fortificación (de aquí el posible origen del nombre de la peña) que servía como un peaje para aquellos viajeros que cruzaban el valle en dirección al norte de la península (uno de los pocos caminos existentes en la época).`
 ]
 
 export const santiago1 = [
-    `Según historias transmitidas de boca en boca a lo largo de los siglos el pueblo debe su nombre 
-    a siete villas de pueblos celtas que ocupaban el valle antes de la llegada de los romanos. Cuando estas villas se unificaron en una sola surgió el nombre de 'Santiago de las Villas'.`,<br/>,<br/>,`
+    `Según historias transmitidas de boca en boca a lo largo del tiempo el pueblo debe su nombre 
+    a siete pequeñas villas que ocupaban el valle durante la época medieval. Cuando estas villas se unificaron en una sola surgió el nombre de 'Santiago de las Villas'.`,<br/>,<br/>,`
     Desde Santiago, el valle del Torre da paso hacia Gordón por el ramal jacobeo ("`,<span style={{fontWeight: 'bold'}}>Viejo Camino de Santiago</span>,`" o "Camino de la Montaña") que aprovechó el cordel trashumante de la Vereda de Buiza: la leyenda de Camposagrado vendría a justificar la tradición del peregrinaje. Actualmente está en proceso de recuperación este Camino Olvidado.`
 ]
 

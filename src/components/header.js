@@ -192,6 +192,12 @@ const Header = () => {
     if(page==="mapaweb"){
       navigate('/mapaweb', {replace: true});
     }
+    if(page==="Noticias"){
+      navigate('/ayt/noticias', {replace: true});
+    }
+    if(page==="Eventos"){
+      navigate('/ayt/eventos', {replace: true});
+    }
 
     if(page==="contacto"){navigate('/contacto', {replace: true});}
 

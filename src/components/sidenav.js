@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
-import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
@@ -69,15 +68,15 @@ function Sidenav({pageChange}){
                     </Grid>
                 </Paper>
                 </Button>
-                <Link rel="noopener noreferrer" target="_blank" href="https://google.es/" underline="none">
+                <Button onClick={() => navigate('/ayt/noticias', {replace: true})}>
                 <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/anuncio.jpg"})`, 
                 '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: 290*0.75, height:100, margin:1, padding:1, 
-                my: 1.5, ml:1, border: "1px solid white", backgroundPosition: 'center',}}>
+                mb: 1.5, ml:1, border: "1px solid white", backgroundPosition: 'center',}}>
                     <Grid container direction="row" alignItems="center" justifyContent="center">
                     <Typography display="inline"><Box sx={{ color:"white", fontWeight: 'bold'}}>NOTICIAS</Box></Typography>
                     </Grid>
                 </Paper>
-                </Link>
+                </Button>
             </Grid>
         </Box>
         </Grid>
