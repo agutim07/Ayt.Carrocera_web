@@ -35,10 +35,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Avatar from '@mui/material/Avatar';
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import AdminHeadbar from './adminHeadbar';
 import NoticiasAdmin from './secciones/noticiasAdmin';
 import EventosAdmin from './secciones/eventosAdmin';
+
+import Axios from 'axios';
 
 import {
     BrowserRouter as Router,
@@ -96,6 +99,7 @@ const Button2 = styled(Button)({
 
 function Admin() {
     const [logged, setLog] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const onLogOut = () => {
@@ -113,18 +117,30 @@ function Admin() {
         let specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     
         if(details.user==="" || details.password===""){
-          setError("Rellene todos los campos");
-          setOpen(true);
+            setError("Rellene todos los campos");
+            setOpen(true);
         }else if(specialChars.test(details.user) || specialChars.test(details.password)){
             setError("No se permiten caracteres especiales");
             setOpen(true);
         }else{
-            if(details.user==='a' && details.password==='b'){
-                setLog(true);
-            }else{
-                setError("Datos incorrectos");
-                setOpen(true);
-            }
+            setLoading(true);
+
+            Axios.post('http://localhost:3001/api/login', {username:details.user, pass:details.password})
+            .then((response) => {
+                if(!response.data){
+                    setError("Datos incorrectos");
+                    setOpen(true);
+                }else{
+                    setLog(true);
+                }
+                setLoading(false);
+            }).catch((error) => {
+                if(error.response){
+                    setError("Error al intentar conectar con la base de datos");
+                    setOpen(true);
+                }
+                setLoading(false);
+            });
         }
        };
     
@@ -193,6 +209,11 @@ function Admin() {
                     <strong>{error}</strong>
                     </MuiAlert>
                 </Collapse>
+
+                {(loading) ? (
+                <Box sx={{ display: 'flex', my:1 }}>
+                    <CircularProgress />
+                </Box>) : ""}
             
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <CustomTextField margin="normal" required fullWidth id="user" label="Usuario" name="user" autoComplete="user"  InputLabelProps={{sx:{ color: 'white' }}} 

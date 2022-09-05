@@ -46,6 +46,8 @@ import {
   Link
 } from "react-router-dom";
 
+import Axios from 'axios';
+
 const theme = createTheme({
   typography: {
     fontFamily: [
@@ -128,6 +130,12 @@ function App() {
     delay(400).then( () => {
       setChange(true);
     })
+  }
+
+  function createUser(){
+    Axios.post("http://localhost:3001/api/register", {username:'ayuntamientodecarrocera', pass:'P2404200D'}).then(() => {
+      console.log("success");
+    });
   }
 
   return (
