@@ -169,7 +169,7 @@ function Admin() {
                 </Grid>
             ) : (
             <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center" style={{ minHeight: '100vh'}}>
-                <Avatar variant="rounded" sx={{ m: 1, width: 110, height: 130 }} src="/escudo.png" />
+                <Avatar variant="rounded" sx={{ m: 1, width: 110, height: 130 }} src="/images/escudo.png" />
                 <Typography component="h1" variant="h5">
                 Iniciar sesión
                 </Typography>

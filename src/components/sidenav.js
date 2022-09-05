@@ -60,7 +60,7 @@ function Sidenav({pageChange}){
                     </Link>
                 </Paper>
                 <Button onClick={() => navigate('/contacto', {replace: true})}>
-                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/contacto.jpg"})`, 
+                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/images/contacto.jpg"})`, 
                 '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: "100%", height:115, margin:1, padding:1, 
                 my: 1.5, ml:1, border: "1px solid white"}}>
                     <Grid container direction="row" alignItems="center" justifyContent="center">
@@ -69,7 +69,7 @@ function Sidenav({pageChange}){
                 </Paper>
                 </Button>
                 <Button onClick={() => navigate('/ayt/noticias', {replace: true})}>
-                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/anuncio.jpg"})`, 
+                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/images/anuncio.jpg"})`, 
                 '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: 290*0.75, height:100, margin:1, padding:1, 
                 mb: 1.5, ml:1, border: "1px solid white", backgroundPosition: 'center',}}>
                     <Grid container direction="row" alignItems="center" justifyContent="center">
@@ -92,17 +92,17 @@ function Sidenav({pageChange}){
 
             <Grid container direction="column" justifyContent="center" alignItems="center">
                 <Link rel="noopener noreferrer" target="_blank" href="https://www.dipuleon.es/" underline="none">
-                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/diputacion.jpg"})`, 
+                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/images/diputacion.jpg"})`, 
                 '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"#000000", width: 290*0.75, height:70, margin:1, padding:1, 
                 my: 1.5, ml:1, border: "1px solid black"}} />
                 </Link>
                 <Link rel="noopener noreferrer" target="_blank" href="https://www.jcyl.es/" underline="none">
-                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/jcyl.jpg"})`, 
+                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/images/jcyl.jpg"})`, 
                 '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"#000000", width: 290*0.75, height:65, margin:1, padding:1, 
                 my: 1.5, ml:1, border: "1px solid black"}} />
                 </Link>
                 <Link rel="noopener noreferrer" target="_blank" href="http://www.cuatrovalles.es/" underline="none">
-                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/4valles.jpg"})`, 
+                <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/images/4valles.jpg"})`, 
                 '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"#000000", width: 290*0.75, height:40, margin:1, padding:1, 
                 my: 1.5, ml:1, border: "1px solid black"}} />
                 </Link>

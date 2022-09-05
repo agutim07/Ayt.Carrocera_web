@@ -290,7 +290,7 @@ function Inicio({noticia,evento}){
             <Card sx={{ maxWidth: "90%", m:2}}>
                 <CardMedia
                     component="img"
-                    image="/casa_consistorial.jpg"
+                    image="/images/casa_consistorial.jpg"
                     alt="casa consistorial"
                 />
                 <CardContent>

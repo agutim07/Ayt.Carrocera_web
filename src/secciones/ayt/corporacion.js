@@ -28,7 +28,7 @@ const Corporacion = ({pageChange}) => {
             <Card sx={{display:"flex", m:1, width:"87%", border:1, borderColor: 'black', borderRadius: '9px'}}>
                 <Grid container direction="column" justifyContent="center" alignItems="center">
                 <CardContent>
-                    <CardMedia sx={{maxHeight:150}} component="img" image="/psoe.png"/>
+                    <CardMedia sx={{maxHeight:150}} component="img" image="/images/psoe.png"/>
                     <Grid container sx={{mb:1}} direction="row" alignItems="center">
                         <Grid item xs={3} align="left">
                             <Typography display="inline" sx={{fontSize:13,mr:1,color:'red'}}>Alcalde</Typography>
@@ -82,7 +82,7 @@ const Corporacion = ({pageChange}) => {
             <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center'}}>
             <Card sx={{display:"flex", m:1, width:"75%", border:1, borderColor: 'black', borderRadius: '9px'}}>
                 <Grid container sx={{maxWidth:"35%", mr:2}}spacing={0} direction="column" justifyContent="center">
-                    <CardMedia  component="img" image="/psoe.png"/>
+                    <CardMedia  component="img" image="/images/psoe.png"/>
                 </Grid>
                 <Box sx={{ width:"65%", display: 'flex', flexDirection: 'column' }}>
                 <CardContent>
@@ -135,7 +135,7 @@ const Corporacion = ({pageChange}) => {
             <Card sx={{display:"flex", m:1, width:"87%", border:1, borderColor: 'black', borderRadius: '9px'}}>
                 <Grid container direction="column" justifyContent="center" alignItems="center">
                 <CardContent>
-                    <CardMedia sx={{maxHeight:200}} component="img" image="/pp.png"/>
+                    <CardMedia sx={{maxHeight:200}} component="img" image="/images/pp.png"/>
                     <Grid container sx={{mb:1}} direction="row" alignItems="center">
                         <Grid item xs={2} align="left" >
                             <Typography display="inline" sx={{fontSize:12,mr:2,color:'blue'}}>Concejal</Typography>
@@ -162,7 +162,7 @@ const Corporacion = ({pageChange}) => {
             <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', mb:4 }}>
             <Card sx={{display:"flex", m:1, width:"75%", border:1, borderColor: 'black', borderRadius: '9px'}}>
                 <Grid container sx={{maxWidth:"35%", mr:2}}spacing={0} direction="column" justifyContent="center">
-                    <CardMedia sx={{width:"70%"}} component="img" image="/pp.png"/>
+                    <CardMedia sx={{width:"70%"}} component="img" image="/images/pp.png"/>
                 </Grid>
                 <Box sx={{ width:"65%", display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <CardContent>

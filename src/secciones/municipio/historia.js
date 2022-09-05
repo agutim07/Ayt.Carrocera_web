@@ -43,7 +43,7 @@ const Historia = ({pageChange}) => {
                 <Grid container sx={{display: { xs: 'none', md: 'flex' }}} spacing={0} direction="column" justifyContent="center">
                     <CardMedia
                         component="img"
-                        image="/vacceos.png"
+                        image="/images/vacceos.png"
                         alt="green iguana"
                     />
                 </Grid>
@@ -51,7 +51,7 @@ const Historia = ({pageChange}) => {
                 <CardContent>
                     <CardMedia sx={{display: { xs: 'flex', md: 'none' }, mb:2}}
                         component="img"
-                        image="/vacceos.png"
+                        image="/images/vacceos.png"
                         alt="green iguana"
                     />
                     <Typography gutterBottom variant="h5" component="div">

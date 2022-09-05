@@ -55,7 +55,7 @@ const Carrocera = () => {
         if(to==="casa"){window.open("https://www.casasrurales.net/casas-rurales/la-oca--c2039", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/carrocera0.jpg', '/carrocera1.jpg', '/carrocera2.jpg']
+    const images = ['/images/carrocera0.jpg', '/images/carrocera1.jpg', '/images/carrocera2.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);

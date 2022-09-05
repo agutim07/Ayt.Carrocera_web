@@ -49,6 +49,11 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import {Link} from "react-router-dom";
+import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab';
+import EventosCard from './eventosCard';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
 
 const Button2 = styled(Button)({
     backgroundColor: '#e53935',
@@ -63,96 +68,62 @@ const Button2 = styled(Button)({
 
 const EventosAdmin = () => {
     const eventos = [
-        {id:0, title: 'Comida de San Cipriano', loc:'Santiago de las Villas', fecha:'9 de Septiembre, 2022', image: '/santiago3.jpg', doc:'', content: `En honor al patrón del pueblo`},
+        {id:0, title: 'Comida de San Cipriano', loc:'Santiago de las Villas', fecha:'9 de Septiembre, 2022', image: '/images/santiago3.jpg', doc:'', content: `En honor al patrón del pueblo`},
         {id:1, title: 'Fiesta de Piedrasecha', loc:'', fecha:'16 de Septiembre, 2022', image: '', doc:'/Publicación_Bando_BANDO SUBVENCIÓN MATERIAL ESCOLAR 2022_2023.pdf', content: ``}
     ]
 
-    const [expanded, setExpanded] = React.useState([]);
-    for(let i=0; i<eventos.length && expanded.length<eventos.length; i++){
-        expanded.push(false);
-    }
+    const [details, setDetails] = useState();
 
-    const handleExpandClick = (num) => {
-        let newEvents = expanded;
-        if(!newEvents[num]){
-            newEvents[num] = true;
-        }else{
-            newEvents[num] = false;
+    const handleSubmit = () => {
+        if (details.title === "" || details.precio === "") {
+        } else {
         }
-
-        setExpanded([...newEvents]);
-    };
+        setOpen(false);
+    }
     
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return(
-        <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
+        <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
+        <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center">
+        <Fab variant="extended" size="medium" color="primary" aria-label="add" onClick={handleClickOpen} sx={{maxWidth:"15%"}}>
+            <AddIcon sx={{ mr: 1 }} />
+            Añadir Evento
+        </Fab>
+        </Grid>
         <Grid container rowSpacing={2} columnSpacing={2} padding={1} direction="row" sx={{mt:1, mb:2}} alignItems="center">
         {eventos.map((card) => (
             <Grid item key={card.id} xs={12} sm={6}>
-                <Card elevation={12}>
-                <CardHeader
-                    avatar={
-                        <Avatar sx={{ bgcolor: green[500] }} variant="rounded">
-                            <CalendarMonthIcon />
-                        </Avatar>
-                    }
-                    subheader={card.fecha}
-                />
-                {(card.loc !== '') ? (
-                <CardHeader
-                    avatar={
-                        <Avatar sx={{ bgcolor: green[500] }} variant="rounded">
-                            <LocationOnIcon />
-                        </Avatar>
-                    }
-                    subheader={card.loc}
-                />
-                ) : ""}
-                {(card.image !== '') ? (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
-                <CardMedia
-                    sx={{width:"90%"}}
-                    component="img"
-                    image={card.image}
-                    alt="imagen de noticia"
-                /> 
-                </div>) : ""}
-                <CardContent>
-                    <Typography gutterBottom sx={{fontWeight:'bold',fontSize:{xs:15,sm:18}}} component="div">
-                    {card.title}
-                    </Typography>
-                    {(card.doc !== '') ? (
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
-                    <Link to={card.doc} style={{ textDecoration: 'none' }} target="_blank" download>
-                    <Button2 sx={{mt:1}} variant="contained" startIcon={<PictureAsPdfIcon />} endIcon={<DownloadForOfflineIcon />}>
-                        Documento
-                    </Button2>
-                    </Link>
-                    </div>
-                    ) : ""}
-                </CardContent>
-                {(card.content !== '') ? (
-                    <div>
-                    <CardActions disableSpacing>
-                    <Grid container justifyContent="flex-end">
-                    <Button sx={{color:'black'}} onClick={() => handleExpandClick(card.id)} endIcon={expanded[card.id] ? <ExpandLess sx={{color:'black'}} /> : <ExpandMore sx={{color:'black'}}/>} >
-                        LEER MÁS
-                    </Button>
-                    </Grid>
-                    </CardActions>
-                    <Collapse in={expanded[card.id]} timeout="auto" unmountOnExit>
-                        <CardContent>
-                        <Typography>
-                            {card.content}
-                        </Typography>
-                        </CardContent>
-                    </Collapse>
-                    </div>
-                ) : ""}
-                </Card>
+                <EventosCard card={card} />
             </Grid>
         ))}
         </Grid>
+        <Box sx={{position: "absolute", bottom: 20, right: 20}} >
+            <Dialog fullWidth="300px" sx={{width:"50"}} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
+                <DialogTitle id="form-dialog-title">Añadir Contenido</DialogTitle>
+                <DialogContent>
+                    <FormControl fullWidth>
+                    <br></br>
+                    <TextField autoFocusmargin="dense" id="titulo" label="Título" type="text" fullWidth />
+                    <br></br>
+                    <TextField multiline rows={2} autoFocusmargin="dense" id="portada" label="Portada" type="text" fullWidth  />
+                    <br></br>
+                    </FormControl>
+                    <br></br>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleSubmit}> Añadir </Button>
+                    <Button onClick={handleClose}> Cancelar </Button>
+                </DialogActions>
+            </Dialog>
+        </Box>
         </Box>
     );
 }

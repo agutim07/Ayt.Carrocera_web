@@ -58,7 +58,7 @@ export const Casona = () => {
         <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
             <CardMedia
                 component="img"
-                image="/benllera_casona.jpg"
+                image="/images/benllera_casona.jpg"
             />
             <CardContent display="flex" justifyContent="center">
                 <Typography align="center" gutterBottom variant="h5" component="div">
@@ -81,7 +81,7 @@ const Benllera = () => {
         if(to==="casa2"){window.open("https://entrevalles.info/", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/benllera0.jpg', '/benllera1.jpg', '/benllera2.jpg']
+    const images = ['/images/benllera0.jpg', '/images/benllera1.jpg', '/images/benllera2.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);

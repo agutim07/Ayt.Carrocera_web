@@ -44,18 +44,18 @@ const Emblemas = ({pageChange}) => {
                 <Grid sx={{display: { xs: 'none', md: 'flex' }, maxWidth:"30%"}} container spacing={0} direction="column" justifyContent="center">
                     <CardMedia
                         component="img"
-                        image="/escudo2.png"
+                        image="/images/escudo2.png"
                         alt="green iguana"
-                        onClick={() => handleClickOpen("/escudo2.png")}
+                        onClick={() => handleClickOpen("/images/escudo2.png")}
                     />
                 </Grid>
                 <Box sx={{ display: 'flex', flexDirection: 'column'}}> 
                 <CardContent>
                     <CardMedia sx={{display: { xs: 'flex', md: 'none' }, mb:2}}
                         component="img"
-                        image="/escudo2.png"
+                        image="/images/escudo2.png"
                         alt="green iguana"
-                        onClick={() => handleClickOpen("/escudo2.png")}
+                        onClick={() => handleClickOpen("/images/escudo2.png")}
                     />
                     <Typography gutterBottom variant="h5" component="div">
                     <Box sx={{ fontWeight: 'bold'}}>Escudo</Box>
@@ -77,18 +77,18 @@ const Emblemas = ({pageChange}) => {
                 <Grid container sx={{display: { xs: 'none', md: 'flex' }, maxWidth:"30%"}} spacing={0} direction="column" justifyContent="center">
                     <CardMedia
                         component="img"
-                        image="/bandera.png"
+                        image="/images/bandera.png"
                         alt="green iguana"
-                        onClick={() => handleClickOpen("/bandera.png")}
+                        onClick={() => handleClickOpen("/images/bandera.png")}
                     />
                 </Grid>
                 <Box sx={{ display: 'flex', flexDirection: 'column'}}> 
                 <CardContent>
                     <CardMedia sx={{display: { xs: 'flex', md: 'none' }, mb:2}}
                         component="img"
-                        image="/bandera.png"
+                        image="/images/bandera.png"
                         alt="green iguana"
-                        onClick={() => handleClickOpen("/bandera.png")}
+                        onClick={() => handleClickOpen("/images/bandera.png")}
                     />
                     <Typography gutterBottom variant="h5" component="div">
                     <Box sx={{ fontWeight: 'bold'}}>Bandera</Box>

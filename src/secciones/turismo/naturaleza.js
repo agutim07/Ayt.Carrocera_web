@@ -97,7 +97,7 @@ const Naturaleza = () => {
         if(nuevo==="torre"){setTorreState(true);};
     }
 
-    const images = ['/torre0.jpg', '/torre1.jpg', '/torre2.jpg', '/torre3.jpg', '/torre4.jpg', '/torre5.jpg', '/torre6.jpg',]
+    const images = ['/images/torre0.jpg', '/images/torre1.jpg', '/images/torre2.jpg', '/images/torre3.jpg', '/images/torre4.jpg', '/images/torre5.jpg', '/images/torre6.jpg',]
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);

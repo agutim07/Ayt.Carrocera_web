@@ -65,15 +65,15 @@ function App() {
   ]
 
   const eventos = [
-    {id:0, title: 'Comida de San Cipriano', loc:'Santiago de las Villas', fecha:'9 de Septiembre, 2022', image: '/santiago3.jpg', doc:'', content: `En honor al patrón del pueblo`},
+    {id:0, title: 'Comida de San Cipriano', loc:'Santiago de las Villas', fecha:'9 de Septiembre, 2022', image: '/images/santiago3.jpg', doc:'', content: `En honor al patrón del pueblo`},
     {id:1, title: 'Fiesta de Piedrasecha', loc:'', fecha:'16 de Septiembre, 2022', image: '', doc:'/Publicación_Bando_BANDO SUBVENCIÓN MATERIAL ESCOLAR 2022_2023.pdf', content: ``}
   ]
 
   const images = [
-    "/back0.jpg",
-    "/back1.png",
-    "/back2.png",
-    "/back3.jpg"
+    "/images/back0.jpg",
+    "/images/back1.png",
+    "/images/back2.png",
+    "/images/back3.jpg"
   ]
   const [img, setImg] = useState(images[0]);
   const [change, setChange] = React.useState(true);
@@ -201,7 +201,7 @@ function App() {
           <Grid container direction="row" alignItems="center" justifyContent="center">
             <Grid item>
               <Box component="img" sx={{ mr:2, height: 80*1.094, width: 80}}
-              alt="Escudo de Carrocera." src="/escudo.png" />
+              alt="Escudo de Carrocera." src="/images/escudo.png" />
             </Grid>
             <Grid item align="left">
               <Typography variant="body1">

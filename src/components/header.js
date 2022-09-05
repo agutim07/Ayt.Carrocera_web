@@ -228,7 +228,7 @@ const Header = () => {
               sx={{ ml: 1, "&.MuiButtonBase-root:hover": {bgcolor: "transparent"}}}
             >
             <Box component="img" sx={{ height: logoWidth*1.094, width: logoWidth}}
-            alt="Escudo de Carrocera." src="/escudo.png" />
+            alt="Escudo de Carrocera." src="/images/escudo.png" />
             </IconButton>
           </Grid>
           <Grid item xs={7} sm={4} align="left">
@@ -345,7 +345,7 @@ const Header = () => {
         </List>
         <Grid container direction="row" justifyContent="center" alignItems="center">
         <Box component="img" sx={{ mt:2, height: logoWidth*1.094, width: logoWidth}} alt="Escudo de Carrocera." 
-        src="/escudo.png" />
+        src="/images/escudo.png" />
         </Grid>
       </Drawer>
     </div>

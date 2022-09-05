@@ -55,7 +55,7 @@ const Cuevas = () => {
         if(to==="casa"){window.open("http://www.encuevas.com/", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/cuevas0.jpg', '/cuevas1.jpg', '/cuevas2.jpg']
+    const images = ['/images/cuevas0.jpg', '/images/cuevas1.jpg', '/images/cuevas2.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);

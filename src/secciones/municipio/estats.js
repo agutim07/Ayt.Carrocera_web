@@ -60,9 +60,9 @@ const Estadisticas = ({pageChange}) => {
                 </CardContent>
                 <CardMedia
                     component="img"
-                    image="/grafico_poblacion.png"
+                    image="/images/grafico_poblacion.png"
                     alt="green iguana"
-                    onClick={() => handleClickOpen("/grafico_poblacion.png")}
+                    onClick={() => handleClickOpen("/images/grafico_poblacion.png")}
                 />
             </Card>  
             </Grid>
@@ -76,9 +76,9 @@ const Estadisticas = ({pageChange}) => {
                 </CardContent>
                 <CardMedia
                     component="img"
-                    image="/grafico_poblacion2.png"
+                    image="/images/grafico_poblacion2.png"
                     alt="green iguana"
-                    onClick={() => handleClickOpen("/grafico_poblacion2.png")}
+                    onClick={() => handleClickOpen("/images/grafico_poblacion2.png")}
                 />
             </Card>  
             </Grid>
@@ -92,9 +92,9 @@ const Estadisticas = ({pageChange}) => {
                 </CardContent>
                 <CardMedia
                     component="img"
-                    image="/grafico_poblacion3.png"
+                    image="/images/grafico_poblacion3.png"
                     alt="green iguana"
-                    onClick={() => handleClickOpen("/grafico_poblacion3.png")}
+                    onClick={() => handleClickOpen("/images/grafico_poblacion3.png")}
                 />
             </Card>  
             </Grid>

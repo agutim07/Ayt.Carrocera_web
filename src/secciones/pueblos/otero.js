@@ -63,7 +63,7 @@ export const Monasterio = () => {
         <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
             <CardMedia
                 component="img"
-                image="/otero_monasterio.jpg"
+                image="/images/otero_monasterio.jpg"
             />
             <CardContent display="flex" justifyContent="center">
                 <Typography align="center" gutterBottom variant="h5" component="div">
@@ -85,7 +85,7 @@ const Otero = () => {
         if(to==="hotel2"){handleOpenAlert();}
     }
 
-    const images = ['/otero0.jpg', '/otero1.jpg', '/otero2.jpg', '/otero3.jpg']
+    const images = ['/images/otero0.jpg', '/images/otero1.jpg', '/images/otero2.jpg', '/images/otero3.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);

@@ -24,7 +24,7 @@ const Telefonos = () => {
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>   
                     <CardContent sx={{ flex: '1 0 auto' }}>
                         <Box sx={{ display: { xs: 'block', md: 'none' }}}>
-                        <CardMedia component="img" image="/escudo.png" />
+                        <CardMedia component="img" image="/images/escudo.png" />
                         </Box>
                         <Typography gutterBottom variant="h5" component="div">
                             Ayuntamiento
@@ -37,7 +37,7 @@ const Telefonos = () => {
                     </CardContent>
                     </Box>
                     <Grid container spacing={0} sx={{ display: { xs: 'none', md: 'block' }}} direction="column" justifyContent="center">
-                        <CardMedia sx={{maxWidth:120}} component="img" image="/escudo.png" />
+                        <CardMedia sx={{maxWidth:120}} component="img" image="/images/escudo.png" />
                     </Grid>
                 </Card>
                 </Grid>
@@ -47,7 +47,7 @@ const Telefonos = () => {
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>   
                     <CardContent sx={{ flex: '1 0 auto' }}>
                         <Box sx={{ display: { xs: 'block', md: 'none' }}}>
-                        <CardMedia maxWidth="90%" component="img" image="/sacyl.png" />
+                        <CardMedia maxWidth="90%" component="img" image="/images/sacyl.png" />
                         </Box>
                         <Typography gutterBottom variant="h5" component="div">
                             Centro de salud
@@ -60,7 +60,7 @@ const Telefonos = () => {
                     </CardContent>
                     </Box>
                     <Grid container sx={{ display: { xs: 'none', md: 'block' }}} direction="column" spacing={0} justifyContent="center" justify="center">
-                        <CardMedia sx={{maxWidth:110,mt:1}} component="img" image="/sacyl.png" />
+                        <CardMedia sx={{maxWidth:110,mt:1}} component="img" image="/images/sacyl.png" />
                     </Grid>
                 </Card>
                 </Grid>
@@ -70,7 +70,7 @@ const Telefonos = () => {
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>   
                     <CardContent sx={{ flex: '1 0 auto' }}>
                         <Box sx={{ display: { xs: 'block', md: 'none' }}}>
-                        <CardMedia maxWidth="90%" component="img" image="/farmacia.png" />
+                        <CardMedia maxWidth="90%" component="img" image="/images/farmacia.png" />
                         </Box>
                         <Typography gutterBottom variant="h5" component="div">
                             Farmacia
@@ -83,7 +83,7 @@ const Telefonos = () => {
                     </CardContent>
                     </Box>
                     <Grid container sx={{ display: { xs: 'none', md: 'block' }}} direction="column" spacing={0} justifyContent="center" justify="center">
-                        <CardMedia component="img" image="/farmacia.png" />
+                        <CardMedia component="img" image="/images/farmacia.png" />
                     </Grid>
                 </Card>
                 </Grid>
@@ -93,7 +93,7 @@ const Telefonos = () => {
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>   
                     <CardContent sx={{ flex: '1 0 auto' }}>
                         <Box sx={{ display: { xs: 'block', md: 'none' }}}>
-                        <CardMedia sx={{maxWidth:"90%"}} component="img" image="/guardiacivil.png" />
+                        <CardMedia sx={{maxWidth:"90%"}} component="img" image="/images/guardiacivil.png" />
                         </Box>
                         <Typography gutterBottom variant="h5" component="div">
                             Guardia Civil
@@ -106,7 +106,7 @@ const Telefonos = () => {
                     </CardContent>
                     </Box>
                     <Grid container sx={{ display: { xs: 'none', md: 'block' }}} direction="column" spacing={0} justifyContent="center" justify="center">
-                        <CardMedia sx={{maxWidth:90}} component="img" image="/guardiacivil.png" />
+                        <CardMedia sx={{maxWidth:90}} component="img" image="/images/guardiacivil.png" />
                     </Grid>
                 </Card>
                 </Grid>
@@ -117,7 +117,7 @@ const Telefonos = () => {
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>   
                     <CardContent sx={{ flex: '1 0 auto' }}>
                         <Box sx={{ display: { xs: 'block', md: 'none' }}}>
-                        <CardMedia maxWidth="100%" component="img" image="/4valles_perfil.png" />
+                        <CardMedia maxWidth="100%" component="img" image="/images/4valles_perfil.png" />
                         </Box>
                         <Typography variant="h5" component="div">
                             Cuatro valles
@@ -133,7 +133,7 @@ const Telefonos = () => {
                     </CardContent>
                     </Box>
                     <Grid container sx={{ display: { xs: 'none', md: 'block' }}} direction="column" spacing={0} justifyContent="center" justify="center">
-                        <CardMedia component="img" image="/4valles_perfil.png" />
+                        <CardMedia component="img" image="/images/4valles_perfil.png" />
                     </Grid>
                 </Card>
                 </Grid>

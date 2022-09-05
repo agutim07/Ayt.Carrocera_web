@@ -67,7 +67,7 @@ export const Calderones = () => {
         <Card sx={{ maxWidth: "80%", m:2, border:1, borderColor: 'black'}}>
             <CardMedia
                 component="img"
-                image="/calderones0.jpg"
+                image="/images/calderones0.jpg"
             />
             <CardContent display="flex" justifyContent="center">
                 <Typography align="center" gutterBottom variant="h5" component="div">
@@ -77,25 +77,25 @@ export const Calderones = () => {
                 {calderones0}
                 </Typography>
                 <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
-                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones1.jpg"/>
+                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/images/calderones1.jpg"/>
                 </Grid>
                 <Typography align="center" variant="subtitle1">
                 {calderones1}
                 </Typography>
                 <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
-                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones2.jpg"/>
+                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/images/calderones2.jpg"/>
                 </Grid>
                 <Typography align="center" variant="subtitle1">
                 {calderones2}
                 </Typography>
                 <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
-                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones3.jpg"/>
+                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/images/calderones3.jpg"/>
                 </Grid>
                 <Typography align="center" variant="subtitle1">
                 {calderones3}
                 </Typography>
                 <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
-                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/calderones4.jpg"/>
+                <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "90%"}} src="/images/calderones4.jpg"/>
                 </Grid>
                 <Typography align="center" variant="subtitle1">
                 {calderones4}
@@ -118,7 +118,7 @@ const Piedrasecha = () => {
         if(to==="casa2"){window.open("http://www.hotelsantalucia.es/castillo-piedrasecha/", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/piedrasecha0.jpg', '/piedrasecha1.jpg', '/piedrasecha2.jpg', '/piedrasecha3.jpg', '/piedrasecha4.jpg']
+    const images = ['/images/piedrasecha0.jpg', '/images/piedrasecha1.jpg', '/images/piedrasecha2.jpg', '/images/piedrasecha3.jpg', '/images/piedrasecha4.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);

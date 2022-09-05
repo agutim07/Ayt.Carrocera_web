@@ -54,7 +54,7 @@ const Viñayo = () => {
         if(to==="web"){window.open("https://vinayo.wordpress.com/", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/viñayo0.jpg', '/viñayo1.jpg', '/viñayo2.jpg']
+    const images = ['/images/viñayo0.jpg', '/images/viñayo1.jpg', '/images/viñayo2.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);

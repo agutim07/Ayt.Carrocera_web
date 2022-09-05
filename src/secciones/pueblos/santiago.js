@@ -54,7 +54,7 @@ const Santiago = () => {
         if(to==="web"){window.open("http://www.santiagodelasvillas.com/", '_blank', 'noopener,noreferrer');}
     }
 
-    const images = ['/santiago0.jpg', '/santiago1.jpg', '/santiago2.jpg', '/santiago4.jpg']
+    const images = ['/images/santiago0.jpg', '/images/santiago1.jpg', '/images/santiago2.jpg', '/images/santiago4.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);
@@ -123,7 +123,7 @@ const Santiago = () => {
                 <Typography variant="subtitle1">
                     {santiago0}
                     <Grid container sx={{my:2}} direction="row" justifyContent="center" alignItems="center">
-                    <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "80%"}} src="/santiago3.jpg"/>
+                    <Box component="img" sx={{ objectFit: 'cover', borderRadius: '16px', maxWidth: "80%"}} src="/images/santiago3.jpg"/>
                     </Grid>
                     {santiago1}
                 </Typography>

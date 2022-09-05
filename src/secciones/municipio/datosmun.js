@@ -57,11 +57,11 @@ const Datosmun = ({pageChange}) => {
             <Grid item xs={12} md={6} align="center">
             <Box
                 component="img"
-                onClick={() => handleClickOpen("/datosmun_1.png")}
+                onClick={() => handleClickOpen("/images/datosmun_1.png")}
                 sx={{backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                     backgroundSize: 'cover', backgroundPosition: 'center', maxWidth:"90%"}}
                 alt="Galería."
-                src="/datosmun_1.png"
+                src="/images/datosmun_1.png"
             />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -176,11 +176,11 @@ const Datosmun = ({pageChange}) => {
         <Grid container spacing={0} direction="column" alignItems="center"justifyContent="center">
         <Box
             component="img"
-            onClick={() => handleClickOpen("/datosmun_2.png")}
+            onClick={() => handleClickOpen("/images/datosmun_2.png")}
             sx={{backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                 backgroundSize: 'cover', backgroundPosition: 'center', maxWidth:"60%", my:3}}
             alt="Galería."
-            src="/datosmun_2.png"
+            src="/images/datosmun_2.png"
         />
         </Grid>
 

@@ -76,7 +76,7 @@ const Pueblos = () => {
                 sx={{backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                     backgroundSize: 'cover', backgroundPosition: 'center', maxWidth:"90%"}}
                 alt="Galería."
-                src="/datosmun_1.png"
+                src="/images/datosmun_1.png"
             />
             </Grid>
             <Grid item xs={12} md={6} align="center">
