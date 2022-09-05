@@ -131,7 +131,6 @@ function App() {
   }
 
   return (
-    <Router>
     <ThemeProvider theme={theme}>
       <Box sx={{ mx: "7.5%"}}> 
         <Header />
@@ -182,6 +181,7 @@ function App() {
                 {getNewsPages()}
                 <Route path="/ayt/eventos" element={<Eventos events={eventos} pages={getNumPagesEvents()} page={1}/>} />
                 {getEventsPages()}
+                <Route path="/*" element={<p>No hay nada aquí: 404!</p>} />
               </Routes>
               </Grid>
           </Grid>
@@ -224,7 +224,6 @@ function App() {
         </Box>
       </Box>
     </ThemeProvider>
-    </Router>
   );
 }
 

@@ -26,7 +26,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
-import OpacityIcon from '@mui/icons-material/Opacity';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PublicIcon from '@mui/icons-material/Public';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -260,9 +260,9 @@ const Header = () => {
                   <ListItemIcon><ContactSupportIcon fontSize="small"/></ListItemIcon>
                   CONTACTO
                 </MenuItem>
-                <MenuItem sx={{color:"blue", fontSize: 15}}>
-                  <ListItemIcon><PolicyIcon fontSize="small"/></ListItemIcon>
-                  AVISO LEGAL
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/admin', {replace: true})}>
+                  <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
+                  ADMIN
                 </MenuItem>
               </Menu>
             </Grid>
