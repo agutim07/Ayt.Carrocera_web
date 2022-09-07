@@ -59,7 +59,7 @@ function Sidenav({pageChange}){
                         </Grid>
                     </Link>
                 </Paper>
-                <Button onClick={() => navigate('/contacto', {replace: true})}>
+                <Button onClick={() => navigate('/contacto')}>
                 <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/images/contacto.jpg"})`, 
                 '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: "100%", height:115, margin:1, padding:1, 
                 my: 1.5, ml:1, border: "1px solid white"}}>
@@ -68,7 +68,7 @@ function Sidenav({pageChange}){
                     </Grid>
                 </Paper>
                 </Button>
-                <Button onClick={() => navigate('/ayt/noticias', {replace: true})}>
+                <Button onClick={() => navigate('/ayt/noticias')}>
                 <Paper elevation={12} sx={{backgroundSize: "cover", backgroundImage: `url(${"/images/anuncio.jpg"})`, 
                 '&:hover': { opacity: [0.9, 0.9, 0.9], }, color:"darkred", width: 290*0.75, height:100, margin:1, padding:1, 
                 mb: 1.5, ml:1, border: "1px solid white", backgroundPosition: 'center',}}>

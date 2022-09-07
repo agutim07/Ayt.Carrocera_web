@@ -108,9 +108,9 @@ function Inicio({loadingNews,noticia,loadingEventos,evento}){
     const navigate = useNavigate();
   
     function pageChange(page) {
-        if(page==="telefonos"){navigate('/ayt/telefonos', {replace: true});}
-        if(page==="contacto"){navigate('/contacto', {replace: true});}
-        if(page==="pueblos"){navigate('/pueblos', {replace: true});}
+        if(page==="telefonos"){navigate('/ayt/telefonos');}
+        if(page==="contacto"){navigate('/contacto');}
+        if(page==="pueblos"){navigate('/pueblos');}
     }
 
     function sedeLink(){
@@ -257,7 +257,7 @@ function Inicio({loadingNews,noticia,loadingEventos,evento}){
                         </CardContent>
                         <CardActions disableSpacing>
                             <Grid container justifyContent="flex-end">
-                            <Button variant="outlined" sx={{color:'blue'}} onClick={() => navigate('/ayt/noticias', {replace: true})} endIcon={<AddIcon/>} >
+                            <Button variant="outlined" sx={{color:'blue'}} onClick={() => navigate('/ayt/noticias')} endIcon={<AddIcon/>} >
                                 MÁS
                             </Button>
                             </Grid>
@@ -293,7 +293,7 @@ function Inicio({loadingNews,noticia,loadingEventos,evento}){
                         </CardContent>
                         <CardActions disableSpacing>
                             <Grid container justifyContent="flex-end">
-                            <Button variant="outlined" sx={{color:'blue'}} onClick={() => navigate('/ayt/eventos', {replace: true})} endIcon={<AddIcon/>} >
+                            <Button variant="outlined" sx={{color:'blue'}} onClick={() => navigate('/ayt/eventos')} endIcon={<AddIcon/>} >
                                 MÁS
                             </Button>
                             </Grid>
@@ -317,7 +317,7 @@ function Inicio({loadingNews,noticia,loadingEventos,evento}){
                         </CardContent>
                         <CardActions disableSpacing>
                             <Grid container justifyContent="flex-end">
-                            <Button variant="outlined" sx={{color:'blue'}} onClick={() => navigate('/ayt/eventos', {replace: true})} endIcon={<AddIcon/>} >
+                            <Button variant="outlined" sx={{color:'blue'}} onClick={() => navigate('/ayt/eventos')} endIcon={<AddIcon/>} >
                                 VER EVENTOS ANTERIORES
                             </Button>
                             </Grid>

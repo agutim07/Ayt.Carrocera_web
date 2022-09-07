@@ -56,13 +56,13 @@ const Pueblos = () => {
     };
 
     const buttons = [
-        <ButtonHover onClick={() => navigate('/pueblos/benllera', {replace: true})} key="one">Benllera</ButtonHover>,
-        <ButtonHover onClick={() => navigate('/pueblos/carrocera', {replace: true})}key="two">Carrocera</ButtonHover>,
-        <ButtonHover onClick={() => navigate('/pueblos/cuevas', {replace: true})}key="three">Cuevas de Viñayo</ButtonHover>,
-        <ButtonHover onClick={() => navigate('/pueblos/otero', {replace: true})}key="four">Otero de las Dueñas</ButtonHover>,
-        <ButtonHover onClick={() => navigate('/pueblos/piedrasecha', {replace: true})}key="five">Piedrasecha</ButtonHover>,
-        <ButtonHover onClick={() => navigate('/pueblos/santiago', {replace: true})}key="six">Santiago de las Villas</ButtonHover>,
-        <ButtonHover onClick={() => navigate('/pueblos/vinayo', {replace: true})}key="seven">Viñayo</ButtonHover>
+        <ButtonHover onClick={() => navigate('/pueblos/benllera')} key="one">Benllera</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/carrocera')}key="two">Carrocera</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/cuevas')}key="three">Cuevas de Viñayo</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/otero')}key="four">Otero de las Dueñas</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/piedrasecha')}key="five">Piedrasecha</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/santiago')}key="six">Santiago de las Villas</ButtonHover>,
+        <ButtonHover onClick={() => navigate('/pueblos/vinayo')}key="seven">Viñayo</ButtonHover>
     ];
 
     return(

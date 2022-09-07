@@ -109,13 +109,13 @@ const Header = () => {
   const newPage = page => {
 
     if(page==="INICIO"){
-      navigate('/', {replace: true});
+      navigate('/');
     }
     if(page==="Teléfonos de Interés"){
-      navigate('/ayt/telefonos', {replace: true});
+      navigate('/ayt/telefonos');
     }
     if(page==="Corporación Municipal"){
-      navigate('/ayt/corporacion', {replace: true});
+      navigate('/ayt/corporacion');
     }
     if(page==="Trámites y Solicitudes"){
       window.open("https://aytocarrocera.sedelectronica.es/dossier.0", '_blank', 'noopener,noreferrer');
@@ -124,46 +124,46 @@ const Header = () => {
       window.open("https://aytocarrocera.sedelectronica.es/board", '_blank', 'noopener,noreferrer');
     }
     if(page==="LOCALIZACIÓN"){
-      navigate('/localizacion', {replace: true});
+      navigate('/localizacion');
     }
     if(page==="Normativa urbanística"){
-      navigate('/ayt/normativa/urbanistica', {replace: true});
+      navigate('/ayt/normativa/urbanistica');
     }
     if(page==="Datos del Municipio"){
-      navigate('/municipio/datos', {replace: true});
+      navigate('/municipio/datos');
     }
     if(page==="Estadísticas"){
-      navigate('/municipio/estadisticas', {replace: true});
+      navigate('/municipio/estadisticas');
     }
     if(page==="Introducción Histórica"){
-      navigate('/municipio/historia', {replace: true});
+      navigate('/municipio/historia');
     }
     if(page==="Escudo y Bandera"){
-      navigate('/municipio/emblemas', {replace: true});
+      navigate('/municipio/emblemas');
     }
     if(page==="El Tiempo"){
       window.open("https://www.eltiempo.es/carrocera.html", '_blank', 'noopener,noreferrer');
     }
     if(page==="Benllera"){
-      navigate('/pueblos/benllera', {replace: true});
+      navigate('/pueblos/benllera');
     }
     if(page==="Carrocera"){
-      navigate('/pueblos/carrocera', {replace: true});
+      navigate('/pueblos/carrocera');
     }
     if(page==="Cuevas de Viñayo"){
-      navigate('/pueblos/cuevas', {replace: true});
+      navigate('/pueblos/cuevas');
     }
     if(page==="Otero de las Dueñas"){
-      navigate('/pueblos/otero', {replace: true});
+      navigate('/pueblos/otero');
     }
     if(page==="Piedrasecha"){
-      navigate('/pueblos/piedrasecha', {replace: true});
+      navigate('/pueblos/piedrasecha');
     }
     if(page==="Santiago de las Villas"){
-      navigate('/pueblos/santiago', {replace: true});
+      navigate('/pueblos/santiago');
     }
     if(page==="Viñayo"){
-      navigate('/pueblos/vinayo', {replace: true});
+      navigate('/pueblos/vinayo');
     }
     if(page==="SEDE ELECTRÓNICA"){
       window.open("https://aytocarrocera.sedelectronica.es/", '_blank', 'noopener,noreferrer');
@@ -172,34 +172,34 @@ const Header = () => {
       window.open("https://aytocarrocera.sedelectronica.es/board/97521486-f59b-11de-b600-00237da12c6a/", '_blank', 'noopener,noreferrer');
     }
     if(page==="Alojamientos"){
-      navigate('/turismo/alojamientos', {replace: true});
+      navigate('/turismo/alojamientos');
     }
     if(page==="Bares y Restaurantes"){
-      navigate('/turismo/restaurantes', {replace: true});
+      navigate('/turismo/restaurantes');
     }
     if(page==="Artesanía"){
-      navigate('/turismo/artesania', {replace: true});
+      navigate('/turismo/artesania');
     }
     if(page==="Espacios Naturales y Patrimonio"){
-      navigate('/turismo/naturaleza', {replace: true});
+      navigate('/turismo/naturaleza');
     }
     if(page==="Fiestas"){
-      navigate('/turismo/fiestas', {replace: true});
+      navigate('/turismo/fiestas');
     }
     if(page==="Productos Agroalimentarios"){
-      navigate('/turismo/agroalimentarios', {replace: true});
+      navigate('/turismo/agroalimentarios');
     }
     if(page==="mapaweb"){
-      navigate('/mapaweb', {replace: true});
+      navigate('/mapaweb');
     }
     if(page==="Noticias"){
-      navigate('/ayt/noticias', {replace: true});
+      navigate('/ayt/noticias');
     }
     if(page==="Eventos"){
-      navigate('/ayt/eventos', {replace: true});
+      navigate('/ayt/eventos');
     }
 
-    if(page==="contacto"){navigate('/contacto', {replace: true});}
+    if(page==="contacto"){navigate('/contacto');}
 
     handleDrawerClose();
   }
@@ -260,7 +260,7 @@ const Header = () => {
                   <ListItemIcon><ContactSupportIcon fontSize="small"/></ListItemIcon>
                   CONTACTO
                 </MenuItem>
-                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/admin', {replace: true})}>
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/admin')}>
                   <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
                   ADMIN
                 </MenuItem>
