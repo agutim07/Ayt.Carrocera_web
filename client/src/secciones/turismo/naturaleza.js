@@ -132,7 +132,7 @@ const Naturaleza = () => {
                     </Grid>
                     <Grid item>
                         <Button2 onClick={() => changeState("cas")} variant="contained" startIcon={<CastleIcon />}>
-                            La Casona de la Señorita
+                            La Casona 
                         </Button2>
                     </Grid>
                     <Grid item>

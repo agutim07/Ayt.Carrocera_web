@@ -142,6 +142,12 @@ const MapaWeb = () => {
         if(page==="pueblos"){
             navigate('/pueblos', {replace: true});
         }
+        if(page==="Noticias"){
+          navigate('/ayt/noticias', {replace: true});
+        }
+        if(page==="Eventos"){
+          navigate('/ayt/eventos', {replace: true});
+        }
       }
 
     const [open, setOpen] = React.useState([]);
@@ -195,10 +201,10 @@ const MapaWeb = () => {
                 <ListItemButton onClick={() => nav("Normativa urbanística")} sx={{ pl: 4 }}>
                     <ListItemText sx={{color: 'white'}} primary="Normativa urbanística" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton onClick={() => nav("Eventos")} sx={{ pl: 4 }}>
                     <ListItemText sx={{color: 'white'}} primary="Eventos" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton onClick={() => nav("Noticias")} sx={{ pl: 4 }}>
                     <ListItemText sx={{color: 'white'}} primary="Noticias" />
                 </ListItemButton>
                 </List>

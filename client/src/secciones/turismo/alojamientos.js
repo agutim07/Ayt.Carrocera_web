@@ -125,11 +125,11 @@ const Alojamientos = () => {
                             {card.title}
                         </Typography>
                         <Typography variant="body2" color="text.secondary" >
-                            <ChipBlack icon={<BungalowIcon />} sx={{mr:{xs:0, sm:1}, mb:{xs:1, sm:0}}} {...buttonProps} label={card.tipo} variant="outlined" />
-                            <ChipBlack icon={<LocationCityIcon />} sx={{mr:{xs:0, sm:1}, mb:{xs:1, sm:0}}} {...buttonProps} label={card.loc} variant="outlined"/>
-                            <ChipBlack icon={<PhoneIcon />} onClick={() => handleClick(card.telf)} {...buttonProps} label={card.telf} variant="outlined" />
+                            <ChipBlack icon={<BungalowIcon />} sx={{margin:{xs:0, sm:0.5}, mb:{xs:1, sm:0}}} {...buttonProps} label={card.tipo} variant="outlined" />
+                            <ChipBlack icon={<LocationCityIcon />} sx={{margin:{xs:0, sm:0.5}, mb:{xs:1, sm:0}}} {...buttonProps} label={card.loc} variant="outlined"/>
+                            <ChipBlack icon={<PhoneIcon />} sx={{margin:{xs:0, sm:0.5}}} onClick={() => handleClick(card.telf)} {...buttonProps} label={card.telf} variant="outlined" />
                             {(card.web !== '') ? (
-                            <ChipBlack icon={<LanguageIcon />} sx={{ml:{xs:0, sm:1}, mt:{xs:1, sm:0}}} {...buttonProps} onClick={() => window.open(card.web, '_blank', 'noopener,noreferrer')} label='Web' variant="outlined"/>) : ""}
+                            <ChipBlack icon={<LanguageIcon />} sx={{margin:{xs:0, sm:0.5}, mt:{xs:1, sm:0}}} {...buttonProps} onClick={() => window.open(card.web, '_blank', 'noopener,noreferrer')} label='Web' variant="outlined"/>) : ""}
                         </Typography>
                        </Box> 
                     </CardContent>

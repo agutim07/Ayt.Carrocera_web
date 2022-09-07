@@ -237,7 +237,7 @@ const Header = () => {
             </Typography>
           </Grid>
           <Grid item xs={false} sm={1} align="right"/>
-          <Grid item sx={{ display: { xs: 'none', sm: 'block' }}} xs={1} align="right">
+          <Grid item sx={{ display: { xs: 'none', sm: 'block' }}} xs={1.5} align="right">
             <Grid container direction="row" alignItems="center">
               <Typography variant="h6" noWrap color="white" component="div" display="inline" align="right">
                   Menú
@@ -267,7 +267,7 @@ const Header = () => {
               </Menu>
             </Grid>
           </Grid>
-          <Grid item xs={1} align="right">
+          <Grid item xs={1} sm={0.5} align="right">
           </Grid>
         </Grid>
       </Toolbar>
