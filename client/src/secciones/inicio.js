@@ -41,6 +41,7 @@ import Avatar from '@mui/material/Avatar';
 import CardHeader from '@mui/material/CardHeader';
 import Paper from '@mui/material/Paper';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import {saludo} from '../data.js';
 import {useNavigate} from 'react-router-dom';
@@ -79,8 +80,9 @@ function a11yProps(index) {
     };
 }
 
-function Inicio({noticia,evento}){
+function Inicio({loadingNews,noticia,loadingEventos,evento}){
     const [value, setValue] = React.useState(0);
+    const CurrentDate = new Date();
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -113,6 +115,35 @@ function Inicio({noticia,evento}){
 
     function sedeLink(){
         window.open("https://aytocarrocera.sedelectronica.es/", '_blank', 'noopener,noreferrer');
+    }
+
+    const extractFecha = (date) => {
+        let dia;
+        if(date.slice(8,9)==='0'){
+            dia = date.slice(9,10);
+        }else{
+            dia = date.slice(8,10);
+        }
+        let fecha = dia + ' de '  + getMes(date.slice(5,7)) + ', ' + date.slice(0,4);
+        return fecha;
+    }
+
+    const getMes = (mes) => {
+        switch (mes){
+            case '01': return "Enero";
+            case '02': return "Febrero";
+            case '03': return "Marzo";
+            case '04': return "Abril";
+            case '05': return "Mayo";
+            case '06': return "Junio";
+            case '07': return "Julio";
+            case '08': return "Agosto";
+            case '09': return "Septiembre";
+            case '10': return "Octubre";
+            case '11': return "Noviembre";
+            case '12': return "Diciembre";
+            default : return "";
+        }
     }
 
     return(
@@ -206,28 +237,33 @@ function Inicio({noticia,evento}){
                 <Paper elevation={12} sx={{ml:{xs:1,sm:3}, mr:{xs:1,sm:0}, backgroundColor: "#222222", border: "1px pink"}}>
                     <Grid container direction="column" alignItems="center" justifyContent="center">
                         <Typography display="inline"><Box sx={{ color:"pink", fontSize:20, fontWeight: 'bold'}}>Última noticia</Box></Typography>
+                        {(loadingNews) ? (
+                        <Box sx={{ display: 'flex', my:1 }}>
+                            <CircularProgress />
+                        </Box>) : (
                         <Card elevation={12}  sx={{width:"100%"}}>
-                            <CardHeader
-                                avatar={
-                                    <Avatar sx={{ bgcolor: pink[500] }} variant="rounded">
-                                        <CalendarMonthIcon />
-                                    </Avatar>
-                                }
-                                subheader={noticia.fecha}
-                            />
-                            <CardContent>
-                                <Typography gutterBottom sx={{fontWeight:'bold',fontSize:{xs:15,sm:18}}} component="div">
-                                {noticia.title}
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <Grid container justifyContent="flex-end">
-                                <Button variant="outlined" sx={{color:'blue'}} onClick={() => navigate('/ayt/noticias', {replace: true})} endIcon={<AddIcon/>} >
-                                    MÁS
-                                </Button>
-                                </Grid>
-                            </CardActions>
+                        <CardHeader
+                            avatar={
+                                <Avatar sx={{ bgcolor: pink[500] }} variant="rounded">
+                                    <CalendarMonthIcon />
+                                </Avatar>
+                            }
+                            subheader={extractFecha(noticia.fecha)}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom sx={{fontWeight:'bold',fontSize:{xs:15,sm:18}}} component="div">
+                            {noticia.title}
+                            </Typography>
+                        </CardContent>
+                        <CardActions disableSpacing>
+                            <Grid container justifyContent="flex-end">
+                            <Button variant="outlined" sx={{color:'blue'}} onClick={() => navigate('/ayt/noticias', {replace: true})} endIcon={<AddIcon/>} >
+                                MÁS
+                            </Button>
+                            </Grid>
+                        </CardActions>
                         </Card>
+                        )}
                     </Grid>
                 </Paper>
                 </Grid>
@@ -235,7 +271,12 @@ function Inicio({noticia,evento}){
                 <Paper elevation={12} sx={{mr:{xs:1,sm:3}, ml:{xs:1,sm:0}, backgroundColor: "#222222", border: "1px green"}}>
                     <Grid container direction="column" alignItems="center" justifyContent="center">
                         <Typography display="inline"><Box sx={{ color:"lightgreen", fontSize:20, fontWeight: 'bold'}}>Próximo evento</Box></Typography>
-                        {(evento.title!=='') ? (
+                        {(loadingEventos) ? (
+                        <Box sx={{ display: 'flex', my:1 }}>
+                            <CircularProgress />
+                        </Box>) : ""}
+
+                        {(!loadingEventos && CurrentDate <= new Date(evento.fecha)) ? (
                         <Card elevation={12} sx={{width:"100%"}}>
                         <CardHeader
                             avatar={
@@ -243,7 +284,7 @@ function Inicio({noticia,evento}){
                                     <CalendarMonthIcon />
                                 </Avatar>
                             }
-                            subheader={evento.fecha}
+                            subheader={extractFecha(evento.fecha)}
                         />
                         <CardContent>
                             <Typography gutterBottom sx={{fontWeight:'bold',fontSize:{xs:15,sm:18}}} component="div">
@@ -258,7 +299,9 @@ function Inicio({noticia,evento}){
                             </Grid>
                         </CardActions>
                         </Card>
-                        ) : (
+                        ) : ""}
+
+                        {(!loadingEventos &&  CurrentDate > new Date(evento.fecha)) ? (
                         <Card elevation={12} sx={{width:"100%"}}>
                         <CardHeader
                         avatar={
@@ -280,7 +323,7 @@ function Inicio({noticia,evento}){
                             </Grid>
                         </CardActions>
                         </Card>
-                        )}
+                        ) : ""}
                 </Grid>
                 </Paper>
                 </Grid>

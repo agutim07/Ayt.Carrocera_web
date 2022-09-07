@@ -55,6 +55,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 
+import Axios from 'axios';
+
 const Button2 = styled(Button)({
     backgroundColor: '#e53935',
     '&:hover': {
@@ -66,32 +68,52 @@ const Button2 = styled(Button)({
     ].join(','),
 });
 
-const EventosCard = ({card}) => {
-    const [details, setDetails] = useState([]);
-
+const NoticiasCard = ({onChange,card}) => {
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
-    const [openEditar, setOpenEditar] = useState(false);
-    const handleCloseEditar = () => {
-        setOpenEditar(false);
-    };
-    const handleSubmitEditar = () => {
-        if(details.title === "" || details.precio === "") {
-        } else {
-        }
-        setOpenEditar(false);
-    }
-
     const [openBorrar, setOpenBorrar] = useState(false);
     const handleCloseBorrar = () => {
         setOpenBorrar(false);
     };
+
     const handleSubmitBorrar = () => {
-        setOpenBorrar(false);
+        Axios.delete("http://localhost:5000/api/news/"+card.id).then(() => {
+            setOpenBorrar(false);
+            onChange("borrar");
+        });
     };
+
+    const extractFecha = (date) => {
+        let dia;
+        if(date.slice(8,9)==='0'){
+            dia = date.slice(9,10);
+        }else{
+            dia = date.slice(8,10);
+        }
+        let fecha = dia + ' de '  + getMes(date.slice(5,7)) + ', ' + date.slice(0,4);
+        return fecha;
+    }
+
+    const getMes = (mes) => {
+        switch (mes){
+            case '01': return "Enero";
+            case '02': return "Febrero";
+            case '03': return "Marzo";
+            case '04': return "Abril";
+            case '05': return "Mayo";
+            case '06': return "Junio";
+            case '07': return "Julio";
+            case '08': return "Agosto";
+            case '09': return "Septiembre";
+            case '10': return "Octubre";
+            case '11': return "Noviembre";
+            case '12': return "Diciembre";
+            default : return "";
+        }
+    }
 
     return(
         <div>
@@ -102,7 +124,7 @@ const EventosCard = ({card}) => {
                         <CalendarMonthIcon />
                     </Avatar>
                 }
-                subheader={card.fecha}
+                subheader={extractFecha(card.fecha)}
             />
             {(card.image !== '') ? (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
@@ -118,26 +140,23 @@ const EventosCard = ({card}) => {
                 {card.title}
                 </Typography>
                 {(card.doc !== '') ? (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
                 <Link to={card.doc} style={{ textDecoration: 'none' }} target="_blank" download>
                 <Button2 sx={{mt:1}} variant="contained" startIcon={<PictureAsPdfIcon />} endIcon={<DownloadForOfflineIcon />}>
                     Documento
                 </Button2>
                 </Link>
-                </div>
                 ) : ""}
             </CardContent>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <CardActions>
-                    <Button variant="outlined" onClick={() => setOpenEditar(true)} startIcon={<EditIcon />}>Editar</Button>
                     <Button variant="contained" onClick={() => setOpenBorrar(true)} startIcon={<DeleteIcon />}>Borrar</Button>
                 </CardActions>
             </div>
-            {(card.content !== '') ? (
+            {(card.content !== null) ? (
                 <div>
                 <CardActions disableSpacing>
                 <Grid container justifyContent="flex-end">
-                <Button sx={{color:'black'}} onClick={() => handleExpandClick()} endIcon={expanded ? <ExpandLess sx={{color:'black'}} /> : <ExpandMore sx={{color:'black'}}/>} >
+                <Button sx={{color:'white'}} onClick={() => handleExpandClick()} endIcon={expanded ? <ExpandLess sx={{color:'white'}} /> : <ExpandMore sx={{color:'white'}}/>} >
                     LEER MÁS
                 </Button>
                 </Grid>
@@ -152,32 +171,6 @@ const EventosCard = ({card}) => {
                 </div>
             ) : ""}
         </Card>
-
-        <Box sx={{ position: "absolute", bottom: 20, right: 20 }} >
-        <Dialog fullWidth="300px" sx={{ width: "50" }} open={openEditar} onClose={handleCloseEditar} aria-labelledby="form-dialog-title" >
-            <DialogTitle id="form-dialog-title">Editar contenido</DialogTitle>
-            <DialogContent>
-                <FormControl fullWidth>
-                    <br></br>
-                    <TextField autoFocusmargin="dense" id="title" label="Título" type="text" defaultValue={card.title} onChange={e => setDetails({ ...details, title: e.target.value })} fullWidth />
-                    <br></br>
-                    <TextField autoFocusmargin="dense" id="title" label="Título" type="text" defaultValue={card.title} onChange={e => setDetails({ ...details, title: e.target.value })} fullWidth />
-                    <br></br>
-                    <TextField multiline rows={2} autoFocusmargin="dense" id="title" label="Portada" type="number" defaultValue={card.image} fullWidth />
-                    <br></br>
-                    <TextField autoFocusmargin="dense" id="title" label="Precio/dia" type="number" defaultValue={card.precio} onChange={e => setDetails({ ...details, precio: e.target.value })} fullWidth />
-                    <br></br>
-                    <TextField multiline rows={8} margin="dense" id="details" label="Descripcion" type="text" defaultValue={card.descripcion} onChange={e => setDetails({ ...details, descripcion: e.target.value })} 
-                    fullWidth />
-                </FormControl>
-                <br></br>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleSubmitEditar} > Editar </Button>
-                <Button onClick={handleCloseEditar}> Cancelar </Button>
-            </DialogActions>
-        </Dialog>
-        </Box>
 
         <Box sx={{ position: "absolute", bottom: 20, right: 20 }} >
         <Dialog fullWidth="300px" sx={{ width: "50" }} open={openBorrar} onClose={handleCloseBorrar} aria-labelledby="form-dialog-title" >
@@ -195,4 +188,4 @@ const EventosCard = ({card}) => {
     );
 }
 
-export default EventosCard;
+export default NoticiasCard;

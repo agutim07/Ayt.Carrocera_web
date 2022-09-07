@@ -56,20 +56,11 @@ const theme = createTheme({
   },});
 
 function App() {
-  const news = [
-    {id:0, title: 'AYUDAS PARA LA ADQUISICIÓN DE LIBROS DE TEXTO, MATERIAL ESCOLAR Y TRANSPORTE ESCOLAR CURSO 2022/2023', fecha:'9 de Septiembre, 2022', image: '', doc:'/Publicación_Bando_BANDO SUBVENCIÓN MATERIAL ESCOLAR 2022_2023.pdf', content: `Esta ayuda está sujeta a los criterios establecidos en la Ordenanza reguladora de la subvención (BOLETÍN OFICIAL DE LA PROVINCIA n.º 112 de fecha 13 de junio de 2018 , con su modificación en el n.º 134 de fecha de 17 de julio de 2019 y modificación en el n.º 154 de fecha 19 de agosto de 2020)
-    Podrá solicitar esta subvención el alumnado del municipio de Carrocera matriculado en determinados centros educativos y que cumpla los requisitos establecidos.
-    Plazo de presentación de solicitudes.
-    Hasta el 27 de septiembre de 2022
-    Las solicitudes se formularán en el modelo que figura como Anexo I de la convocatoria, dirigidas al Alcalde y se presentarán en el Registro de entrada del Ayuntamiento o por cualquiera de los medios señalados en el artículo 16.4 de la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas,
-    Al modelo Anexo I se adjuntarán la documentación citada en el mismo y que es la que establece en el artículo 6 de la Ordenanza.`},
-    {id:1, title: 'Noticia de prueba', image: '', doc:'/Publicación_Bando_BANDO SUBVENCIÓN MATERIAL ESCOLAR 2022_2023.pdf', fecha:'2 de Septiembre, 2022', content: ''},
-  ]
+  const [news, setNews] = useState([]);
+  const [loadingNews, setLoadingNews] = useState(true);
 
-  const eventos = [
-    {id:0, title: 'Comida de San Cipriano', loc:'Santiago de las Villas', fecha:'9 de Septiembre, 2022', image: '/images/santiago3.jpg', doc:'', content: `En honor al patrón del pueblo`},
-    {id:1, title: 'Fiesta de Piedrasecha', loc:'', fecha:'16 de Septiembre, 2022', image: '', doc:'/Publicación_Bando_BANDO SUBVENCIÓN MATERIAL ESCOLAR 2022_2023.pdf', content: ``}
-  ]
+  const [eventos, setEventos] = useState([]);
+  const [loadingEventos, setLoadingEventos] = useState(true);
 
   const images = [
     "/images/back0.jpg",
@@ -82,6 +73,8 @@ function App() {
   let pos = 0;
 
   useEffect(() => {
+    getNews();
+    getEvents();
     const interval = setInterval(() => {
       pos++;
       if(pos===4){pos=0;}
@@ -89,6 +82,20 @@ function App() {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  function getNews(){
+    Axios.get('http://localhost:5000/api/news').then((response) => {
+      setNews(response.data);
+      setLoadingNews(false);
+    });
+  }
+
+  function getEvents(){
+    Axios.get('http://localhost:5000/api/events').then((response) => {
+      setEventos(response.data);
+      setLoadingEventos(false);
+    });
+  }
 
   function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
@@ -133,7 +140,7 @@ function App() {
   }
 
   function createUser(){
-    Axios.post("http://localhost:3001/api/register", {username:'ayuntamientodecarrocera', pass:'P2404200D'}).then(() => {
+    Axios.post("/api/register", {username:'ayuntamientodecarrocera', pass:'P2404200D'}).then(() => {
       console.log("success");
     });
   }
@@ -160,7 +167,7 @@ function App() {
               </Grid>
               <Grid item>
               <Routes>
-                <Route path="/" exact element={<Inicio noticia={news[0]} evento={eventos[0]}/>} />
+                <Route path="/" exact element={<Inicio loadingNews={loadingNews} noticia={news[0]} loadingEventos={loadingEventos} evento={eventos[0]}/>} />
                 <Route path="/contacto" element={<Contacto/>} />
                 <Route path="/mapaweb" element={<MapaWeb/>} />
                 <Route path="/ayt/telefonos" element={<Telefonos/>} />

@@ -55,6 +55,13 @@ import EventosCard from './eventosCard';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 
+import CircularProgress from '@mui/material/CircularProgress';
+import Axios from 'axios';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const Button2 = styled(Button)({
     backgroundColor: '#e53935',
     '&:hover': {
@@ -67,12 +74,37 @@ const Button2 = styled(Button)({
 });
 
 const EventosAdmin = () => {
-    const eventos = [
-        {id:0, title: 'Comida de San Cipriano', loc:'Santiago de las Villas', fecha:'9 de Septiembre, 2022', image: '/images/santiago3.jpg', doc:'', content: `En honor al patrón del pueblo`},
-        {id:1, title: 'Fiesta de Piedrasecha', loc:'', fecha:'16 de Septiembre, 2022', image: '', doc:'/Publicación_Bando_BANDO SUBVENCIÓN MATERIAL ESCOLAR 2022_2023.pdf', content: ``}
-    ]
-
+    const [eventos, setEventos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [alertText, setAlertText] = useState("");
     const [details, setDetails] = useState();
+
+    useEffect(() => {
+        getEventos();
+    }, []);
+
+    function getEventos(){
+        Axios.get('http://localhost:5000/api/events').then((response) => {
+          setEventos(response.data);
+          setLoading(false);
+        });
+    }
+
+    function onChange(tipo){
+        setEventos([]);
+        setLoading(true);
+        if(tipo==="borrar"){ setAlertText("Evento borrado correctamente");}
+
+        delay(1000).then( () => {
+            Axios.get('http://localhost:5000/api/events').then((response) => {
+                setEventos(response.data);
+                setLoading(false);
+                setOpenAlert(true);
+        });
+        })
+    }
+
+    function delay(time) { return new Promise(resolve => setTimeout(resolve, time));}
 
     const handleSubmit = () => {
         if (details.title === "" || details.precio === "") {
@@ -89,6 +121,12 @@ const EventosAdmin = () => {
         setOpen(false);
     };
 
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {return;}
+        setOpenAlert(false);
+    };
+
     return(
         <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
@@ -99,9 +137,14 @@ const EventosAdmin = () => {
         </Fab>
         </Grid>
         <Grid container rowSpacing={2} columnSpacing={2} padding={1} direction="row" sx={{mt:1, mb:2}} alignItems="center">
+        {(loading) ? (
+        <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center" sx={{my:1}}>
+            <CircularProgress />
+        </Grid>) : ""}
+        
         {eventos.map((card) => (
             <Grid item key={card.id} xs={12} sm={6}>
-                <EventosCard card={card} />
+                <EventosCard onChange={onChange} card={card} />
             </Grid>
         ))}
         </Grid>
@@ -124,6 +167,13 @@ const EventosAdmin = () => {
                 </DialogActions>
             </Dialog>
         </Box>
+
+        <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleCloseAlert}>
+            <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
+                {alertText}
+            </Alert>
+        </Snackbar>
+
         </Box>
     );
 }

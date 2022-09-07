@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -76,6 +76,35 @@ const NoticiasPage = ({news}) => {
 
         setExpanded([...newNews]);
     };
+
+    const extractFecha = (date) => {
+        let dia;
+        if(date.slice(8,9)==='0'){
+            dia = date.slice(9,10);
+        }else{
+            dia = date.slice(8,10);
+        }
+        let fecha = dia + ' de '  + getMes(date.slice(5,7)) + ', ' + date.slice(0,4);
+        return fecha;
+    }
+
+    const getMes = (mes) => {
+        switch (mes){
+            case '01': return "Enero";
+            case '02': return "Febrero";
+            case '03': return "Marzo";
+            case '04': return "Abril";
+            case '05': return "Mayo";
+            case '06': return "Junio";
+            case '07': return "Julio";
+            case '08': return "Agosto";
+            case '09': return "Septiembre";
+            case '10': return "Octubre";
+            case '11': return "Noviembre";
+            case '12': return "Diciembre";
+            default : return "";
+        }
+    }
     
 
     return(
@@ -89,7 +118,7 @@ const NoticiasPage = ({news}) => {
                             <CalendarMonthIcon />
                         </Avatar>
                     }
-                    subheader={card.fecha}
+                    subheader={extractFecha(card.fecha)}
                 />
                 {(card.image !== '') ? (
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
@@ -114,7 +143,7 @@ const NoticiasPage = ({news}) => {
                     </div>
                     ) : ""}
                 </CardContent>
-                {(card.content !== '') ? (
+                {(card.content !== null) ? (
                     <div>
                     <CardActions disableSpacing>
                     <Grid container justifyContent="flex-end">

@@ -54,6 +54,13 @@ import AddIcon from '@mui/icons-material/Add';
 import NoticiasCard from './noticiasCard';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
+import CircularProgress from '@mui/material/CircularProgress';
+
+import Axios from 'axios';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Button2 = styled(Button)({
     backgroundColor: '#e53935',
@@ -67,17 +74,37 @@ const Button2 = styled(Button)({
 });
 
 const NoticiasAdmin = () => {
-    const news = [
-        {id:0, title: 'AYUDAS PARA LA ADQUISICIÓN DE LIBROS DE TEXTO, MATERIAL ESCOLAR Y TRANSPORTE ESCOLAR CURSO 2022/2023', fecha:'9 de Septiembre, 2022', image: '', doc:'/Publicación_Bando_BANDO SUBVENCIÓN MATERIAL ESCOLAR 2022_2023.pdf', content: `Esta ayuda está sujeta a los criterios establecidos en la Ordenanza reguladora de la subvención (BOLETÍN OFICIAL DE LA PROVINCIA n.º 112 de fecha 13 de junio de 2018 , con su modificación en el n.º 134 de fecha de 17 de julio de 2019 y modificación en el n.º 154 de fecha 19 de agosto de 2020)
-        Podrá solicitar esta subvención el alumnado del municipio de Carrocera matriculado en determinados centros educativos y que cumpla los requisitos establecidos.
-        Plazo de presentación de solicitudes.
-        Hasta el 27 de septiembre de 2022
-        Las solicitudes se formularán en el modelo que figura como Anexo I de la convocatoria, dirigidas al Alcalde y se presentarán en el Registro de entrada del Ayuntamiento o por cualquiera de los medios señalados en el artículo 16.4 de la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas,
-        Al modelo Anexo I se adjuntarán la documentación citada en el mismo y que es la que establece en el artículo 6 de la Ordenanza.`},
-        {id:1, title: 'Noticia de prueba', image: '', doc:'/Publicación_Bando_BANDO SUBVENCIÓN MATERIAL ESCOLAR 2022_2023.pdf', fecha:'2 de Septiembre, 2022', content: ''},
-    ]
-
+    const [news, setNews] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [details, setDetails] = useState();
+    const [alertText, setAlertText] = useState("");
+
+    useEffect(() => {
+        getNews();
+    }, []);
+
+    function getNews(){
+        Axios.get('http://localhost:5000/api/news').then((response) => {
+          setNews(response.data);
+          setLoading(false);
+        });
+    }
+
+    function onChange(tipo){
+        setNews([]);
+        setLoading(true);
+        if(tipo==="borrar"){ setAlertText("Noticia borrada correctamente");}
+
+        delay(1000).then( () => {
+            Axios.get('http://localhost:5000/api/news').then((response) => {
+                setNews(response.data);
+                setLoading(false);
+                setOpenAlert(true);
+        });
+        })
+    }
+
+    function delay(time) { return new Promise(resolve => setTimeout(resolve, time));}
 
     const handleSubmit = () => {
         if (details.title === "" || details.precio === "") {
@@ -94,6 +121,36 @@ const NoticiasAdmin = () => {
         setOpen(false);
     };
 
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {return;}
+        setOpenAlert(false);
+    };
+
+    //
+    const [selectedFile, setSelectedFile] = React.useState(null);
+
+    const handleSubmit2 = (event) => {
+        event.preventDefault()
+        const formData = new FormData();
+        formData.append("selectedFile", selectedFile);
+        Axios({
+            method: "post",
+            url: "https://ayuntamientocarrocera.com/images",
+            data: formData,
+            headers: { "Content-Type": "multipart/form-data" },
+        }).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0])
+    }
+    //
+
     return(
         <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
@@ -104,9 +161,14 @@ const NoticiasAdmin = () => {
         </Fab>
         </Grid>
         <Grid container rowSpacing={2} columnSpacing={2} padding={1} direction="row" sx={{mt:1, mb:2}} alignItems="center">
+        {(loading) ? (
+        <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center" sx={{my:1}}>
+            <CircularProgress />
+        </Grid>) : ""}
+
         {news.map((card) => (
             <Grid item key={card.id} xs={12} sm={6}>
-                <NoticiasCard card={card} />
+                <NoticiasCard onChange={onChange} card={card} />
             </Grid>
         ))}
         </Grid>
@@ -114,14 +176,10 @@ const NoticiasAdmin = () => {
             <Dialog fullWidth="300px" sx={{width:"50"}} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
                 <DialogTitle id="form-dialog-title">Añadir Contenido</DialogTitle>
                 <DialogContent>
-                    <FormControl fullWidth>
-                    <br></br>
-                    <TextField autoFocusmargin="dense" id="titulo" label="Título" type="text" fullWidth />
-                    <br></br>
-                    <TextField multiline rows={2} autoFocusmargin="dense" id="portada" label="Portada" type="text" fullWidth  />
-                    <br></br>
-                    </FormControl>
-                    <br></br>
+                <form onSubmit={handleSubmit2}>
+                    <input type="file" onChange={handleFileSelect}/>
+                    <input type="submit" value="Upload File" />
+                </form>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleSubmit}> Añadir </Button>
@@ -129,6 +187,12 @@ const NoticiasAdmin = () => {
                 </DialogActions>
             </Dialog>
         </Box>
+
+        <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleCloseAlert}>
+            <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
+                {alertText}
+            </Alert>
+        </Snackbar>
         </Box>
     );
 }
