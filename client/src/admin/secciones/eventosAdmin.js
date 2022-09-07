@@ -54,6 +54,13 @@ import Fab from '@mui/material/Fab';
 import EventosCard from './eventosCard';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
+import AlertTitle from '@mui/material/AlertTitle';
+import CloseIcon from '@mui/icons-material/Close'
+
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Axios from 'axios';
@@ -77,14 +84,16 @@ const EventosAdmin = () => {
     const [eventos, setEventos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [alertText, setAlertText] = useState("");
-    const [details, setDetails] = useState();
+    const [details, setDetails] = useState({title:"", doc:"", content:"", loc:""});
+    const [openAlert, setOpenAlert] = useState(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         getEventos();
     }, []);
 
     function getEventos(){
-        Axios.get('http://localhost:5000/api/events').then((response) => {
+        Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/events').then((response) => {
           setEventos(response.data);
           setLoading(false);
         });
@@ -92,25 +101,50 @@ const EventosAdmin = () => {
 
     function onChange(tipo){
         setEventos([]);
-        setLoading(true);
-        if(tipo==="borrar"){ setAlertText("Evento borrado correctamente");}
+        if(tipo==="borrar"){ setLoading(true); setAlertText("Evento borrado correctamente");}
+        if(tipo==="añadir"){ setAlertText("Evento añadido correctamente");}
 
         delay(1000).then( () => {
-            Axios.get('http://localhost:5000/api/events').then((response) => {
+            Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/events').then((response) => {
                 setEventos(response.data);
                 setLoading(false);
-                setOpenAlert(true);
+                setOpenSnackbar(true);
         });
         })
     }
 
     function delay(time) { return new Promise(resolve => setTimeout(resolve, time));}
 
+    const [date, setDate] = React.useState(dayjs());
+
+    const handleDateChange = (newValue) => {
+        setDate(newValue);
+    };
+
     const handleSubmit = () => {
-        if (details.title === "" || details.precio === "") {
-        } else {
+        let fecha = date.$y + "-" + (date.$M+1) + "-" + date.$D;
+
+        if (details.title === "") {
+            setError("Rellene como mínimo el título");
+            setOpenAlert(true); 
+            details.title=""; details.doc=""; details.content=""; details.loc="";
+            setOpen(false);
+        }else{
+            setOpen(false);
+            setLoading(true);
+            Axios.post('https://ayuntamientocarrocera.herokuapp.com/api/events', 
+            {title:details.title, doc:details.doc, fecha:fecha, content:details.content, loc:details.loc})
+            .then((response) => {
+                if(!response.data){
+                    setError("No se ha podido añadir el evento");
+                    setOpenAlert(true);
+                }else{
+                    onChange("añadir");
+                }
+                details.title=""; details.doc=""; details.content=""; details.loc="";
+            });
         }
-        setOpen(false);
+        
     }
     
     const [open, setOpen] = useState(false);
@@ -121,17 +155,17 @@ const EventosAdmin = () => {
         setOpen(false);
     };
 
-    const [openAlert, setOpenAlert] = React.useState(false);
-    const handleCloseAlert = (event, reason) => {
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {return;}
-        setOpenAlert(false);
+        setOpenSnackbar(false);
     };
 
     return(
-        <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
+        <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex',
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
         <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center">
-        <Fab variant="extended" size="medium" color="primary" aria-label="add" onClick={handleClickOpen} sx={{maxWidth:"15%"}}>
+        <Fab variant="extended" size="medium" color="primary" aria-label="add" onClick={handleClickOpen} sx={{minWidth:"15%"}}>
             <AddIcon sx={{ mr: 1 }} />
             Añadir Evento
         </Fab>
@@ -154,10 +188,23 @@ const EventosAdmin = () => {
                 <DialogContent>
                     <FormControl fullWidth>
                     <br></br>
-                    <TextField autoFocusmargin="dense" id="titulo" label="Título" type="text" fullWidth />
+                    <TextField autoFocusmargin="dense" id="titulo" label="Título [Único campo obligatorio]" type="text" fullWidth onChange={e => setDetails({ ...details, title: e.target.value })}/>
                     <br></br>
-                    <TextField multiline rows={2} autoFocusmargin="dense" id="portada" label="Portada" type="text" fullWidth  />
+                    <TextField autoFocusmargin="dense" label="Documento [DEBE SER UNA URL DE INTERNET: GOOGLE DRIVE]" id="doc" type="text" fullWidth onChange={e => setDetails({ ...details, doc: e.target.value })}/>
                     <br></br>
+                    <TextField autoFocusmargin="dense" id="loc" label="Localización" type="text" fullWidth onChange={e => setDetails({ ...details, loc: e.target.value })}/>
+                    <br></br>
+                    <TextField multiline rows={8} margin="dense" id="content" label="Contenido" type="text" fullWidth onChange={e => setDetails({ ...details, content: e.target.value })}/>
+                    <br></br>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DesktopDatePicker
+                        label="Fecha"
+                        inputFormat="DD/MM/YYYY"
+                        value={date}
+                        onChange={handleDateChange}
+                        renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
                     </FormControl>
                     <br></br>
                 </DialogContent>
@@ -168,8 +215,24 @@ const EventosAdmin = () => {
             </Dialog>
         </Box>
 
-        <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleCloseAlert}>
-            <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
+        <Box sx={{ position: "absolute", bottom: "50%", right: "40%" }}>
+          <Collapse in={openAlert}>
+            <Alert severity="warning" variant="filled"
+              action={
+                <IconButton aria-label="close" color="inherit" size="small" onClick={() => { setOpenAlert(false) }} >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              <AlertTitle>No se ha podido agregar el contenido</AlertTitle>
+              <strong>{error}</strong>
+            </Alert>
+          </Collapse>
+        </Box>
+
+        <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
+            <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
                 {alertText}
             </Alert>
         </Snackbar>

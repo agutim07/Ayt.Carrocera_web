@@ -120,30 +120,19 @@ const NoticiasPage = ({news}) => {
                     }
                     subheader={extractFecha(card.fecha)}
                 />
-                {(card.image !== '') ? (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
-                <CardMedia
-                    sx={{width:"90%"}}
-                    component="img"
-                    image={card.image}
-                    alt="imagen de noticia"
-                /> 
-                </div>) : ""}
                 <CardContent>
                     <Typography gutterBottom sx={{fontWeight:'bold',fontSize:{xs:15,sm:18}}} component="div">
                     {card.title}
                     </Typography>
                     {(card.doc !== '') ? (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
-                    <Link to={card.doc} style={{ textDecoration: 'none' }} target="_blank" download>
-                    <Button2 sx={{mt:1}} variant="contained" startIcon={<PictureAsPdfIcon />} endIcon={<DownloadForOfflineIcon />}>
+                    <Button2 sx={{mt:1}} onClick={() => window.open(card.doc, '_blank', 'noopener,noreferrer')} variant="contained" startIcon={<PictureAsPdfIcon />} endIcon={<DownloadForOfflineIcon />}>
                         Documento
                     </Button2>
-                    </Link>
                     </div>
                     ) : ""}
                 </CardContent>
-                {(card.content !== null) ? (
+                {(card.content !== '') ? (
                     <div>
                     <CardActions disableSpacing>
                     <Grid container justifyContent="flex-end">

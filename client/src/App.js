@@ -60,6 +60,7 @@ function App() {
   const [loadingNews, setLoadingNews] = useState(true);
 
   const [eventos, setEventos] = useState([]);
+  const [proximoEvento, setProximoEvento] = useState();
   const [loadingEventos, setLoadingEventos] = useState(true);
 
   const images = [
@@ -84,17 +85,30 @@ function App() {
   }, []);
 
   function getNews(){
-    Axios.get('http://localhost:5000/api/news').then((response) => {
+    Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/news').then((response) => {
       setNews(response.data);
       setLoadingNews(false);
     });
   }
 
   function getEvents(){
-    Axios.get('http://localhost:5000/api/events').then((response) => {
-      setEventos(response.data);
-      setLoadingEventos(false);
+    Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/events').then((response) => {
+      getProximoEvento(response.data);
     });
+  }
+
+  function getProximoEvento(data){
+    const CurrentDate = new Date();
+    let evento = data[0];
+    for(let i=1; i<data.length; i++){
+        if(CurrentDate <= new Date(data[i].fecha) && new Date(data[i].fecha) < new Date(evento.fecha)){
+          evento = data[i];
+        }
+    }
+
+    setEventos(data);
+    setProximoEvento(evento);
+    setLoadingEventos(false);
   }
 
   function delay(time) {
@@ -139,12 +153,6 @@ function App() {
     })
   }
 
-  function createUser(){
-    Axios.post("/api/register", {username:'ayuntamientodecarrocera', pass:'P2404200D'}).then(() => {
-      console.log("success");
-    });
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ mx: "7.5%"}}> 
@@ -167,7 +175,7 @@ function App() {
               </Grid>
               <Grid item>
               <Routes>
-                <Route path="/" exact element={<Inicio loadingNews={loadingNews} noticia={news[0]} loadingEventos={loadingEventos} evento={eventos[0]}/>} />
+                <Route path="/" exact element={<Inicio loadingNews={loadingNews} noticia={news[0]} loadingEventos={loadingEventos} evento={proximoEvento}/>} />
                 <Route path="/contacto" element={<Contacto/>} />
                 <Route path="/mapaweb" element={<MapaWeb/>} />
                 <Route path="/ayt/telefonos" element={<Telefonos/>} />

@@ -55,6 +55,13 @@ import NoticiasCard from './noticiasCard';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import CircularProgress from '@mui/material/CircularProgress';
+import AlertTitle from '@mui/material/AlertTitle';
+import CloseIcon from '@mui/icons-material/Close'
+
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 import Axios from 'axios';
 
@@ -76,15 +83,18 @@ const Button2 = styled(Button)({
 const NoticiasAdmin = () => {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [details, setDetails] = useState();
     const [alertText, setAlertText] = useState("");
+    const [details, setDetails] = useState({title:"", doc:"", content:"", fecha:""});
+    const [openAlert, setOpenAlert] = useState(false);
+    const [error, setError] = useState("");
+
 
     useEffect(() => {
         getNews();
     }, []);
 
     function getNews(){
-        Axios.get('http://localhost:5000/api/news').then((response) => {
+        Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/news').then((response) => {
           setNews(response.data);
           setLoading(false);
         });
@@ -92,25 +102,49 @@ const NoticiasAdmin = () => {
 
     function onChange(tipo){
         setNews([]);
-        setLoading(true);
-        if(tipo==="borrar"){ setAlertText("Noticia borrada correctamente");}
+        if(tipo==="borrar"){ setLoading(true); setAlertText("Noticia borrada correctamente");}
+        if(tipo==="añadir"){ setAlertText("Noticia añadida correctamente");}
 
         delay(1000).then( () => {
-            Axios.get('http://localhost:5000/api/news').then((response) => {
+            Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/news').then((response) => {
                 setNews(response.data);
                 setLoading(false);
-                setOpenAlert(true);
+                setOpenSnackbar(true);
         });
         })
     }
 
     function delay(time) { return new Promise(resolve => setTimeout(resolve, time));}
 
+    const [date, setDate] = React.useState(dayjs());
+
+    const handleDateChange = (newValue) => {
+        setDate(newValue);
+    };
+
     const handleSubmit = () => {
-        if (details.title === "" || details.precio === "") {
-        } else {
+        let fecha = date.$y + "-" + (date.$M+1) + "-" + date.$D;
+
+        if (details.title === "") {
+            setError("Rellene como mínimo el título");
+            setOpenAlert(true); 
+            details.title=""; details.doc=""; details.content=""; 
+            setOpen(false);
+        }else{
+            setOpen(false);
+            setLoading(true);
+            Axios.post('https://ayuntamientocarrocera.herokuapp.com/api/news', 
+            {title:details.title, doc:details.doc, fecha:fecha, content:details.content})
+            .then((response) => {
+                if(!response.data){
+                    setError("No se ha podido añadir la noticia");
+                    setOpenAlert(true);
+                }else{
+                    onChange("añadir");
+                }
+                details.title=""; details.doc=""; details.content=""; 
+            });
         }
-        setOpen(false);
     }
     
     const [open, setOpen] = useState(false);
@@ -121,41 +155,17 @@ const NoticiasAdmin = () => {
         setOpen(false);
     };
 
-    const [openAlert, setOpenAlert] = React.useState(false);
-    const handleCloseAlert = (event, reason) => {
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {return;}
-        setOpenAlert(false);
+        setOpenSnackbar(false);
     };
-
-    //
-    const [selectedFile, setSelectedFile] = React.useState(null);
-
-    const handleSubmit2 = (event) => {
-        event.preventDefault()
-        const formData = new FormData();
-        formData.append("selectedFile", selectedFile);
-        Axios({
-            method: "post",
-            url: "https://ayuntamientocarrocera.com/images",
-            data: formData,
-            headers: { "Content-Type": "multipart/form-data" },
-        }).then((response) => {
-            console.log(response);
-        }).catch((error) => {
-            console.log(error);
-        });
-    }
-
-    const handleFileSelect = (event) => {
-        setSelectedFile(event.target.files[0])
-    }
-    //
 
     return(
         <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
         <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center">
-        <Fab variant="extended" size="medium" color="primary" aria-label="add" onClick={handleClickOpen} sx={{maxWidth:"15%"}}>
+        <Fab variant="extended" size="medium" color="primary" aria-label="add" onClick={handleClickOpen} sx={{minWidth:"15%"}}>
             <AddIcon sx={{ mr: 1 }} />
             Añadir Noticia
         </Fab>
@@ -176,10 +186,25 @@ const NoticiasAdmin = () => {
             <Dialog fullWidth="300px" sx={{width:"50"}} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
                 <DialogTitle id="form-dialog-title">Añadir Contenido</DialogTitle>
                 <DialogContent>
-                <form onSubmit={handleSubmit2}>
-                    <input type="file" onChange={handleFileSelect}/>
-                    <input type="submit" value="Upload File" />
-                </form>
+                    <FormControl fullWidth>
+                    <br></br>
+                    <TextField autoFocusmargin="dense" id="titulo" label="Título [Único campo obligatorio]" type="text" fullWidth onChange={e => setDetails({ ...details, title: e.target.value })}/>
+                    <br></br>
+                    <TextField autoFocusmargin="dense" label="Documento [DEBE SER UNA URL DE INTERNET: GOOGLE DRIVE]" id="doc" type="text" fullWidth onChange={e => setDetails({ ...details, doc: e.target.value })}/>
+                    <br></br>
+                    <TextField multiline rows={8} margin="dense" id="content" label="Contenido" type="text" fullWidth onChange={e => setDetails({ ...details, content: e.target.value })}/>
+                    <br></br>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DesktopDatePicker
+                        label="Fecha"
+                        inputFormat="DD/MM/YYYY"
+                        value={date}
+                        onChange={handleDateChange}
+                        renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
+                    </FormControl>
+                    <br></br>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleSubmit}> Añadir </Button>
@@ -188,11 +213,28 @@ const NoticiasAdmin = () => {
             </Dialog>
         </Box>
 
-        <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleCloseAlert}>
-            <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
+        <Box sx={{ position: "absolute", bottom: "50%", right: "40%" }}>
+          <Collapse in={openAlert}>
+            <Alert severity="warning" variant="filled"
+              action={
+                <IconButton aria-label="close" color="inherit" size="small" onClick={() => { setOpenAlert(false) }} >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              <AlertTitle>No se ha podido agregar el contenido</AlertTitle>
+              <strong>{error}</strong>
+            </Alert>
+          </Collapse>
+        </Box>
+
+        <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
+            <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
                 {alertText}
             </Alert>
         </Snackbar>
+
         </Box>
     );
 }

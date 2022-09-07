@@ -5,6 +5,8 @@ const bcrypt = require("bcryptjs")
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
+const port = process.env.PORT || 5000
+
 const db = mysql.createPool({
     host: 'PMYSQL149.dns-servicio.com',
     user: 'carrocera',
@@ -15,13 +17,6 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
-
-/* app.get("/", (req,res) => {
-    const sqlInsert = "INSERT INTO news (title, doc, content, fecha) VALUES ('AYUDA PARA ESTUDIANTES','/Publicación_Bando_BANDO SUBVENCIÓN MATERIAL ESCOLAR 2022_2023.pdf','Podrá solicitar esta subvención el alumnado del municipio de Carrocera matriculado en determinados centros educativos y que cumpla los requisitos establecidos.','2022-10-09');";
-    db.query(sqlInsert, (err, result) => {
-        res.send("hello");
-    })
-}); */
 
 app.post("/api/login", (req,res) => {
     const username = req.body.username;
@@ -50,6 +45,18 @@ app.get("/api/news", (req,res) => {
     })
 })
 
+app.post("/api/news", (req,res) => {
+    const title = req.body.title;
+    const doc = req.body.doc;
+    const fecha = req.body.fecha;
+    const content = req.body.content;
+
+    const sqlInsert = "INSERT INTO news (title, doc, content, fecha) VALUES (?,?,?,?);";
+    db.query(sqlInsert, [title,doc,content,fecha] ,(err, result) => {
+        if(!err){res.send("ok");}
+    })
+});
+
 app.delete('/api/news/:id', (req, res) => {
     let id = req.params.id;
     const sqlDelete = 'DELETE FROM news WHERE `news`.`id` = '+id;
@@ -64,6 +71,19 @@ app.get("/api/events", (req,res) => {
         res.send(result);
     })
 })
+
+app.post("/api/events", (req,res) => {
+    const title = req.body.title;
+    const doc = req.body.doc;
+    const fecha = req.body.fecha;
+    const content = req.body.content;
+    const loc = req.body.loc;
+
+    const sqlInsert = "INSERT INTO events (title, doc, content, fecha, loc) VALUES (?,?,?,?,?);";
+    db.query(sqlInsert, [title,doc,content,fecha,loc] ,(err, result) => {
+        if(!err){res.send("ok");}
+    })
+});
 
 app.delete('/api/events/:id', (req, res) => {
     let id = req.params.id;
@@ -84,6 +104,6 @@ app.post("/api/register", (req,res) => {
     })
 });
 
-app.listen(5000, () => {
-    console.log(`running on port 5000`);
+app.listen(port, () => {
+    console.log(`running on port ${port}`);
 });

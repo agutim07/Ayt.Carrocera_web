@@ -80,7 +80,7 @@ const NoticiasCard = ({onChange,card}) => {
     };
 
     const handleSubmitBorrar = () => {
-        Axios.delete("http://localhost:5000/api/news/"+card.id).then(() => {
+        Axios.delete("https://ayuntamientocarrocera.herokuapp.com/api/news/"+card.id).then(() => {
             setOpenBorrar(false);
             onChange("borrar");
         });
@@ -117,7 +117,7 @@ const NoticiasCard = ({onChange,card}) => {
 
     return(
         <div>
-        <Card elevation={12}>
+        <Card elevation={12} sx={{minWidth:500}}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: pink[500] }} variant="rounded">
@@ -126,25 +126,14 @@ const NoticiasCard = ({onChange,card}) => {
                 }
                 subheader={extractFecha(card.fecha)}
             />
-            {(card.image !== '') ? (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
-            <CardMedia
-                sx={{width:"90%"}}
-                component="img"
-                image={card.image}
-                alt="imagen de noticia"
-            /> 
-            </div>) : ""}
             <CardContent>
                 <Typography gutterBottom sx={{fontWeight:'bold',fontSize:{xs:15,sm:18}}} component="div">
                 {card.title}
                 </Typography>
                 {(card.doc !== '') ? (
-                <Link to={card.doc} style={{ textDecoration: 'none' }} target="_blank" download>
-                <Button2 sx={{mt:1}} variant="contained" startIcon={<PictureAsPdfIcon />} endIcon={<DownloadForOfflineIcon />}>
+                <Button2 sx={{mt:1}} onClick={() => window.open(card.doc, '_blank', 'noopener,noreferrer')} variant="contained" startIcon={<PictureAsPdfIcon />} endIcon={<DownloadForOfflineIcon />}>
                     Documento
                 </Button2>
-                </Link>
                 ) : ""}
             </CardContent>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -152,7 +141,7 @@ const NoticiasCard = ({onChange,card}) => {
                     <Button variant="contained" onClick={() => setOpenBorrar(true)} startIcon={<DeleteIcon />}>Borrar</Button>
                 </CardActions>
             </div>
-            {(card.content !== null) ? (
+            {(card.content !== '') ? (
                 <div>
                 <CardActions disableSpacing>
                 <Grid container justifyContent="flex-end">

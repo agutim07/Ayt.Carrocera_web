@@ -237,7 +237,7 @@ function Inicio({loadingNews,noticia,loadingEventos,evento}){
                 <Paper elevation={12} sx={{ml:{xs:1,sm:3}, mr:{xs:1,sm:0}, backgroundColor: "#222222", border: "1px pink"}}>
                     <Grid container direction="column" alignItems="center" justifyContent="center">
                         <Typography display="inline"><Box sx={{ color:"pink", fontSize:20, fontWeight: 'bold'}}>Última noticia</Box></Typography>
-                        {(loadingNews) ? (
+                        {(noticia===undefined || loadingNews) ? (
                         <Box sx={{ display: 'flex', my:1 }}>
                             <CircularProgress />
                         </Box>) : (
@@ -301,7 +301,7 @@ function Inicio({loadingNews,noticia,loadingEventos,evento}){
                         </Card>
                         ) : ""}
 
-                        {(!loadingEventos &&  CurrentDate > new Date(evento.fecha)) ? (
+                        {(evento===undefined || (!loadingEventos &&  CurrentDate > new Date(evento.fecha))) ? (
                         <Card elevation={12} sx={{width:"100%"}}>
                         <CardHeader
                         avatar={
