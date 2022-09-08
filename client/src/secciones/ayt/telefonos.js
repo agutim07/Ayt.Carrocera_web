@@ -11,13 +11,61 @@ import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import PhoneIcon from '@mui/icons-material/Phone';
 import PlaceIcon from '@mui/icons-material/Place';
+import Button from '@mui/material/Button';
+
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
+import TipsIcon from '@mui/icons-material/TipsAndUpdates';
+import MuiAlert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 import {Link} from "react-router-dom";
 
+const LightTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} placement="left" classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: theme.palette.common.white,
+      color: 'rgba(0, 0, 0, 0.87)',
+      boxShadow: theme.shadows[1],
+      fontSize: 13,
+    },
+}));
+
+const ChipBlack = styled(Chip)({
+    borderColor: 'black',
+    "& .MuiChip-icon": {
+        color: 'black'
+    },
+    "& .MuiChip-iconSmall": {
+        color: 'black'
+    }
+});
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+
 const Telefonos = () => {
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {return;}
+        setOpenAlert(false);
+    };
+    const handleClick = (phone) => {
+        navigator.clipboard.writeText(phone);
+        setOpenAlert(true);
+    };
+
     return(
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
+            <Box sx={{width:"100%", mt:1, display:{xs:"none", md:"flex"}, justifyContent:"right", alignItems:"right", align:"right"}}>
+                <LightTooltip title={"Pulsa en las direcciones para abrirlas en Google Maps. Pulsa en los teléfonos para copiarlos."}>
+                    <Button startIcon={<TipsIcon />} sx={{color:'orange'}}> Información </Button>
+                </LightTooltip>
+            </Box> 
             <Grid container rowSpacing={2} direction="row" alignItems="center" sx={{ml:"3.5%", mb:3, mt:1.5}}>
                 <Grid item xs={11} md={5} align="right">
                 <Card sx={{ display: 'flex', border:1, borderColor: 'black', borderRadius: '9px'}}>
@@ -30,8 +78,8 @@ const Telefonos = () => {
                             Ayuntamiento
                         </Typography>
                         <Typography variant="body2" color="text.secondary" >
-                            <Chip icon={<PhoneIcon />} size="small" label="987 592 071" variant="outlined" sx={{mb:1}}/>
-                            <Chip icon={<PlaceIcon />} size="small"
+                            <ChipBlack icon={<PhoneIcon />} onClick={() => handleClick("987 592 071")} size="small" label="987 592 071" variant="outlined" sx={{mb:1}}/>
+                            <ChipBlack icon={<PlaceIcon />} size="small" onClick={() => window.open("https://goo.gl/maps/Ez4onQnZ8PLvjJpM6", '_blank', 'noopener,noreferrer')}
                             label="Plaza Mayor, 1. Carrocera" variant="outlined" />
                         </Typography>
                     </CardContent>
@@ -53,8 +101,8 @@ const Telefonos = () => {
                             Centro de salud
                         </Typography>
                         <Typography variant="body2" color="text.secondary" >
-                            <Chip icon={<PhoneIcon />} size="small" label="987 581 373" variant="outlined" sx={{mb:1}}/>
-                            <Chip icon={<PlaceIcon />} size="small"
+                            <ChipBlack icon={<PhoneIcon />} onClick={() => handleClick("987 581 373")} size="small" label="987 581 373" variant="outlined" sx={{mb:1}}/>
+                            <ChipBlack icon={<PlaceIcon />} size="small" onClick={() => window.open("https://goo.gl/maps/3QT4yZxYhqxUgayR9", '_blank', 'noopener,noreferrer')}
                             label="Av. la Magdalena, 4. La Magdalena" variant="outlined" />
                         </Typography>
                     </CardContent>
@@ -76,8 +124,8 @@ const Telefonos = () => {
                             Farmacia
                         </Typography>
                         <Typography variant="body2" color="text.secondary" >
-                            <Chip icon={<PhoneIcon />} size="small" label="987 581 126" variant="outlined" sx={{mb:1}}/>
-                            <Chip icon={<PlaceIcon />} size="small"
+                            <ChipBlack icon={<PhoneIcon />} onClick={() => handleClick("987 581 126")} size="small" label="987 581 126" variant="outlined" sx={{mb:1}}/>
+                            <ChipBlack icon={<PlaceIcon />} size="small" onClick={() => window.open("https://goo.gl/maps/QfQqAYTc8oDZk2rDA", '_blank', 'noopener,noreferrer')}
                             label="LE-420, 2. La Magdalena" variant="outlined" />
                         </Typography>
                     </CardContent>
@@ -99,8 +147,8 @@ const Telefonos = () => {
                             Guardia Civil
                         </Typography>
                         <Typography variant="body2" color="text.secondary" >
-                            <Chip icon={<PhoneIcon />} size="small" label="987 581 017" variant="outlined" sx={{mb:1}}/>
-                            <Chip icon={<PlaceIcon />} size="small"
+                            <ChipBlack icon={<PhoneIcon />} onClick={() => handleClick("987 581 017")} size="small" label="987 581 017" variant="outlined" sx={{mb:1}}/>
+                            <ChipBlack icon={<PlaceIcon />} size="small" onClick={() => window.open("https://goo.gl/maps/eMEvrSSyPUhwKnts5", '_blank', 'noopener,noreferrer')}
                             label="Av. Florentino Agustin Diez, 2007. La Magdalena" variant="outlined" />
                         </Typography>
                     </CardContent>
@@ -126,8 +174,8 @@ const Telefonos = () => {
                             Grupo de acción local
                         </Typography>
                         <Typography variant="body2" color="text.secondary" >
-                            <Chip icon={<PhoneIcon />} size="small" label="987 581 666" variant="outlined" sx={{mb:1}}/>
-                            <Chip icon={<PlaceIcon />} size="small"
+                            <ChipBlack icon={<PhoneIcon />} onClick={() => handleClick("987 581 666")} size="small" label="987 581 666" variant="outlined" sx={{mb:1}}/>
+                            <ChipBlack icon={<PlaceIcon />} size="small" onClick={() => window.open("https://goo.gl/maps/cCwDwKz44q9LTLen7", '_blank', 'noopener,noreferrer')}
                             label="Av. Manocho nº 92. Canales" variant="outlined" />
                         </Typography>
                     </CardContent>
@@ -138,6 +186,12 @@ const Telefonos = () => {
                 </Card>
                 </Grid>
             </Grid>
+
+            <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
+                    Teléfono de contacto copiado al portapapeles
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }
