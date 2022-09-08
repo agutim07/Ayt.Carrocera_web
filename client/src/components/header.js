@@ -169,7 +169,7 @@ const Header = () => {
       window.open("https://aytocarrocera.sedelectronica.es/", '_blank', 'noopener,noreferrer');
     }
     if(page==="Ordenanzas y reglamentos"){
-      window.open("https://aytocarrocera.sedelectronica.es/board/97521486-f59b-11de-b600-00237da12c6a/", '_blank', 'noopener,noreferrer');
+      window.open("https://aytocarrocera.sedelectronica.es/transparency/b14fe6fa-8dd7-4029-9445-4d17225d2c49/", '_blank', 'noopener,noreferrer');
     }
     if(page==="Alojamientos"){
       navigate('/turismo/alojamientos');

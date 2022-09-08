@@ -54,8 +54,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
+import AlertTitle from '@mui/material/AlertTitle';
+import CloseIcon from '@mui/icons-material/Close'
+
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 import Axios from 'axios';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Button2 = styled(Button)({
     backgroundColor: '#e53935',
@@ -85,6 +96,52 @@ const NoticiasCard = ({onChange,card}) => {
             onChange("borrar");
         });
     };
+
+    const [details, setDetails] = useState({title:card.title, doc:card.doc, content:card.content});
+    const [date, setDate] = React.useState(dayjs(card.fecha));
+    const handleDateChange = (newValue) => {
+        setDate(newValue);
+    };
+
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        details.title=card.title; details.doc=card.doc; details.content=card.content; 
+        setDate(dayjs(card.fecha));
+        setOpen(false);
+    };
+
+    const [openAlert, setOpenAlert] = useState(false);
+    const [error, setError] = useState("");
+
+    const handleSubmit = () => {
+        let fecha = date.$y + "-" + (date.$M+1) + "-" + date.$D;
+
+        if (details.title === "") {
+            setError("Rellene como mínimo el título");
+            setOpenAlert(true); 
+            details.title=card.title; details.doc=card.doc; details.content=card.content; 
+            setDate(dayjs(card.fecha));
+            setOpen(false);
+        }else{
+            setOpen(false);
+            Axios.put('https://ayuntamientocarrocera.herokuapp.com/api/news/'+card.id, 
+            {title:details.title, doc:details.doc, fecha:fecha, content:details.content})
+            .then((response) => {
+                if(!response.data){
+                    setError("No se ha podido añadir la noticia");
+                    details.title=card.title; details.doc=card.doc; details.content=card.content; 
+                    setDate(dayjs(card.fecha));
+                    setOpenAlert(true);
+                }else{
+                    onChange("editar");
+                }
+            });
+        }
+        
+    }
 
     const extractFecha = (date) => {
         let dia;
@@ -139,6 +196,7 @@ const NoticiasCard = ({onChange,card}) => {
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <CardActions>
                     <Button variant="contained" onClick={() => setOpenBorrar(true)} startIcon={<DeleteIcon />}>Borrar</Button>
+                    <Button variant="contained" onClick={handleClickOpen} startIcon={<EditIcon />}>Editar</Button>
                 </CardActions>
             </div>
             {(card.content !== '') ? (
@@ -172,6 +230,53 @@ const NoticiasCard = ({onChange,card}) => {
                 <Button onClick={handleCloseBorrar}> NO </Button>
             </DialogActions>
         </Dialog>
+        </Box>
+
+        <Box sx={{position: "absolute", bottom: 20, right: 20}} >
+            <Dialog fullWidth="300px" sx={{width:"50"}} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
+                <DialogTitle id="form-dialog-title">Editar Contenido</DialogTitle>
+                <DialogContent>
+                    <FormControl fullWidth>
+                    <br></br>
+                    <TextField defaultValue={card.title} autoFocusmargin="dense" id="titulo" label="Título [Único campo obligatorio]" type="text" fullWidth onChange={e => setDetails({ ...details, title: e.target.value })}/>
+                    <br></br>
+                    <TextField defaultValue={card.doc} autoFocusmargin="dense" label="Documento [DEBE SER UNA URL DE INTERNET: GOOGLE DRIVE]" id="doc" type="text" fullWidth onChange={e => setDetails({ ...details, doc: e.target.value })}/>
+                    <br></br>
+                    <TextField multiline rows={8} defaultValue={card.content} margin="dense" id="content" label="Contenido" type="text" fullWidth onChange={e => setDetails({ ...details, content: e.target.value })}/>
+                    <br></br>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DesktopDatePicker
+                        label="Fecha"
+                        inputFormat="DD/MM/YYYY"
+                        value={date}
+                        onChange={handleDateChange}
+                        renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
+                    </FormControl>
+                    <br></br>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleSubmit}> Editar </Button>
+                    <Button onClick={handleClose}> Cancelar </Button>
+                </DialogActions>
+            </Dialog>
+        </Box>
+
+        <Box sx={{ position: "absolute", bottom: "50%", right: "40%" }}>
+          <Collapse in={openAlert}>
+            <Alert severity="warning" variant="filled"
+              action={
+                <IconButton aria-label="close" color="inherit" size="small" onClick={() => { setOpenAlert(false) }} >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              <AlertTitle>No se ha podido editar el contenido</AlertTitle>
+              <strong>{error}</strong>
+            </Alert>
+          </Collapse>
         </Box>
         </div>
     );

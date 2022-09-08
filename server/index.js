@@ -57,6 +57,19 @@ app.post("/api/news", (req,res) => {
     })
 });
 
+app.put("/api/news/:id", (req,res) => {
+    let id = req.params.id;
+    const title = req.body.title;
+    const doc = req.body.doc;
+    const fecha = req.body.fecha;
+    const content = req.body.content;
+
+    const sqlUpdate = "UPDATE `news` SET `title` = ?, `fecha` = ?, `doc` = ?, `content` = ? WHERE `news`.`id` = ?;";
+    db.query(sqlUpdate, [title,fecha,doc,content,id] ,(err, result) => {
+        if(!err){res.send("ok");}
+    })
+});
+
 app.delete('/api/news/:id', (req, res) => {
     let id = req.params.id;
     const sqlDelete = 'DELETE FROM news WHERE `news`.`id` = '+id;
@@ -81,6 +94,20 @@ app.post("/api/events", (req,res) => {
 
     const sqlInsert = "INSERT INTO events (title, doc, content, fecha, loc) VALUES (?,?,?,?,?);";
     db.query(sqlInsert, [title,doc,content,fecha,loc] ,(err, result) => {
+        if(!err){res.send("ok");}
+    })
+});
+
+app.put("/api/events/:id", (req,res) => {
+    let id = req.params.id;
+    const title = req.body.title;
+    const doc = req.body.doc;
+    const fecha = req.body.fecha;
+    const content = req.body.content;
+    const loc = req.body.loc;
+
+    const sqlUpdate = "UPDATE `events` SET `title` = ?, `fecha` = ?, `doc` = ?, `content` = ?, `loc` = ? WHERE `events`.`id` = ?;";
+    db.query(sqlUpdate, [title,fecha,doc,content,loc,id] ,(err, result) => {
         if(!err){res.send("ok");}
     })
 });

@@ -103,6 +103,7 @@ const NoticiasAdmin = () => {
     function onChange(tipo){
         setNews([]);
         if(tipo==="borrar"){ setLoading(true); setAlertText("Noticia borrada correctamente");}
+        if(tipo==="editar"){ setLoading(true); setAlertText("Noticia editada correctamente");}
         if(tipo==="añadir"){ setAlertText("Noticia añadida correctamente");}
 
         delay(1000).then( () => {
