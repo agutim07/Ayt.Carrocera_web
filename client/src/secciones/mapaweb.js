@@ -118,23 +118,11 @@ const MapaWeb = () => {
         if(page==="Viñayo"){
           navigate('/pueblos/vinayo');
         }
-        if(page==="Alojamientos"){
-          navigate('/turismo/alojamientos');
-        }
-        if(page==="Bares y Restaurantes"){
-          navigate('/turismo/restaurantes');
-        }
-        if(page==="Artesanía"){
-          navigate('/turismo/artesania');
-        }
         if(page==="Espacios Naturales y Patrimonio"){
           navigate('/turismo/naturaleza');
         }
         if(page==="Fiestas"){
           navigate('/turismo/fiestas');
-        }
-        if(page==="Productos Agroalimentarios"){
-          navigate('/turismo/agroalimentarios');
         }
         if(page==="contacto"){
             navigate('/contacto');
@@ -270,23 +258,11 @@ const MapaWeb = () => {
             </ListItemButton>
             <Collapse in={open[3]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                <ListItemButton onClick={() => nav("Alojamientos")} sx={{ pl: 4 }}>
-                    <ListItemText sx={{color: 'white'}} primary="Alojamientos" />
-                </ListItemButton>
-                <ListItemButton onClick={() => nav("Bares y Restaurantes")} sx={{ pl: 4 }}>
-                    <ListItemText sx={{color: 'white'}} primary="Bares y Restaurantes" />
-                </ListItemButton>
-                <ListItemButton onClick={() => nav("Artesanía")} sx={{ pl: 4 }}>
-                    <ListItemText sx={{color: 'white'}} primary="Artesanía" />
-                </ListItemButton>
                 <ListItemButton onClick={() => nav("Espacios Naturales y Patrimonio")} sx={{ pl: 4 }}>
                     <ListItemText sx={{color: 'white'}} primary="Espacios Naturales y Patrimonio" />
                 </ListItemButton>
                 <ListItemButton onClick={() => nav("Fiestas")} sx={{ pl: 4 }}>
                     <ListItemText sx={{color: 'white'}} primary="Fiestas" />
-                </ListItemButton>
-                <ListItemButton onClick={() => nav("Productos Agroalimentarios")} sx={{ pl: 4 }}>
-                    <ListItemText sx={{color: 'white'}} primary="Productos Agroalimentarios" />
                 </ListItemButton>
                 </List>
             </Collapse>

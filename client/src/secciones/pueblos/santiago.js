@@ -130,7 +130,7 @@ const Santiago = () => {
                 </Box> 
                 </div>
                 <Grid container sx={{mt:3}} direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(236,8,8,1) 13%, rgba(235,59,59,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
+                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(41,212,87,100) 20%, rgba(255,209,0,0.2945553221288515) 58%)",maxWidth: "80%", m:2 , border:1, borderColor: 'black',  borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>

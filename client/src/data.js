@@ -4,7 +4,7 @@ export const secciones = [
     {id:2, title: "LOCALIZACIÓN", content: Array()},
     {id:3, title: "MUNICIPIO", content: Array("Datos del Municipio", "Estadísticas", "Introducción Histórica", "Escudo y Bandera", "El Tiempo")},
     {id:4, title: "LOS PUEBLOS", content: Array("Benllera","Carrocera","Cuevas de Viñayo","Otero de las Dueñas","Piedrasecha","Santiago de las Villas","Viñayo")},
-    {id:5, title: "TURISMO Y OCIO", content: Array("Alojamientos","Bares y Restaurantes","Artesanía","Espacios Naturales y Patrimonio","Fiestas","Productos Agroalimentarios")},
+    {id:5, title: "TURISMO Y OCIO", content: Array("Espacios Naturales y Patrimonio","Fiestas")},
     {id:6, title: "SEDE ELECTRÓNICA", content: Array()}
 ];
 

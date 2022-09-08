@@ -81,21 +81,12 @@ const Otero = () => {
 
     function redirect(to){
         if(to==="location"){window.open("https://goo.gl/maps/haq22ph4ehe8eQgn9", '_blank', 'noopener,noreferrer');}
-        if(to==="hotel1"){window.open("http://www.hotelsantalucia.es/", '_blank', 'noopener,noreferrer');}
-        if(to==="hotel2"){handleOpenAlert();}
     }
 
     const images = ['/images/otero0.jpg', '/images/otero1.jpg', '/images/otero2.jpg', '/images/otero3.jpg']
 
     const [image, setImage] = React.useState(0);
     const [img, setImg] = React.useState(images[0]);
-
-    const [openAlert, setOpenAlert] = React.useState(false);
-    const handleCloseAlert = (event, reason) => {
-        if (reason === 'clickaway') {return;}
-        setOpenAlert(false);
-    };
-    const handleOpenAlert = (event, reason) => {setOpenAlert(true);};
     
     function nextImage(move){
         let newNum;
@@ -159,7 +150,7 @@ const Otero = () => {
                 </ThemeProvider>
                 </Grid>
                 <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{backgroundImage: "linear-gradient(180deg, rgba(236,8,8,1) 13%, rgba(235,59,59,0.5522584033613445) 40%)", maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
+                <Card sx={{backgroundImage: "linear-gradient(180deg, rgba(41,212,87,100) 20%, rgba(255,209,0,0.2945553221288515) 58%)", maxWidth: "80%", m:2 , border:1, borderColor: 'black', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
@@ -169,23 +160,8 @@ const Otero = () => {
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(8,51,236,1) 13%, rgba(71,94,221,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Hoteles</Box>
-                        </Typography>
-                        <Chip sx={{mr:{xs:0, sm:1}, mb:{xs:1, sm:0}}} onClick={() => redirect("hotel1")} label="Hotel Santa Lucia" variant="outlined" icon={<HotelIcon />} clickable />
-                        <Chip onClick={() => redirect("hotel2")} label="Hostal El Crucero" variant="outlined" icon={<HolidayVillageIcon />} clickable />
-                    </CardContent>
-                </Card>
                 </Grid>
             </Box>
-
-            <Snackbar open={openAlert} autoHideDuration={10000} onClose={handleCloseAlert}>
-                <Alert onClose={handleCloseAlert} severity="info">
-                    Teléfono de contacto de El Crucero: 987 58 10 24
-                </Alert>
-            </Snackbar>
 
         </Box>
     );

@@ -77,8 +77,6 @@ const Benllera = () => {
     function redirect(to){
         if(to==="location"){window.open("https://goo.gl/maps/JqAaREs8TxcPBwBw5", '_blank', 'noopener,noreferrer');}
         if(to==="facebook"){window.open("http://www.facebook.com/pages/Benllera/211930895498605?sk=wall", '_blank', 'noopener,noreferrer');}
-        if(to==="casa1"){window.open("https://www.elnidoazul.com/", '_blank', 'noopener,noreferrer');}
-        if(to==="casa2"){window.open("https://entrevalles.info/", '_blank', 'noopener,noreferrer');}
     }
 
     const images = ['/images/benllera0.jpg', '/images/benllera1.jpg', '/images/benllera2.jpg']
@@ -157,7 +155,7 @@ const Benllera = () => {
                 </ThemeProvider>
                 </Grid>
                 <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(236,8,8,1) 13%, rgba(235,59,59,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
+                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(41,212,87,100) 20%, rgba(255,209,0,0.2945553221288515) 58%)",maxWidth: "80%", m:2 , border:1, borderColor: 'black',  borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
@@ -165,15 +163,6 @@ const Benllera = () => {
                         <Typography align="center" variant="subtitle1">
                         San Roque y San Roquín, los dias 16 y 17 de Agosto.
                         </Typography>
-                    </CardContent>
-                </Card>
-                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(8,51,236,1) 13%, rgba(71,94,221,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Casas Rurales</Box>
-                        </Typography>
-                        <Chip sx={{mr:{xs:0, sm:1}, mb:{xs:1, sm:0}}} onClick={() => redirect("casa1")} label="El Nido Azul" variant="outlined" icon={<CottageIcon />} clickable />
-                        <Chip onClick={() => redirect("casa2")} label="Entre Valles" variant="outlined" icon={<CottageIcon />} clickable />
                     </CardContent>
                 </Card>
                 </Grid>

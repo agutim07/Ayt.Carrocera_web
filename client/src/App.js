@@ -29,12 +29,8 @@ import Piedrasecha from './secciones/pueblos/piedrasecha';
 import Santiago from './secciones/pueblos/santiago';
 import Viñayo from './secciones/pueblos/viñayo';
 import Pueblos from './secciones/pueblos';
-import Alojamientos from './secciones/turismo/alojamientos';
-import Bares from './secciones/turismo/bares';
-import Artesania from './secciones/turismo/artesania';
 import Naturaleza from './secciones/turismo/naturaleza';
 import Fiestas from './secciones/turismo/fiestas';
-import Agroalimentarios from './secciones/turismo/agroalimentarios';
 import MapaWeb from './secciones/mapaweb';
 import Noticias from './secciones/ayt/noticias';
 import Eventos from './secciones/ayt/eventos';
@@ -194,12 +190,8 @@ function App() {
                 <Route path="/pueblos/piedrasecha" element={<Piedrasecha/>} />
                 <Route path="/pueblos/santiago" element={<Santiago/>} />
                 <Route path="/pueblos/vinayo" element={<Viñayo/>} />
-                <Route path="/turismo/alojamientos" element={<Alojamientos/>} />
-                <Route path="/turismo/restaurantes" element={<Bares/>} />
-                <Route path="/turismo/artesania" element={<Artesania/>} />
                 <Route path="/turismo/naturaleza" element={<Naturaleza/>} />
                 <Route path="/turismo/fiestas" element={<Fiestas/>} />
-                <Route path="/turismo/agroalimentarios" element={<Agroalimentarios/>} />
                 <Route path="/ayt/noticias" element={<Noticias news={news} pages={getNumPages()} page={1}/>} />
                 {getNewsPages()}
                 <Route path="/ayt/eventos" element={<Eventos events={eventos} pages={getNumPagesEvents()} page={1}/>} />

@@ -52,7 +52,6 @@ const Carrocera = () => {
     function redirect(to){
         if(to==="location"){window.open("https://goo.gl/maps/iz6f1J7dnwFHi4Zp7", '_blank', 'noopener,noreferrer');}
         if(to==="web"){window.open("https://www.carrocera.com/", '_blank', 'noopener,noreferrer');}
-        if(to==="casa"){window.open("https://www.casasrurales.net/casas-rurales/la-oca--c2039", '_blank', 'noopener,noreferrer');}
     }
 
     const images = ['/images/carrocera0.jpg', '/images/carrocera1.jpg', '/images/carrocera2.jpg']
@@ -127,7 +126,7 @@ const Carrocera = () => {
                 </Box> 
                 </div>
                 <Grid container sx={{mt:3}} direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(236,8,8,1) 13%, rgba(235,59,59,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
+                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(41,212,87,100) 20%, rgba(255,209,0,0.2945553221288515) 58%)",maxWidth: "80%", m:2 , border:1, borderColor: 'black', borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
@@ -135,14 +134,6 @@ const Carrocera = () => {
                         <Typography align="center" variant="subtitle1">
                         El Carmen y el "Carmín", los días 16 y 17 de Julio.
                         </Typography>
-                    </CardContent>
-                </Card>
-                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(8,51,236,1) 13%, rgba(71,94,221,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Casas Rurales</Box>
-                        </Typography>
-                        <Chip onClick={() => redirect("casa")} label="La Oca" variant="outlined" icon={<CottageIcon />} clickable />
                     </CardContent>
                 </Card>
                 </Grid>

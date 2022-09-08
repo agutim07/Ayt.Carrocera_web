@@ -114,8 +114,6 @@ const Piedrasecha = () => {
 
     function redirect(to){
         if(to==="location"){window.open("https://goo.gl/maps/LVET9uSJfrJArJvK8", '_blank', 'noopener,noreferrer');}
-        if(to==="casa1"){window.open("http://www.loscalderones.com/", '_blank', 'noopener,noreferrer');}
-        if(to==="casa2"){window.open("http://www.hotelsantalucia.es/castillo-piedrasecha/", '_blank', 'noopener,noreferrer');}
     }
 
     const images = ['/images/piedrasecha0.jpg', '/images/piedrasecha1.jpg', '/images/piedrasecha2.jpg', '/images/piedrasecha3.jpg', '/images/piedrasecha4.jpg']
@@ -185,7 +183,7 @@ const Piedrasecha = () => {
                 </ThemeProvider>
                 </Grid>
                 <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(236,8,8,1) 13%, rgba(235,59,59,0.5522584033613445) 40%)", maxWidth: "80%", m:2 , border:1, borderColor: 'red', borderRadius: '9px'}}>
+                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(41,212,87,100) 20%, rgba(255,209,0,0.2945553221288515) 58%)", maxWidth: "80%", m:2 , border:1, borderColor: 'black',  borderRadius: '9px'}}>
                     <CardContent display="flex" justifyContent="center">
                         <Typography align="center" gutterBottom variant="h5" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Fiestas</Box>
@@ -193,15 +191,6 @@ const Piedrasecha = () => {
                         <Typography align="center" variant="subtitle1">
                         Santos Justo y Pastor, último fin de semana de Agosto. 
                         </Typography>
-                    </CardContent>
-                </Card>
-                <Card sx={{ backgroundImage: "linear-gradient(180deg, rgba(8,51,236,1) 13%, rgba(71,94,221,0.5522584033613445) 40%)",maxWidth: "80%", m:2 , border:1, borderColor: 'blue', borderRadius: '9px'}}>
-                    <CardContent display="flex" justifyContent="center">
-                        <Typography align="center" gutterBottom variant="h5" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Casas Rurales</Box>
-                        </Typography>
-                        <Chip sx={{mr:{xs:0, sm:1}, mb:{xs:1, sm:0}}} onClick={() => redirect("casa1")} label="Los Calderones" variant="outlined" icon={<CottageIcon />} clickable />
-                        <Chip onClick={() => redirect("casa2")} label="Castillo (Hotel Santa Lucia)" variant="outlined" icon={<CastleIcon />} clickable />
                     </CardContent>
                 </Card>
                 </Grid>

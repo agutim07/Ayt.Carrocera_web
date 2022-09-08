@@ -171,23 +171,11 @@ const Header = () => {
     if(page==="Ordenanzas y reglamentos"){
       window.open("https://aytocarrocera.sedelectronica.es/transparency/b14fe6fa-8dd7-4029-9445-4d17225d2c49/", '_blank', 'noopener,noreferrer');
     }
-    if(page==="Alojamientos"){
-      navigate('/turismo/alojamientos');
-    }
-    if(page==="Bares y Restaurantes"){
-      navigate('/turismo/restaurantes');
-    }
-    if(page==="Artesanía"){
-      navigate('/turismo/artesania');
-    }
     if(page==="Espacios Naturales y Patrimonio"){
       navigate('/turismo/naturaleza');
     }
     if(page==="Fiestas"){
       navigate('/turismo/fiestas');
-    }
-    if(page==="Productos Agroalimentarios"){
-      navigate('/turismo/agroalimentarios');
     }
     if(page==="mapaweb"){
       navigate('/mapaweb');
