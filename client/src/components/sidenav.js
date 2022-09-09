@@ -44,7 +44,7 @@ function Sidenav({pageChange}){
                 color:"darkred", width: "75%", margin:1, padding:1, my: 1.5, ml:1, border: "1px solid black", boxShadow: "5px 5px 5px white"  }}>
                     <Link rel="noopener noreferrer" target="_blank" href="https://aytocarrocera.sedelectronica.es/" underline="none">
                         <Grid container direction="column" alignItems="center" justifyContent="center">
-                        <Typography display="inline"><Box sx={{ color:"red", fontSize:20, fontWeight: 'bold'}}>SEDE ELECTRÓNICA</Box></Typography>
+                        <Typography display="inline"><Box sx={{ color:"red", fontSize:{xs:18,xl:20}, fontWeight: 'bold'}}>SEDE ELECTRÓNICA</Box></Typography>
                         <Box sx={{display: 'flex', mt:0.5, mb:0.5, color:"black", alignItems: 'center',  width: 'fit-content'}}>
                             <Divider orientation="vertical" flexItem sx={{ bgcolor: "darkblue" }} />
                             <Grid container sx={{ml:1}} direction="column" alignItems="center" justifyContent="center">

@@ -301,7 +301,7 @@ function Inicio({loadingNews,noticia,loadingEventos,evento}){
                         </Card>
                         ) : ""}
 
-                        {(evento===undefined || (!loadingEventos &&  CurrentDate > new Date(evento.fecha))) ? (
+                        {(!loadingEventos && ( evento===undefined ||  CurrentDate > new Date(evento.fecha))) ? (
                         <Card elevation={12} sx={{width:"100%"}}>
                         <CardHeader
                         avatar={
