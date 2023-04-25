@@ -1,0 +1,7 @@
+{
+    "dbConfig": {
+        "MONGODB_HOST": "localhost",
+        "MONGODB_DATABASE": "AytCarrocera",
+        "MONGODB_URI": "mongodb+srv://user:admin@aytcarrocera.ayymayy.mongodb.net/?retryWrites=true&w=majority"
+    }
+}
