@@ -93,7 +93,7 @@ const EventosAdmin = () => {
     }, []);
 
     function getEventos(){
-        Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/events').then((response) => {
+        Axios.get('/events').then((response) => {
           setEventos(response.data);
           setLoading(false);
         });
@@ -106,7 +106,7 @@ const EventosAdmin = () => {
         if(tipo==="añadir"){ setAlertText("Evento añadido correctamente");}
 
         delay(1000).then( () => {
-            Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/events').then((response) => {
+            Axios.get('/events').then((response) => {
                 setEventos(response.data);
                 setLoading(false);
                 setOpenSnackbar(true);

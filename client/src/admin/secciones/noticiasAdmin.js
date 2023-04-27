@@ -94,7 +94,7 @@ const NoticiasAdmin = () => {
     }, []);
 
     function getNews(){
-        Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/news').then((response) => {
+        Axios.get('/news').then((response) => {
           setNews(response.data);
           setLoading(false);
         });
@@ -107,7 +107,7 @@ const NoticiasAdmin = () => {
         if(tipo==="añadir"){ setAlertText("Noticia añadida correctamente");}
 
         delay(1000).then( () => {
-            Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/news').then((response) => {
+            Axios.get('/news').then((response) => {
                 setNews(response.data);
                 setLoading(false);
                 setOpenSnackbar(true);

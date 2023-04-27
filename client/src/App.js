@@ -81,14 +81,14 @@ function App() {
   }, []);
 
   function getNews(){
-    Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/news').then((response) => {
+    Axios.get('/news').then((response) => {
       setNews(response.data);
       setLoadingNews(false);
     });
   }
 
   function getEvents(){
-    Axios.get('https://ayuntamientocarrocera.herokuapp.com/api/events').then((response) => {
+    Axios.get('/events').then((response) => {
       getProximoEvento(response.data);
     });
   }

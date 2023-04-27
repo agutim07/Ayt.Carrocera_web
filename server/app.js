@@ -7,11 +7,14 @@ var app = express();
 require('./server');
 
 var newsRouter = require('./routes/news');
-var userrolesRouter = require('./routes/users_roles');
+var eventsRouter = require('./routes/events');
+var loginRouter = require('./routes/login');
+var rolesRouter = require('./routes/roles');
+var pueblosRouter = require('./routes/pueblos');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+/* app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug'); */
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -20,7 +23,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/news', newsRouter.router);
-app.use('/userroles', userrolesRouter.router);
+app.use('/login', loginRouter.router);
+app.use('/roles', rolesRouter.router);
+app.use('/events', eventsRouter.router);
+app.use('/pueblos', pueblosRouter.router);
 
 
 // catch 404 and forward to error handler

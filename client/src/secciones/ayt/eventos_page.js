@@ -129,7 +129,7 @@ const EventosPage = ({events}) => {
                     <Typography gutterBottom sx={{fontWeight:'bold',fontSize:{xs:15,sm:18}}} component="div">
                     {card.title}
                     </Typography>
-                    {(card.doc !== '') ? (
+                    {(card.doc != null) ? (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignText: 'center', flexWrap: 'wrap'}}>
                     <Button2 sx={{mt:1}} onClick={() => window.open(card.doc, '_blank', 'noopener,noreferrer')} variant="contained" startIcon={<PictureAsPdfIcon />} endIcon={<DownloadForOfflineIcon />}>
                         Documento
@@ -137,7 +137,7 @@ const EventosPage = ({events}) => {
                     </div>
                     ) : ""}
                 </CardContent>
-                {(card.content !== '') ? (
+                {(card.content != null) ? (
                     <div>
                     <CardActions disableSpacing>
                     <Grid container justifyContent="flex-end">

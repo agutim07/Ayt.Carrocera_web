@@ -196,7 +196,7 @@ const EventosCard = ({onChange, card}) => {
                 <Typography gutterBottom sx={{fontWeight:'bold',fontSize:{xs:15,sm:18}}} component="div">
                 {card.title}
                 </Typography>
-                {(card.doc !== '') ? (
+                {(card.doc != null) ? (
                 <Button2 sx={{mt:1}} onClick={() => window.open(card.doc, '_blank', 'noopener,noreferrer')} variant="contained" startIcon={<PictureAsPdfIcon />} endIcon={<DownloadForOfflineIcon />}>
                     Documento
                 </Button2>
@@ -208,7 +208,7 @@ const EventosCard = ({onChange, card}) => {
                     <Button variant="contained" onClick={handleClickOpen} startIcon={<EditIcon />}>Editar</Button>
                 </CardActions>
             </div>
-            {(card.content !== '') ? (
+            {(card.content != null) ? (
                 <div>
                 <CardActions disableSpacing>
                 <Grid container justifyContent="flex-end">

@@ -43,6 +43,8 @@ import EventosAdmin from './secciones/eventosAdmin';
 
 import Axios from 'axios';
 
+import {backend} from '../config/variables'
+
 import {
     BrowserRouter as Router,
     Routes,
@@ -126,7 +128,7 @@ function Admin() {
             setLoading(true);
 
 
-            Axios.post('https://ayuntamientocarrocera.herokuapp.com/api/login', {username:details.user, pass:details.password})
+            Axios.post("/login/admin", {username:details.user, pass:details.password})
             .then((response) => {
                 if(!response.data){
                     setError("Datos incorrectos");
