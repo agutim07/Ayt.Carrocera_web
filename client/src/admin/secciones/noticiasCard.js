@@ -91,14 +91,14 @@ const NoticiasCard = ({onChange,card}) => {
     };
 
     const handleSubmitBorrar = () => {
-        Axios.delete("https://ayuntamientocarrocera.herokuapp.com/api/news/"+card.id).then(() => {
+        Axios.delete("/news/"+card._id).then(() => {
             setOpenBorrar(false);
             onChange("borrar");
         });
     };
 
     const [details, setDetails] = useState({title:card.title, doc:card.doc, content:card.content});
-    const [date, setDate] = React.useState(dayjs(card.fecha));
+    const [date, setDate] = React.useState(dayjs(new Date(card.fecha) - 1));
     const handleDateChange = (newValue) => {
         setDate(newValue);
     };
@@ -109,7 +109,7 @@ const NoticiasCard = ({onChange,card}) => {
     };
     const handleClose = () => {
         details.title=card.title; details.doc=card.doc; details.content=card.content; 
-        setDate(dayjs(card.fecha));
+        setDate(dayjs(new Date(card.fecha) - 1));
         setOpen(false);
     };
 
@@ -117,23 +117,25 @@ const NoticiasCard = ({onChange,card}) => {
     const [error, setError] = useState("");
 
     const handleSubmit = () => {
-        let fecha = date.$y + "-" + (date.$M+1) + "-" + date.$D;
+        var dateS = new Date(dayjs(date).toDate());
+        dateS.setDate(dateS.getDate() + 1);
+        let fecha = dateS.getFullYear() + "-" + (dateS.getMonth() + 1) + "-" + dateS.getDate();
 
         if (details.title === "") {
             setError("Rellene como mínimo el título");
             setOpenAlert(true); 
             details.title=card.title; details.doc=card.doc; details.content=card.content; 
-            setDate(dayjs(card.fecha));
+            setDate(dayjs(new Date(card.fecha) - 1));
             setOpen(false);
         }else{
             setOpen(false);
-            Axios.put('https://ayuntamientocarrocera.herokuapp.com/api/news/'+card.id, 
+            Axios.put('/news/'+card._id, 
             {title:details.title, doc:details.doc, fecha:fecha, content:details.content})
             .then((response) => {
                 if(!response.data){
                     setError("No se ha podido añadir la noticia");
                     details.title=card.title; details.doc=card.doc; details.content=card.content; 
-                    setDate(dayjs(card.fecha));
+                    setDate(dayjs(new Date(card.fecha) - 1));
                     setOpenAlert(true);
                 }else{
                     onChange("editar");
@@ -187,7 +189,7 @@ const NoticiasCard = ({onChange,card}) => {
                 <Typography gutterBottom sx={{fontWeight:'bold',fontSize:{xs:15,sm:18}}} component="div">
                 {card.title}
                 </Typography>
-                {(card.doc != null) ? (
+                {(card.doc != null && card.doc!="") ? (
                 <Button2 sx={{mt:1}} onClick={() => window.open(card.doc, '_blank', 'noopener,noreferrer')} variant="contained" startIcon={<PictureAsPdfIcon />} endIcon={<DownloadForOfflineIcon />}>
                     Documento
                 </Button2>
@@ -199,7 +201,7 @@ const NoticiasCard = ({onChange,card}) => {
                     <Button variant="contained" onClick={handleClickOpen} startIcon={<EditIcon />}>Editar</Button>
                 </CardActions>
             </div>
-            {(card.content != null) ? (
+            {(card.content != null && card.content!="") ? (
                 <div>
                 <CardActions disableSpacing>
                 <Grid container justifyContent="flex-end">

@@ -124,22 +124,28 @@ const NoticiasAdmin = () => {
     };
 
     const handleSubmit = () => {
-        let fecha = date.$y + "-" + (date.$M+1) + "-" + date.$D;
+        var dateS = new Date(dayjs(date).toDate());
+        dateS.setDate(dateS.getDate() + 1);
+        let fecha = dateS.getFullYear() + "-" + (dateS.getMonth() + 1) + "-" + dateS.getDate();
 
         if (details.title === "") {
             setError("Rellene como mínimo el título");
             setOpenAlert(true); 
             details.title=""; details.doc=""; details.content=""; 
             setOpen(false);
+            setDate(dayjs());
         }else{
             setOpen(false);
+            setDate(dayjs());
             setLoading(true);
-            Axios.post('https://ayuntamientocarrocera.herokuapp.com/api/news', 
+            Axios.post('/news', 
             {title:details.title, doc:details.doc, fecha:fecha, content:details.content})
             .then((response) => {
+                console.log(response.data);
                 if(!response.data){
                     setError("No se ha podido añadir la noticia");
                     setOpenAlert(true);
+                    setLoading(false);
                 }else{
                     onChange("añadir");
                 }
@@ -214,7 +220,7 @@ const NoticiasAdmin = () => {
             </Dialog>
         </Box>
 
-        <Box sx={{ position: "absolute", bottom: "50%", right: "40%" }}>
+        <Box sx={{ position: "absolute", bottom: "50%", right: "35%" }}>
           <Collapse in={openAlert}>
             <Alert severity="warning" variant="filled"
               action={

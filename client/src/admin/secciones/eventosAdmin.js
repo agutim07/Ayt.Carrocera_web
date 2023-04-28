@@ -56,6 +56,9 @@ import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import AlertTitle from '@mui/material/AlertTitle';
 import CloseIcon from '@mui/icons-material/Close'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -84,7 +87,7 @@ const EventosAdmin = () => {
     const [eventos, setEventos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [alertText, setAlertText] = useState("");
-    const [details, setDetails] = useState({title:"", doc:"", content:"", loc:""});
+    const [details, setDetails] = useState({title:"", doc:"", content:"", loc:"Benllera"});
     const [openAlert, setOpenAlert] = useState(false);
     const [error, setError] = useState("");
 
@@ -123,17 +126,21 @@ const EventosAdmin = () => {
     };
 
     const handleSubmit = () => {
-        let fecha = date.$y + "-" + (date.$M+1) + "-" + date.$D;
+        var dateS = new Date(dayjs(date).toDate());
+        dateS.setDate(dateS.getDate() + 1);
+        let fecha = dateS.getFullYear() + "-" + (dateS.getMonth() + 1) + "-" + dateS.getDate();
 
         if (details.title === "") {
             setError("Rellene como mínimo el título");
             setOpenAlert(true); 
             details.title=""; details.doc=""; details.content=""; details.loc="";
             setOpen(false);
+            setDate(dayjs());
         }else{
             setOpen(false);
+            setDate(dayjs());
             setLoading(true);
-            Axios.post('https://ayuntamientocarrocera.herokuapp.com/api/events', 
+            Axios.post('/events', 
             {title:details.title, doc:details.doc, fecha:fecha, content:details.content, loc:details.loc})
             .then((response) => {
                 if(!response.data){
@@ -193,7 +200,24 @@ const EventosAdmin = () => {
                     <br></br>
                     <TextField autoFocusmargin="dense" label="Documento [DEBE SER UNA URL DE INTERNET: GOOGLE DRIVE]" id="doc" type="text" fullWidth onChange={e => setDetails({ ...details, doc: e.target.value })}/>
                     <br></br>
-                    <TextField autoFocusmargin="dense" id="loc" label="Localización" type="text" fullWidth onChange={e => setDetails({ ...details, loc: e.target.value })}/>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Localización</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={details.loc}
+                        label="Localización"
+                        onChange={e => setDetails({ ...details, loc: e.target.value })}
+                        >
+                        <MenuItem value={"Benllera"}>Benllera</MenuItem>
+                        <MenuItem value={"Carrocera"}>Carrocera</MenuItem>
+                        <MenuItem value={"Cuevas de Viñayo"}>Cuevas de Viñayo</MenuItem>
+                        <MenuItem value={"Otero de las Dueñas"}>Otero de las Dueñas</MenuItem>
+                        <MenuItem value={"Piedrasecha"}>Piedrasecha</MenuItem>
+                        <MenuItem value={"Santiago de las Villas"}>Santiago de las Villas</MenuItem>
+                        <MenuItem value={"Viñayo"}>Viñayo</MenuItem>
+                        </Select>
+                    </FormControl>
                     <br></br>
                     <TextField multiline rows={8} margin="dense" id="content" label="Contenido" type="text" fullWidth onChange={e => setDetails({ ...details, content: e.target.value })}/>
                     <br></br>
@@ -216,7 +240,7 @@ const EventosAdmin = () => {
             </Dialog>
         </Box>
 
-        <Box sx={{ position: "absolute", bottom: "50%", right: "40%" }}>
+        <Box sx={{ position: "absolute", bottom: "50%", right: "35%" }}>
           <Collapse in={openAlert}>
             <Alert severity="warning" variant="filled"
               action={

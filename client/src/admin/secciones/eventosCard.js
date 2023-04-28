@@ -32,6 +32,9 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LanguageIcon from '@mui/icons-material/Language';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 import Divider from '@mui/material/Divider';
 import MuiToggleButton from '@mui/material/ToggleButton';
@@ -90,14 +93,14 @@ const EventosCard = ({onChange, card}) => {
         setOpenBorrar(false);
     };
     const handleSubmitBorrar = () => {
-        Axios.delete("https://ayuntamientocarrocera.herokuapp.com/api/events/"+card.id).then(() => {
+        Axios.delete("/events/"+card._id).then(() => {
             setOpenBorrar(false);
             onChange("borrar");
         });
     };
 
     const [details, setDetails] = useState({title:card.title, doc:card.doc, content:card.content, loc:card.loc});
-    const [date, setDate] = React.useState(dayjs(card.fecha));
+    const [date, setDate] = React.useState(dayjs(new Date(card.fecha) - 1));
     const handleDateChange = (newValue) => {
         setDate(newValue);
     };
@@ -108,7 +111,7 @@ const EventosCard = ({onChange, card}) => {
     };
     const handleClose = () => {
         details.title=card.title; details.doc=card.doc; details.content=card.content; details.loc=card.loc;
-        setDate(dayjs(card.fecha));
+        setDate(dayjs(new Date(card.fecha) - 1));
         setOpen(false);
     };
 
@@ -116,23 +119,25 @@ const EventosCard = ({onChange, card}) => {
     const [error, setError] = useState("");
 
     const handleSubmit = () => {
-        let fecha = date.$y + "-" + (date.$M+1) + "-" + date.$D;
+        var dateS = new Date(dayjs(date).toDate());
+        dateS.setDate(dateS.getDate() + 1);
+        let fecha = dateS.getFullYear() + "-" + (dateS.getMonth() + 1) + "-" + dateS.getDate();
 
         if (details.title === "") {
             setError("Rellene como mínimo el título");
             setOpenAlert(true); 
             details.title=card.title; details.doc=card.doc; details.content=card.content; details.loc=card.loc;
-            setDate(dayjs(card.fecha));
+            setDate(dayjs(new Date(card.fecha) - 1));
             setOpen(false);
         }else{
             setOpen(false);
-            Axios.put('https://ayuntamientocarrocera.herokuapp.com/api/events/'+card.id, 
+            Axios.put("/events/"+card._id, 
             {title:details.title, doc:details.doc, fecha:fecha, content:details.content, loc:details.loc})
             .then((response) => {
                 if(!response.data){
                     setError("No se ha podido añadir el evento");
                     details.title=card.title; details.doc=card.doc; details.content=card.content; details.loc=card.loc;
-                    setDate(dayjs(card.fecha));
+                    setDate(dayjs(new Date(card.fecha) - 1));
                     setOpenAlert(true);
                 }else{
                     onChange("editar");
@@ -196,7 +201,7 @@ const EventosCard = ({onChange, card}) => {
                 <Typography gutterBottom sx={{fontWeight:'bold',fontSize:{xs:15,sm:18}}} component="div">
                 {card.title}
                 </Typography>
-                {(card.doc != null) ? (
+                {(card.doc != null && card.doc!="") ? (
                 <Button2 sx={{mt:1}} onClick={() => window.open(card.doc, '_blank', 'noopener,noreferrer')} variant="contained" startIcon={<PictureAsPdfIcon />} endIcon={<DownloadForOfflineIcon />}>
                     Documento
                 </Button2>
@@ -208,7 +213,7 @@ const EventosCard = ({onChange, card}) => {
                     <Button variant="contained" onClick={handleClickOpen} startIcon={<EditIcon />}>Editar</Button>
                 </CardActions>
             </div>
-            {(card.content != null) ? (
+            {(card.content != null && card.content!="") ? (
                 <div>
                 <CardActions disableSpacing>
                 <Grid container justifyContent="flex-end">
@@ -251,7 +256,24 @@ const EventosCard = ({onChange, card}) => {
                     <br></br>
                     <TextField defaultValue={card.doc} autoFocusmargin="dense" label="Documento [DEBE SER UNA URL DE INTERNET: GOOGLE DRIVE]" id="doc" type="text" fullWidth onChange={e => setDetails({ ...details, doc: e.target.value })}/>
                     <br></br>
-                    <TextField defaultValue={card.loc} autoFocusmargin="dense" id="loc" label="Localización" type="text" fullWidth onChange={e => setDetails({ ...details, loc: e.target.value })}/>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Localización</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={details.loc}
+                        label="Localización"
+                        onChange={e => setDetails({ ...details, loc: e.target.value })}
+                        >
+                        <MenuItem value={"Benllera"}>Benllera</MenuItem>
+                        <MenuItem value={"Carrocera"}>Carrocera</MenuItem>
+                        <MenuItem value={"Cuevas de Viñayo"}>Cuevas de Viñayo</MenuItem>
+                        <MenuItem value={"Otero de las Dueñas"}>Otero de las Dueñas</MenuItem>
+                        <MenuItem value={"Piedrasecha"}>Piedrasecha</MenuItem>
+                        <MenuItem value={"Santiago de las Villas"}>Santiago de las Villas</MenuItem>
+                        <MenuItem value={"Viñayo"}>Viñayo</MenuItem>
+                        </Select>
+                    </FormControl>
                     <br></br>
                     <TextField multiline rows={8} defaultValue={card.content} margin="dense" id="content" label="Contenido" type="text" fullWidth onChange={e => setDetails({ ...details, content: e.target.value })}/>
                     <br></br>

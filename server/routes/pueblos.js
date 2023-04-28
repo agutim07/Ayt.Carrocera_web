@@ -8,4 +8,10 @@ async function getPueblo(id){
     return pueblo.nombre;
 }
 
-module.exports = {router:router, getPueblo:getPueblo}
+async function getPuebloID(loc){
+    let pueblo = await Pueblo.findOne({nombre:loc});
+
+    return pueblo._id;
+}
+
+module.exports = {router:router, getPueblo:getPueblo, getPuebloID:getPuebloID}
