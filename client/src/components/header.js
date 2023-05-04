@@ -224,7 +224,6 @@ const Header = () => {
               Ayuntamiento de <Box sx={{ fontWeight: 'bold', fontSize: 'h5.fontSize' }}>Carrocera</Box>
             </Typography>
           </Grid>
-          <Grid item xs={false} sm={1} align="right"/>
           <Grid item sx={{ display: { xs: 'none', sm: 'block' }}} xs={1.5} align="right">
             <Grid container direction="row" alignItems="center">
               <Typography variant="h6" noWrap color="white" component="div" display="inline" align="right">
@@ -251,6 +250,40 @@ const Header = () => {
                 <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/admin')}>
                   <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
                   ADMIN
+                </MenuItem>
+              </Menu>
+            </Grid>
+          </Grid>
+          <Grid item sx={{ display: { xs: 'none', sm: 'block' }}} xs={1.5} align="right">
+            <Grid container direction="row" alignItems="center">
+              <Typography variant="h6" noWrap color="white" component="div" display="inline" align="right">
+                  Cuenta
+              </Typography>
+              <IconButton onMouseOver={handleClickExMenu} onClick={handleClickExMenu} aria-controls={Boolean(extraMenu) ? 'account-menu' : undefined} 
+              aria-haspopup="true" aria-expanded={Boolean(extraMenu) ? 'true' : undefined}>
+                <ExpandCircle sx={{ color:"white", fontSize: "30px" }}/>
+              </IconButton>
+              <Menu anchorEl={extraMenu} open={Boolean(extraMenu)} onClose={handleCloseExMenu}
+              MenuListProps={{ onMouseLeave: handleCloseExMenu }}>
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/inicioSesion')}>
+                  <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
+                  INICIAR SESIÓN
+                </MenuItem>
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("INICIO")}>
+                  <ListItemIcon><HomeIcon fontSize="small"/></ListItemIcon>
+                  DATOS PERSONALES
+                </MenuItem>
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("mapaweb")}>
+                  <ListItemIcon><MapIcon fontSize="small"/></ListItemIcon>
+                  MAPA WEB
+                </MenuItem>
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("contacto")}>
+                  <ListItemIcon><ContactSupportIcon fontSize="small"/></ListItemIcon>
+                  CONTACTO
+                </MenuItem>
+                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/admin')}>
+                  <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
+                  CERRAR SESIÓN
                 </MenuItem>
               </Menu>
             </Grid>

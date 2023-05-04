@@ -13,6 +13,7 @@ import Header from './components/header.js';
 import Sidenav from './components/sidenav.js';
 import Inicio from './secciones/inicio.js';
 import Contacto from './secciones/contacto';
+import InicioSesion from './secciones/inicioSesion';
 import Telefonos from './secciones/ayt/telefonos';
 import Corporacion from './secciones/ayt/corporacion';
 import Localizacion from './secciones/localizacion';
@@ -172,6 +173,7 @@ function App() {
               <Grid item>
               <Routes>
                 <Route path="/" exact element={<Inicio loadingNews={loadingNews} noticia={news[0]} loadingEventos={loadingEventos} evento={proximoEvento}/>} />
+                <Route path="/inicioSesion" element={<InicioSesion/>} />
                 <Route path="/contacto" element={<Contacto/>} />
                 <Route path="/mapaweb" element={<MapaWeb/>} />
                 <Route path="/ayt/telefonos" element={<Telefonos/>} />
