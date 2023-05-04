@@ -104,6 +104,13 @@ const Header = () => {
   }};
   const handleCloseExMenu = () => { setExtraMenu(null); };
 
+  const [extraMenu2, setExtraMenu2] = React.useState(null);
+  const handleClickExMenu2 = (event) => {
+    if(event.currentTarget !== extraMenu2){
+      setExtraMenu2(event.currentTarget); 
+  }};
+  const handleCloseExMenu2 = () => { setExtraMenu2(null); };
+
   const navigate = useNavigate();
   
   const newPage = page => {
@@ -192,6 +199,8 @@ const Header = () => {
     handleDrawerClose();
   }
 
+  const [logged, setLogged] = React.useState(true);
+
   return (
     <div>
       <Toolbar sx={{borderBottom: `1px solid ${theme.palette.grey[300]}`}}>
@@ -259,32 +268,35 @@ const Header = () => {
               <Typography variant="h6" noWrap color="white" component="div" display="inline" align="right">
                   Cuenta
               </Typography>
-              <IconButton onMouseOver={handleClickExMenu} onClick={handleClickExMenu} aria-controls={Boolean(extraMenu) ? 'account-menu' : undefined} 
-              aria-haspopup="true" aria-expanded={Boolean(extraMenu) ? 'true' : undefined}>
+              <IconButton onMouseOver={handleClickExMenu2} onClick={handleClickExMenu2} aria-controls={Boolean(extraMenu2) ? 'account-menu' : undefined} 
+              aria-haspopup="true" aria-expanded={Boolean(extraMenu2) ? 'true' : undefined}>
                 <ExpandCircle sx={{ color:"white", fontSize: "30px" }}/>
               </IconButton>
-              <Menu anchorEl={extraMenu} open={Boolean(extraMenu)} onClose={handleCloseExMenu}
-              MenuListProps={{ onMouseLeave: handleCloseExMenu }}>
-                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/inicioSesion')}>
-                  <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
-                  INICIAR SESIÓN
-                </MenuItem>
-                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("INICIO")}>
-                  <ListItemIcon><HomeIcon fontSize="small"/></ListItemIcon>
-                  DATOS PERSONALES
-                </MenuItem>
-                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("mapaweb")}>
-                  <ListItemIcon><MapIcon fontSize="small"/></ListItemIcon>
-                  MAPA WEB
-                </MenuItem>
-                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("contacto")}>
-                  <ListItemIcon><ContactSupportIcon fontSize="small"/></ListItemIcon>
-                  CONTACTO
-                </MenuItem>
-                <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/admin')}>
-                  <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
-                  CERRAR SESIÓN
-                </MenuItem>
+              <Menu anchorEl={extraMenu2} open={Boolean(extraMenu2)} onClose={handleCloseExMenu2}
+              MenuListProps={{ onMouseLeave: handleCloseExMenu2 }}>
+                {(!logged) ? (
+                <div>
+                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/inicioSesion')}>
+                    <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
+                    INICIAR SESIÓN
+                  </MenuItem>
+                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/inicioSesion')}>
+                    <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
+                    REGISTRARSE
+                  </MenuItem>
+                </div>
+                ) : (
+                <div>
+                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("INICIO")}>
+                    <ListItemIcon><HomeIcon fontSize="small"/></ListItemIcon>
+                    DATOS PERSONALES
+                  </MenuItem>
+                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/admin')}>
+                    <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
+                    CERRAR SESIÓN
+                  </MenuItem>
+                </div>
+                )}
               </Menu>
             </Grid>
           </Grid>
