@@ -29,6 +29,10 @@ import Collapse from '@mui/material/Collapse';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PublicIcon from '@mui/icons-material/Public';
 import CloseIcon from '@mui/icons-material/Close';
+import LoginIcon from '@mui/icons-material/Login';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import ImportContactsIcon from '@mui/icons-material/ImportContacts';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import {subsecciones,secciones} from '../data.js';
 
@@ -199,7 +203,7 @@ const Header = () => {
     handleDrawerClose();
   }
 
-  const [logged, setLogged] = React.useState(true);
+  const [logged, setLogged] = React.useState(false);
 
   return (
     <div>
@@ -277,22 +281,22 @@ const Header = () => {
                 {(!logged) ? (
                 <div>
                   <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/inicioSesion')}>
-                    <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
+                    <ListItemIcon><LoginIcon fontSize="small"/></ListItemIcon>
                     INICIAR SESIÓN
                   </MenuItem>
                   <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/inicioSesion')}>
-                    <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
+                    <ListItemIcon><AppRegistrationIcon fontSize="small"/></ListItemIcon>
                     REGISTRARSE
                   </MenuItem>
                 </div>
                 ) : (
                 <div>
                   <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("INICIO")}>
-                    <ListItemIcon><HomeIcon fontSize="small"/></ListItemIcon>
+                    <ListItemIcon><ImportContactsIcon fontSize="small"/></ListItemIcon>
                     DATOS PERSONALES
                   </MenuItem>
                   <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/admin')}>
-                    <ListItemIcon><AdminPanelSettingsIcon fontSize="small"/></ListItemIcon>
+                    <ListItemIcon><LogoutIcon fontSize="small"/></ListItemIcon>
                     CERRAR SESIÓN
                   </MenuItem>
                 </div>
