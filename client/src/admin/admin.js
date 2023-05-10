@@ -40,6 +40,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import AdminHeadbar from './adminHeadbar';
 import NoticiasAdmin from './secciones/noticiasAdmin';
 import EventosAdmin from './secciones/eventosAdmin';
+import ActividadesAdmin from './secciones/actividadesAdmin';
 
 import Axios from 'axios';
 
@@ -162,6 +163,7 @@ function Admin() {
             setCat(newAlignment);
             if(newAlignment==="Noticias"){navigate('/admin/noticias', {replace: true});}
             if(newAlignment==="Eventos"){navigate('/admin/eventos', {replace: true});}
+            if(newAlignment==="Actividades"){navigate('/admin/actividades', {replace: true});}
         };
 
     return (
@@ -177,12 +179,14 @@ function Admin() {
                     <ToggleButtonGroup sx={{mb:1,mt:8}} color="primary" value={cat} exclusive onChange={handleChange} >
                         <ToggleButton size="small" value="Noticias">Noticias</ToggleButton>
                         <ToggleButton size="small" value="Eventos">Eventos</ToggleButton>
+                        <ToggleButton size="small" value="Actividades">Actividades</ToggleButton>
                     </ToggleButtonGroup>
                     </Grid>
                     <Grid item>
                     <Routes>
                         <Route path="/noticias" element={<NoticiasAdmin />} />
                         <Route path="/eventos" element={<EventosAdmin />} />
+                        <Route path="/actividades" element={<ActividadesAdmin />} />
                     </Routes>
                     </Grid>
                 </Grid>

@@ -27,6 +27,10 @@ import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
 import { orange,green } from '@mui/material/colors';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
 import BungalowIcon from '@mui/icons-material/Bungalow';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -99,7 +103,7 @@ const EventosCard = ({onChange, card}) => {
         });
     };
 
-    const [details, setDetails] = useState({title:card.title, doc:card.doc, content:card.content, loc:card.loc});
+    const [details, setDetails] = useState({title:card.title, doc:card.doc, content:card.content, loc:card.loc, inscripcion:card.inscripcion});
     const [date, setDate] = React.useState(dayjs(new Date(card.fecha) - 1));
     const handleDateChange = (newValue) => {
         setDate(newValue);
@@ -110,7 +114,7 @@ const EventosCard = ({onChange, card}) => {
         setOpen(true);
     };
     const handleClose = () => {
-        details.title=card.title; details.doc=card.doc; details.content=card.content; details.loc=card.loc;
+        details.title=card.title; details.doc=card.doc; details.content=card.content; details.loc=card.loc; details.inscripcion=card.inscripcion;
         setDate(dayjs(new Date(card.fecha) - 1));
         setOpen(false);
     };
@@ -126,17 +130,17 @@ const EventosCard = ({onChange, card}) => {
         if (details.title === "") {
             setError("Rellene como mínimo el título");
             setOpenAlert(true); 
-            details.title=card.title; details.doc=card.doc; details.content=card.content; details.loc=card.loc;
+            details.title=card.title; details.doc=card.doc; details.content=card.content; details.loc=card.loc; details.inscripcion=card.inscripcion;
             setDate(dayjs(new Date(card.fecha) - 1));
             setOpen(false);
         }else{
             setOpen(false);
             Axios.put("/events/"+card._id, 
-            {title:details.title, doc:details.doc, fecha:fecha, content:details.content, loc:details.loc})
+            {title:details.title, doc:details.doc, fecha:fecha, content:details.content, loc:details.loc, inscripcion:details.inscripcion})
             .then((response) => {
                 if(!response.data){
                     setError("No se ha podido añadir el evento");
-                    details.title=card.title; details.doc=card.doc; details.content=card.content; details.loc=card.loc;
+                    details.title=card.title; details.doc=card.doc; details.content=card.content; details.loc=card.loc; details.inscripcion=card.inscripcion;
                     setDate(dayjs(new Date(card.fecha) - 1));
                     setOpenAlert(true);
                 }else{
@@ -286,8 +290,12 @@ const EventosCard = ({onChange, card}) => {
                         renderInput={(params) => <TextField {...params} />}
                         />
                     </LocalizationProvider>
-                    </FormControl>
                     <br></br>
+                    <FormGroup>
+                        <FormControlLabel control={<Switch checked={details.inscripcion} onChange={e => setDetails({ ...details, inscripcion: !details.inscripcion })}/>} label="Inscripcion necesaria" />
+                    </FormGroup>
+                    <br></br>
+                    </FormControl>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleSubmit}> Editar </Button>

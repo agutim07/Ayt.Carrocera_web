@@ -36,29 +36,22 @@ const InicioSesion = () => {
         <Box sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
         mt:1, justifyContent:"center",  flexDirection: 'column'}}>
             <ThemeProvider theme={darkTheme}>
-                <Grid container direction="row" justifyContent="center" alignItems="center" sx={{my:{xs:0,sm:2}}}>
-                    <Container maxWidth="sm">
-                        <Grid container direction="row" alignItems="center" justifyContent="center">
-                            <Grid item xs={5}></Grid>
-                            <Grid item>
-                                <TextField sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
-                                    mt:1, justifyContent:"center",  flexDirection: 'column'}}
-                                    id="outlined-basic" label="User" variant="outlined"
-                                    onChange={e => setDetails({...details, user: e.target.value})} />
-                            </Grid>
-                            <Grid item xs={5}></Grid>
-                            <Grid item>
-                                <TextField sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
-                                    mt:1, justifyContent:"center",  flexDirection: 'column'}}
-                                    id="outlined-basic" label="Pass" variant="outlined" 
-                                    onChange={e => setDetails({...details, pass: e.target.value})} />
-                            </Grid>
-                            <Grid item xs={5}></Grid>
-                            <Grid item>
-                                <Button onClick={handleSubmit} variant="text">Iniciar sesion</Button>
-                            </Grid>
+                <Grid container direction="column" spacing={0} justifyContent="center" alignItems="center" sx={{my:{xs:0,sm:2}}}>
+                        <Grid item>
+                            <TextField sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
+                                mt:1, justifyContent:"center",  flexDirection: 'column'}}
+                                id="outlined-basic" label="User" variant="outlined"
+                                onChange={e => setDetails({...details, user: e.target.value})} />
                         </Grid>
-                    </Container>
+                        <Grid item>
+                            <TextField sx={{ border:0.5, borderColor:"#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex', 
+                                mt:1, justifyContent:"center",  flexDirection: 'column'}}
+                                id="outlined-basic" label="Pass" variant="outlined" 
+                                onChange={e => setDetails({...details, pass: e.target.value})} />
+                        </Grid>
+                        <Grid item>
+                            <Button onClick={handleSubmit} variant="text">Iniciar sesion</Button>
+                        </Grid>
                 </Grid>
             </ThemeProvider>
         </Box>

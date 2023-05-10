@@ -16,7 +16,7 @@ router.get("/", (req,res) => {
 
             for(let i=0; i<orderData.length; i++){
                 const pueblo = await pueblos.getPueblo(orderData[i].idPueblo);
-                let item = {id:i, _id:orderData[i]._id, title:orderData[i].titulo, fecha:orderData[i].fecha, content:orderData[i].contenido, doc:orderData[i].documento, loc:pueblo};
+                let item = {id:i, _id:orderData[i]._id, title:orderData[i].titulo, fecha:orderData[i].fecha, content:orderData[i].contenido, doc:orderData[i].documento, loc:pueblo, inscripcion:orderData[i].inscripcion};
                 events.push(item);
             }
 
@@ -34,10 +34,11 @@ router.post("/", async (req,res) => {
         const fecha = req.body.fecha;
         const content = req.body.content;
         const loc = req.body.loc;
+        const inscripcion = req.body.inscripcion;
         const pueblo = await pueblos.getPuebloID(loc);
 
         if(typeof title!=='undefined' && typeof fecha!=='undefined' && pueblo!=null){
-            let newEvent = new Event({titulo:title, fecha:fecha, contenido:content, documento:doc, idPueblo:pueblo, inscripcion:false});
+            let newEvent = new Event({titulo:title, fecha:fecha, contenido:content, documento:doc, idPueblo:pueblo, inscripcion:inscripcion});
 
             newEvent.save((error, data) => {
                 if(error){
@@ -65,10 +66,11 @@ router.put("/:id", async (req,res) => {
         const fecha = req.body.fecha;
         const content = req.body.content;
         const loc = req.body.loc;
+        const inscripcion = req.body.inscripcion;
         const pueblo = await pueblos.getPuebloID(loc);
 
         if(typeof title!=='undefined' && typeof fecha!=='undefined'){
-            let update = {titulo:title, fecha:fecha, contenido:content, documento:doc, idPueblo:pueblo};
+            let update = {titulo:title, fecha:fecha, contenido:content, documento:doc, idPueblo:pueblo, inscripcion:inscripcion};
             let filter = {_id:eventID};
 
             Event.findOneAndUpdate(filter, {$set:update}, {new: true}, (err,doc) => {

@@ -60,6 +60,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -87,7 +91,7 @@ const EventosAdmin = () => {
     const [eventos, setEventos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [alertText, setAlertText] = useState("");
-    const [details, setDetails] = useState({title:"", doc:"", content:"", loc:"Benllera"});
+    const [details, setDetails] = useState({title:"", doc:"", content:"", loc:"Benllera", inscripcion:false});
     const [openAlert, setOpenAlert] = useState(false);
     const [error, setError] = useState("");
 
@@ -133,7 +137,7 @@ const EventosAdmin = () => {
         if (details.title === "") {
             setError("Rellene como mínimo el título");
             setOpenAlert(true); 
-            details.title=""; details.doc=""; details.content=""; details.loc="";
+            details.title=""; details.doc=""; details.content=""; details.loc="Benllera"; details.inscripcion=false;
             setOpen(false);
             setDate(dayjs());
         }else{
@@ -141,7 +145,7 @@ const EventosAdmin = () => {
             setDate(dayjs());
             setLoading(true);
             Axios.post('/events', 
-            {title:details.title, doc:details.doc, fecha:fecha, content:details.content, loc:details.loc})
+            {title:details.title, doc:details.doc, fecha:fecha, content:details.content, loc:details.loc, inscripcion:details.inscripcion})
             .then((response) => {
                 if(!response.data){
                     setError("No se ha podido añadir el evento");
@@ -149,7 +153,7 @@ const EventosAdmin = () => {
                 }else{
                     onChange("añadir");
                 }
-                details.title=""; details.doc=""; details.content=""; details.loc="";
+                details.title=""; details.doc=""; details.content=""; details.loc="Benllera"; details.inscripcion=false;
             });
         }
         
@@ -230,6 +234,10 @@ const EventosAdmin = () => {
                         renderInput={(params) => <TextField {...params} />}
                         />
                     </LocalizationProvider>
+                    <br></br>
+                    <FormGroup>
+                        <FormControlLabel control={<Switch checked={details.inscripcion} onChange={e => setDetails({ ...details, inscripcion: !details.inscripcion })}/>} label="Inscripcion necesaria" />
+                    </FormGroup>
                     </FormControl>
                     <br></br>
                 </DialogContent>
