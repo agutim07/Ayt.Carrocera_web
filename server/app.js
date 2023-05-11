@@ -12,6 +12,7 @@ var loginRouter = require('./routes/login');
 var rolesRouter = require('./routes/roles');
 var pueblosRouter = require('./routes/pueblos');
 var activitiesRouter = require('./routes/activities');
+var registerRouter = requite('./routes/register');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -25,5 +26,6 @@ app.use('/roles', rolesRouter.router);
 app.use('/events', eventsRouter.router);
 app.use('/pueblos', pueblosRouter.router);
 app.use('/activities', activitiesRouter.router);
+app.use('/register', registerRouter.router);
 
 module.exports = app;

@@ -44,6 +44,7 @@ import {
 } from "react-router-dom";
 
 import Axios from 'axios';
+import Registro from './secciones/registro';
 
 const theme = createTheme({
   typography: {
@@ -174,6 +175,7 @@ function App() {
               <Routes>
                 <Route path="/" exact element={<Inicio loadingNews={loadingNews} noticia={news[0]} loadingEventos={loadingEventos} evento={proximoEvento}/>} />
                 <Route path="/inicioSesion" element={<InicioSesion/>} />
+                <Route path="/registro" element={<Registro/>} />
                 <Route path="/contacto" element={<Contacto/>} />
                 <Route path="/mapaweb" element={<MapaWeb/>} />
                 <Route path="/ayt/telefonos" element={<Telefonos/>} />
