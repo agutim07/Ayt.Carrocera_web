@@ -242,7 +242,7 @@ const Header = () => {
               <Typography variant="h6" noWrap color="white" component="div" display="inline" align="right">
                   Menú
               </Typography>
-              <IconButton onMouseOver={handleClickExMenu} onClick={handleClickExMenu} aria-controls={Boolean(extraMenu) ? 'account-menu' : undefined} 
+              <IconButton onClick={handleClickExMenu} aria-controls={Boolean(extraMenu) ? 'account-menu' : undefined} 
               aria-haspopup="true" aria-expanded={Boolean(extraMenu) ? 'true' : undefined}>
                 <ExpandCircle sx={{ color:"white", fontSize: "30px" }}/>
               </IconButton>
@@ -272,7 +272,7 @@ const Header = () => {
               <Typography variant="h6" noWrap color="white" component="div" display="inline" align="right">
                   Cuenta
               </Typography>
-              <IconButton onMouseOver={handleClickExMenu2} onClick={handleClickExMenu2} aria-controls={Boolean(extraMenu2) ? 'account-menu' : undefined} 
+              <IconButton onClick={handleClickExMenu2} aria-controls={Boolean(extraMenu2) ? 'account-menu' : undefined} 
               aria-haspopup="true" aria-expanded={Boolean(extraMenu2) ? 'true' : undefined}>
                 <ExpandCircle sx={{ color:"white", fontSize: "30px" }}/>
               </IconButton>
@@ -284,7 +284,7 @@ const Header = () => {
                     <ListItemIcon><LoginIcon fontSize="small"/></ListItemIcon>
                     INICIAR SESIÓN
                   </MenuItem>
-                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/inicioSesion')}>
+                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/registro')}>
                     <ListItemIcon><AppRegistrationIcon fontSize="small"/></ListItemIcon>
                     REGISTRARSE
                   </MenuItem>

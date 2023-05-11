@@ -11,13 +11,44 @@ import MuiAlert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import AlertTitle from '@mui/material/AlertTitle';
+import {alpha,styled} from '@mui/material/styles';
+import CircularProgress from '@mui/material/CircularProgress';
+import Snackbar from '@mui/material/Snackbar';
 
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
     },
 });
+
+const CustomTextField = styled(TextField)({
+    '& label.Mui-focused': {
+      color: 'white',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'white',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'white',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'red',
+      },
+    },
+    '& .MuiOutlinedInput-root:hover': {
+        '& fieldset': {
+          borderColor: "red",
+        }
+    },
+  });
 
 const InicioSesion = () => {
 
@@ -35,23 +66,23 @@ const InicioSesion = () => {
 
         let specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
-        if (details.user === "" || details.password === "") {
+        if (details.user === "" || details.pass === "") {
             setError("Rellene todos los campos");
             setOpen(true);
-        } else if (specialChars.test(details.user) || specialChars.test(details.password)) {
+        } else if (specialChars.test(details.user) || specialChars.test(details.pass)) {
             setError("No se permiten caracteres especiales");
             setOpen(true);
         } else {
             setLoading(true);
 
-
-            Axios.post("/login/user", { username: details.user, pass: details.password })
+            Axios.post("/login/user", { username: details.user, pass: details.pass })
                 .then((response) => {
                     if (!response.data) {
                         setError("Datos incorrectos");
                         setOpen(true);
                     } else {
                         setLog(true);
+                        setOpenSnackbar(true);
                     }
                     setLoading(false);
                 }).catch((error) => {
@@ -64,15 +95,21 @@ const InicioSesion = () => {
         }
     };
 
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {return;}
+        setOpenSnackbar(false);
+    };
+
     return (
-        <Box sx={{
-            border: 0.5, borderColor: "#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex',
-            mt: 1, justifyContent: "center", flexDirection: 'column'
-        }}>
-            <ThemeProvider theme={darkTheme}>
-                <Grid container direction="column" spacing={0} justifyContent="center" alignItems="center" sx={{ my: { xs: 0, sm: 2 } }}>
+        <ThemeProvider theme={darkTheme}>
+        <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{mb:3}}>
+            <Typography align="center" display="inline"><Box sx={{ mt:2, fontSize:20, fontWeight: 'bold', color:'white'}}>INICIO DE SESIÓN</Box></Typography>
+            <Paper elevation={12} sx={{ backgroundColor: "ffffff", color:"darkred", width: { xs: "85%", md:"60%" }, margin:1, 
+            padding:1, my: 0.5, border: "1px solid black", boxShadow: "3px 3px 3px black" }}>
+                <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
                     <Collapse in={open}>
-                        <MuiAlert severity="error"
+                        <Alert severity="error"
                             action={
                                 <IconButton
                                     aria-label="close"
@@ -88,35 +125,39 @@ const InicioSesion = () => {
                             sx={{ mb: 2 }}>
                             <AlertTitle>Inicio de sesión incorrecto</AlertTitle>
                             <strong>{error}</strong>
-                        </MuiAlert>
+                        </Alert>
                     </Collapse>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ m: 0.5, mr: 3 }}>
                         <Grid item>
-                            <TextField sx={{
-                                border: 0.5, borderColor: "#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex',
-                                mt: 1, justifyContent: "center", flexDirection: 'column'
-                            }}
-                                id="user" label="Usuario" name="user" variant="outlined"
-                                onChange={e => setDetails({ ...details, user: e.target.value })} value={details.user} />
+                            <CustomTextField margin="normal" required fullWidthtype="text"
+                            sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}}
+                            id="user" label="Usuario" name="user" variant="outlined"
+                            onChange={e => setDetails({ ...details, user: e.target.value })} value={details.user} />
                         </Grid>
                         <Grid item>
-                            <TextField sx={{
-                                border: 0.5, borderColor: "#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex',
-                                mt: 1, justifyContent: "center", flexDirection: 'column'
-                            }}
+                                <CustomTextField margin="normal" required fullWidthtype="text"
+                                sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}}
                                 id="password" label="Contraseña" name="password" variant="outlined" type="password"
-                                onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
+                                onChange={e => setDetails({ ...details, pass: e.target.value })} value={details.pass} />
                         </Grid>
-                        <Grid sx={{
-                            border: 0.5, borderColor: "#757575", flexGrow: 1, bgcolor: 'background.paper', display: 'flex',
-                            mt: 1, justifyContent: "center", flexDirection: 'column'
-                        }} item>
-                            <Button variant="contained">Iniciar sesion</Button>
+                        {(loading) ? (
+                            <Box sx={{ display: 'flex', my:1 }}>
+                                <CircularProgress />
+                            </Box>) : ""}
+                        <Grid item>
+                            <Button variant="contained" onClick={handleSubmit} fullWidth sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: '#e53935', }}}>Iniciar sesion</Button>
                         </Grid>
                     </Box>
                 </Grid>
-            </ThemeProvider>
-        </Box>
+                </Paper>
+            </Grid>
+
+            <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                    Inicio de sesión correcto
+                </Alert>
+            </Snackbar>
+        </ThemeProvider>
     );
 }
 

@@ -40,7 +40,9 @@ import Axios from 'axios';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { Checkbox, FormControlLabel, MenuItem } from '@mui/material';
 
-
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const darkTheme = createTheme({
     palette: {
@@ -169,11 +171,9 @@ function Registro() {
         navigate('/', {replace: true});
     }*/
 
-    const [details, setDetails] = useState({usuario:"",pass:"", nombre:"", apellidos:"", dni:"", fecha:"", sexo:""});
+    const [details, setDetails] = useState({usuario:"", pass:"", nombre:"", apellidos:"", dni:"", sexo:"Hombre"});
     const [error, setError] = useState("");
     const [open, setOpen] = useState(false);
-
-    const [openError, setOpenError] = useState(false);
 
     // Politica y privacidad
     const [openDialog, setOpenDialog] = useState(false);
@@ -191,24 +191,30 @@ function Registro() {
         var dateS = new Date(dayjs(date).toDate());
         dateS.setDate(dateS.getDate() + 1);
         let fecha = dateS.getFullYear() + "-" + (dateS.getMonth() + 1) + "-" + dateS.getDate();
-    
-        if(details.user==="" || details.password==="" || details.dni ==="" || details.apellidos==="" || details.nombre===""){
+
+        if(!checked){
+            setError("Debe aceptar la política de privacidad");
+            setOpen(true);
+        }else if(details.usuario==="" || details.pass==="" || details.dni ==="" || details.apellidos==="" || details.nombre===""){
             setError("Rellene todos los campos");
             setOpen(true);
-        }else if(specialChars.test(details.user) || specialChars.test(details.password)){
+        }else if(specialChars.test(details.usuario) || specialChars.test(details.pass)){
             setError("No se permiten caracteres especiales");
+            setOpen(true);
+        }else if(!validateDNI(details.dni)){
+            setError("DNI no válido");
             setOpen(true);
         }else{
             setLoading(true);
 
-
-            Axios.post("/register/user", {usuario:details.usuario, contrasena:details.pass,
-                 nombre: details.nombre, apellidos:details.apellidos,dni:details.dni, fecha:details.fecha,sexo:details.sexo})
+            Axios.post("/register", {usuario:details.usuario, contrasena:details.pass,
+                 nombre: details.nombre, apellidos:details.apellidos,dni:details.dni, fecha:fecha,sexo:details.sexo})
             .then((response) => {
                 if(!response.data){
-                    setError("Datos incorrectos");
+                    setError("Registro inválido: el DNI y el username deben ser únicos");
                     setOpen(true);
                 }else{
+                    setOpenSnackbar(true);
                     setLog(true);
                 }
                 setLoading(false);
@@ -241,8 +247,7 @@ function Registro() {
         }
     }
 
-    //const [date, setDate] = React.useState(dayjs(new Date(card.fecha) - 1));
-    const [date, setDate] = React.useState(false);
+    const [date, setDate] = React.useState(dayjs());
     const handleDateChange = (newValue) => {
         setDate(newValue);
     };
@@ -276,15 +281,46 @@ function Registro() {
         }
     }
 
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {return;}
+        setOpenSnackbar(false);
+    };
+
+    function validateDNI(dni) {
+        var numero, lett, letra;
+        var expresion_regular_dni = /^[XYZ]?\d{5,8}[A-Z]$/;
+    
+        dni = dni.toUpperCase();
+    
+        if(expresion_regular_dni.test(dni) === true){
+            numero = dni.substr(0,dni.length-1);
+            numero = numero.replace('X', 0);
+            numero = numero.replace('Y', 1);
+            numero = numero.replace('Z', 2);
+            lett = dni.substr(dni.length-1, 1);
+            numero = numero % 23;
+            letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
+            letra = letra.substring(numero, numero+1);
+            if (letra != lett) {
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+
     return (
         <ThemeProvider theme={darkTheme}>
             <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{mb:3}}>
-                <Typography align="center" display="inline"><Box sx={{ mt:2, fontSize:20, fontWeight: 'bold'}}>REGISTRO</Box></Typography>
+                <Typography align="center" display="inline"><Box sx={{ mt:2, fontSize:20, fontWeight: 'bold', color:'white'}}>REGISTRO</Box></Typography>
 
                 <Paper elevation={12} sx={{ backgroundColor: "ffffff", color:"darkred", width: { xs: "85%", md:"60%" }, margin:1, 
                 padding:1, my: 0.5, border: "1px solid black", boxShadow: "3px 3px 3px black" }}>
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ m: 0.5, mr: 3 }}>
+                    <Box component="form" sx={{ m: 0.5, mr: 3 }}>
                         <CustomTextField margin="normal" required fullWidth name="name" label="Nombre" type="text"
                         sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="name"
                         onChange={e => setDetails({...details, nombre: e.target.value})} value={details.nombre} 
@@ -305,7 +341,7 @@ function Registro() {
                         sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="pass"
                         onChange={e => setDetails({...details, pass: e.target.value})} value={details.pass} 
                         />
-                        <FormControlLabel
+                        <FormControlLabel sx={{color:'red'}}
                         control={<Checkbox color="primary" style ={{color: "#ffffff",}} onChange={(e) => handlePassVisibleChange(e)} />}
                         label="Mostrar contraseña"
                         />
@@ -327,7 +363,7 @@ function Registro() {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={details.loc}
+                                value={details.sexo}
                                 label="Sexo"
                                 onChange={e => setDetails({ ...details, sexo: e.target.value })}
                             >
@@ -337,7 +373,7 @@ function Registro() {
                         </FormControl>
                         <br/><br/>
                         <Grid container direction="row" alignItems="center" justifyContent="left">
-                            <Typography sx={{fontSize:{xs:10, sm:""}}}>He leido y acepto la<Button sx={{fontSize:{xs:10, sm:""}, color:"red"}} onClick={() => handleOpenDialog()}>
+                            <Typography sx={{fontSize:{xs:10, sm:""}, color:"red"}}>He leido y acepto la<Button sx={{fontSize:{xs:10, sm:""}, color:"red"}} onClick={() => handleOpenDialog()}>
                             Política de Privacidad</Button></Typography> 
                             <Box sx={{ display: { xs: 'block', sm: 'none' }}}>
                             <MobileSwitch size="small" checked={checked} onChange={handleChange} color="primary" />
@@ -346,38 +382,44 @@ function Registro() {
                             <RedSwitch checked={checked} onChange={handleChange} color="primary" />
                             </Box>
                         </Grid>
-                        <Box sx={{ fontStyle: 'italic' }}>(*): estos campos son obligatorios</Box>
-                        <Button onSubmit={handleSubmit} fullWidth variant="contained" sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: '#e53935', }}}>
+                        <Box sx={{ fontStyle: 'italic' , color:"red"}}>(*): estos campos son obligatorios</Box>
+                        <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: '#e53935', }}}>
                             Registrarse
                         </Button>
                     </Box>
-                    <Collapse in={openError}>
-                        <MuiAlert severity="error"
+                    {(loading) ? (
+                    <Box sx={{ display: 'flex' }}>
+                        <CircularProgress />
+                    </Box>) : ""}
+                    <Collapse in={open}>
+                        <Alert severity="error"
                         action={
                             <IconButton
                             aria-label="close"
                             color="inherit"
                             size="small"
                             onClick={() => {
-                                setOpenError(false);
+                                setOpen(false);
                             }}
                             >
                             <CloseIcon fontSize="inherit" />
                             </IconButton>
                         }
-                        sx={{ width: { xs: "80%", md:"100%" }, mb: 3 }}
+                        sx={{mb: 3 }}
                         >
                         <AlertTitle>No se ha podido enviar la consulta</AlertTitle>
                         <strong>{error}</strong>
-                        </MuiAlert>
+                        </Alert>
                     </Collapse>
-                    {(loading) ? (
-                    <Box sx={{ display: 'flex' }}>
-                        <CircularProgress />
-                    </Box>) : ""}
                     </Grid>
                 </Paper>
             </Grid>
+
+            <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                    Registro correcto
+                </Alert>
+            </Snackbar>
             
 
             <Box sx={{position: "absolute", bottom: 20, right: 20}}>

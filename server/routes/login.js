@@ -24,9 +24,10 @@ router.post("/admin", async (req,res) => {
 router.post("/user", async (req,res) => {
     const username = req.body.username;
     const pass = req.body.pass;
-    //const rolAdmin = await roles.getRol("administrador");
+    const rolNormal = await roles.getRol("normal");
+    const rolEmpadronado = await roles.getRol("empadronado");
 
-    User.findOne({username:username,pass:pass/*,idRol:rolAdmin._id*/}, (error,check) => {
+    User.findOne({username:username,pass:pass,$or:[{idRol:rolNormal._id},{idRol:rolEmpadronado._id}]}, (error,check) => {
         if(check){
             userId = check._id;
             res.send(true);

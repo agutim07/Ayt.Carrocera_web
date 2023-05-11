@@ -12,7 +12,7 @@ var loginRouter = require('./routes/login');
 var rolesRouter = require('./routes/roles');
 var pueblosRouter = require('./routes/pueblos');
 var activitiesRouter = require('./routes/activities');
-var registerRouter = requite('./routes/register');
+var registerRouter = require('./routes/register');
 
 app.use(logger('dev'));
 app.use(express.json());
