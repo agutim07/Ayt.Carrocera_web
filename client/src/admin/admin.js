@@ -41,6 +41,7 @@ import AdminHeadbar from './adminHeadbar';
 import NoticiasAdmin from './secciones/noticiasAdmin';
 import EventosAdmin from './secciones/eventosAdmin';
 import ActividadesAdmin from './secciones/actividadesAdmin';
+import UsuariosAdmin from './secciones/usuariosAdmin';
 
 import Axios from 'axios';
 
@@ -164,6 +165,7 @@ function Admin() {
             if(newAlignment==="Noticias"){navigate('/admin/noticias', {replace: true});}
             if(newAlignment==="Eventos"){navigate('/admin/eventos', {replace: true});}
             if(newAlignment==="Actividades"){navigate('/admin/actividades', {replace: true});}
+            if(newAlignment==="Usuarios"){navigate('/admin/usuarios', {replace: true});}
         };
 
     return (
@@ -180,6 +182,7 @@ function Admin() {
                         <ToggleButton size="small" value="Noticias">Noticias</ToggleButton>
                         <ToggleButton size="small" value="Eventos">Eventos</ToggleButton>
                         <ToggleButton size="small" value="Actividades">Actividades</ToggleButton>
+                        <ToggleButton size="small" value="Usuarios">Usuarios</ToggleButton>
                     </ToggleButtonGroup>
                     </Grid>
                     <Grid item>
@@ -187,6 +190,7 @@ function Admin() {
                         <Route path="/noticias" element={<NoticiasAdmin />} />
                         <Route path="/eventos" element={<EventosAdmin />} />
                         <Route path="/actividades" element={<ActividadesAdmin />} />
+                        <Route path="/usuarios" element={<UsuariosAdmin />} />
                     </Routes>
                     </Grid>
                 </Grid>

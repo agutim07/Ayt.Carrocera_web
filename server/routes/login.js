@@ -47,5 +47,4 @@ function getLoggedUser(){
     return userId;
 }
 
-module.exports = {router:router, getLoggedAdmin:getLoggedAdmin}
-module.exports = {router:router, getLoggedUser:getLoggedUser}
+module.exports = {router:router, getLoggedAdmin:getLoggedAdmin, getLoggedUser:getLoggedUser}

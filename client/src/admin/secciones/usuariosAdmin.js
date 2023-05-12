@@ -69,7 +69,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-import ActividadesCard from './actividadesCard';
+import UsuariosCard from './usuariosCard';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Axios from 'axios';
@@ -89,31 +89,32 @@ const Button2 = styled(Button)({
     ].join(','),
 });
 
-const ActividadesAdmin = () => {
-    const [actividades, setActividades] = useState([]);
+const UsuariosAdmin = () => {
+    const [usuarios, setUsuarios] = useState([]);
     const [loading, setLoading] = useState(true);
     const [alertText, setAlertText] = useState("");
     const [openAlert, setOpenAlert] = useState(false);
     const [error, setError] = useState("");
 
     useEffect(() => {
-        getActividades();
+        getUsuarios();
     }, []);
 
-    function getActividades(){
-        Axios.get('/activities').then((response) => {
-          setActividades(response.data);
+    function getUsuarios(){
+        Axios.get('/users').then((response) => {
+          setUsuarios(response.data);
           setLoading(false);
         });
     }
 
     function onChange(tipo){
-        setActividades([]);
-        if(tipo==="editar"){ setLoading(true); setAlertText("Actividad editada correctamente");}
+        setUsuarios([]);
+        if(tipo==="editar"){ setLoading(true); setAlertText("Usuario editado correctamente");}
+        if(tipo==="borrar"){ setLoading(true); setAlertText("Usuario borrado correctamente");}
 
         delay(1000).then( () => {
-            Axios.get('/activities').then((response) => {
-                setActividades(response.data);
+            Axios.get('/users').then((response) => {
+                setUsuarios(response.data);
                 setLoading(false);
                 setOpenSnackbar(true);
         });
@@ -137,9 +138,9 @@ const ActividadesAdmin = () => {
             <CircularProgress />
         </Grid>) : ""}
         
-        {actividades.map((card) => (
+        {usuarios.map((card) => (
             <Grid item key={card.id} xs={12} sm={6}>
-                <ActividadesCard onChange={onChange} card={card} />
+                <UsuariosCard onChange={onChange} card={card} />
             </Grid>
         ))}
         </Grid>
@@ -154,4 +155,4 @@ const ActividadesAdmin = () => {
     );
 }
 
-export default ActividadesAdmin;
+export default UsuariosAdmin;

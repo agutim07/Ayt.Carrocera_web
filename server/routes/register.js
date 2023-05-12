@@ -14,7 +14,7 @@ router.post("/", async (req,res) => {
     const sex = req.body.sexo;
     const rol = await roles.getRol("normal");
 
-    if(typeof username!=='undefined' && typeof pass!=='undefined') {
+    if(typeof username!=='undefined' && typeof signature!=='undefined') {
         User.findOne({$or:[{dni:signature},{username:username}]}, (error,check) => {
             if(check){
                 res.send(false);
