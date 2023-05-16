@@ -14,6 +14,7 @@ var pueblosRouter = require('./routes/pueblos');
 var activitiesRouter = require('./routes/activities');
 var registerRouter = require('./routes/register');
 var usersRouter = require('./routes/users');
+var booksRouter = require('./routes/books');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -29,5 +30,6 @@ app.use('/pueblos', pueblosRouter.router);
 app.use('/activities', activitiesRouter.router);
 app.use('/register', registerRouter.router);
 app.use('/users', usersRouter.router);
+app.use('/books', booksRouter.router);
 
 module.exports = app;

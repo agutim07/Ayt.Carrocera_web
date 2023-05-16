@@ -42,6 +42,7 @@ import NoticiasAdmin from './secciones/noticiasAdmin';
 import EventosAdmin from './secciones/eventosAdmin';
 import ActividadesAdmin from './secciones/actividadesAdmin';
 import UsuariosAdmin from './secciones/usuariosAdmin';
+import LibrosAdmin from './secciones/librosAdmin';
 
 import Axios from 'axios';
 
@@ -129,7 +130,6 @@ function Admin() {
         }else{
             setLoading(true);
 
-
             Axios.post("/login/admin", {username:details.user, pass:details.password})
             .then((response) => {
                 if(!response.data){
@@ -147,7 +147,7 @@ function Admin() {
                 setLoading(false);
             });
         }
-       };
+    };
     
       const [showPassword, setShowPass] = useState(false);
       function handlePassVisibleChange(e) {
@@ -166,6 +166,7 @@ function Admin() {
             if(newAlignment==="Eventos"){navigate('/admin/eventos', {replace: true});}
             if(newAlignment==="Actividades"){navigate('/admin/actividades', {replace: true});}
             if(newAlignment==="Usuarios"){navigate('/admin/usuarios', {replace: true});}
+            if(newAlignment==="Libros"){navigate('/admin/libros', {replace: true});}
         };
 
     return (
@@ -183,6 +184,7 @@ function Admin() {
                         <ToggleButton size="small" value="Eventos">Eventos</ToggleButton>
                         <ToggleButton size="small" value="Actividades">Actividades</ToggleButton>
                         <ToggleButton size="small" value="Usuarios">Usuarios</ToggleButton>
+                        <ToggleButton size="small" value="Libros">Libros</ToggleButton>
                     </ToggleButtonGroup>
                     </Grid>
                     <Grid item>
@@ -191,6 +193,7 @@ function Admin() {
                         <Route path="/eventos" element={<EventosAdmin />} />
                         <Route path="/actividades" element={<ActividadesAdmin />} />
                         <Route path="/usuarios" element={<UsuariosAdmin />} />
+                        <Route path="/libros" element={<LibrosAdmin />} />
                     </Routes>
                     </Grid>
                 </Grid>
