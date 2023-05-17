@@ -55,7 +55,7 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import ArticleIcon from '@mui/icons-material/Article';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import {Link} from "react-router-dom";
 
 import EditIcon from '@mui/icons-material/Edit';
@@ -112,38 +112,36 @@ const LibrosCard = ({onChange, card}) => {
     const handleSubmit = () => {
         let specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
-        /* var dateS = new Date(dayjs(date).toDate());
+        var dateS = new Date(dayjs(date).toDate());
         dateS.setDate(dateS.getDate() + 1);
         let fecha = dateS.getFullYear() + "-" + (dateS.getMonth() + 1) + "-" + dateS.getDate();
 
-        if(details.username==="" || details.pass==="" || details.dni ==="" || details.apellidos==="" || details.nombre===""){
+        if(details.titulo==="" || details.autor==="" || details.ISBN<=0){
             setError("Rellene todos los campos");
             setOpenAlert(true); 
-            details.username=card.username; details.pass=card.pass; details.nombre=card.nombre; details.apellidos=card.apellidos; details.dni=card.dni; details.fechaNac=card.fechaNac; details.sexo=card.sexo; details.rol=card.rol;
-            setDate(dayjs(new Date(card.fechaNac) - 1));
+            details.titulo=card.titulo; details.autor = card.autor; details.disponibilidad = card.disponibilidad; details.ISBN = card.ISBN; details.fecha = card.fecha;
+            setDate(dayjs(new Date(card.fecha) - 1));
             setOpen(false);
-        }else if(specialChars.test(details.username) || specialChars.test(details.pass)){
+        }else if(specialChars.test(details.titulo) || specialChars.test(details.ISBN)){
             setError("No se permiten caracteres especiales");
             setOpenAlert(true); 
-            details.username=card.username; details.pass=card.pass; details.nombre=card.nombre; details.apellidos=card.apellidos; details.dni=card.dni; details.fechaNac=card.fechaNac; details.sexo=card.sexo; details.rol=card.rol;
-            setDate(dayjs(new Date(card.fechaNac) - 1));
+            details.titulo=card.titulo; details.autor = card.autor; details.disponibilidad = card.disponibilidad; details.ISBN = card.ISBN; details.fecha = card.fecha;
+            setDate(dayjs(new Date(card.fecha) - 1));
             setOpen(false);
-        }else if(!validateDNI(details.dni)){
-            setError("DNI no válido");
+        }else if(!card.disponibilidad){
+            setError("No se pueden editar libros reservados");
             setOpenAlert(true); 
-            details.username=card.username; details.pass=card.pass; details.nombre=card.nombre; details.apellidos=card.apellidos; details.dni=card.dni; details.fechaNac=card.fechaNac; details.sexo=card.sexo; details.rol=card.rol;
-            setDate(dayjs(new Date(card.fechaNac) - 1));
+            details.titulo=card.titulo; details.autor = card.autor; details.disponibilidad = card.disponibilidad; details.ISBN = card.ISBN; details.fecha = card.fecha;
+            setDate(dayjs(new Date(card.fecha) - 1));
             setOpen(false);
         }else{
-
-            Axios.put("/users/"+card._id, {usuario:details.username, contrasena:details.pass, rol:details.rol,
-                 nombre: details.nombre, apellidos:details.apellidos,dni:details.dni, fecha:fecha,sexo:details.sexo})
+            Axios.put("/books/"+card._id, {titulo:details.titulo, ISBN:details.ISBN, autor:details.autor, fecha:fecha})
             .then((response) => {
                 if(!response.data){
-                    setError("Registro inválido: el DNI y el username deben ser únicos");
+                    setError("Error al editar");
                     setOpenAlert(true); 
-                    details.username=card.username; details.pass=card.pass; details.nombre=card.nombre; details.apellidos=card.apellidos; details.dni=card.dni; details.fechaNac=card.fechaNac; details.sexo=card.sexo; details.rol=card.rol;
-                    setDate(dayjs(new Date(card.fechaNac) - 1));
+                    details.titulo=card.titulo; details.autor = card.autor; details.disponibilidad = card.disponibilidad; details.ISBN = card.ISBN; details.fecha = card.fecha;
+                    setDate(dayjs(new Date(card.fecha) - 1));
                     setOpen(false);
                 }else{
                     onChange("editar");
@@ -152,12 +150,12 @@ const LibrosCard = ({onChange, card}) => {
                 if(error.response){
                     setError("Error al intentar conectar con la base de datos");
                     setOpenAlert(true); 
-                    details.username=card.username; details.pass=card.pass; details.nombre=card.nombre; details.apellidos=card.apellidos; details.dni=card.dni; details.fechaNac=card.fechaNac; details.sexo=card.sexo; details.rol=card.rol;
-                    setDate(dayjs(new Date(card.fechaNac) - 1));
+                    details.titulo=card.titulo; details.autor = card.autor; details.disponibilidad = card.disponibilidad; details.ISBN = card.ISBN; details.fecha = card.fecha;
+                    setDate(dayjs(new Date(card.fecha) - 1));
                     setOpen(false);
                 }
             });
-        } */
+        }
     }
 
     const [openBorrar, setOpenBorrar] = useState(false);
@@ -165,10 +163,34 @@ const LibrosCard = ({onChange, card}) => {
         setOpenBorrar(false);
     };
     const handleSubmitBorrar = () => {
-        /* Axios.delete("/users/"+card._id).then(() => {
+        if(!card.disponibilidad){
+            setError("No se pueden borrar libros reservados");
+            setOpenAlert(true); 
             setOpenBorrar(false);
-            onChange("borrar");
-        }); */
+        }else{
+            Axios.delete("/books/"+card._id).then(() => {
+                setOpenBorrar(false);
+                onChange("borrar");
+            });
+        }
+    };
+
+    const [openReserva, setOpenReserva] = useState(false);
+    const handleCloseReserva = () => {
+        setOpenReserva(false);
+    };
+    const handleSubmitReserva = () => {
+        Axios.put("/books/reserva/"+card._id).then(() => {
+            setOpenBorrar(false);
+            onChange("reserva");
+        });
+    };
+    const openReserva1 = () => {
+        if(!card.disponibilidad){
+            setOpenReserva(true);
+        }else{
+            handleSubmitReserva();
+        }
     };
 
     return(
@@ -187,7 +209,7 @@ const LibrosCard = ({onChange, card}) => {
                     {card.titulo}
                     </Typography>
                     {(!card.disponibilidad) ? (
-                    <Chip sx={{backgroundColor:'#f44336', mt:1}} label="Libro reservado" />
+                    <Chip sx={{backgroundColor:'#f44336', mt:1}} label={"Libro reservado por "+card.user} />
                     ) : ""}
                 </CardContent>
                 
@@ -195,6 +217,11 @@ const LibrosCard = ({onChange, card}) => {
                     <CardActions>
                         <Button variant="contained" onClick={() => setOpenBorrar(true)} startIcon={<DeleteIcon />}>Borrar</Button>
                         <Button variant="contained" onClick={handleClickOpen} startIcon={<EditIcon />}>Editar</Button>
+                    </CardActions>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <CardActions>
+                        <Button variant="contained" size="small" onClick={() => openReserva1()} startIcon={<BookmarkBorderIcon />}>{card.disponibilidad ? "Marcar como reservado" : "Eliminar reserva"}</Button>
                     </CardActions>
                 </div>
             </Card>
@@ -212,69 +239,49 @@ const LibrosCard = ({onChange, card}) => {
             </Dialog>
             </Box>
 
+            <Box sx={{ position: "absolute", bottom: 20, right: 20 }} >
+            <Dialog fullWidth="300px" sx={{ width: "50" }} open={openReserva} onClose={handleCloseReserva} aria-labelledby="form-dialog-title" >
+                <DialogTitle id="form-dialog-title"> ¿Estás seguro? </DialogTitle>
+                <DialogContent>
+                    {"Eliminarás la reserva de "+card.user}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleSubmitReserva}> <strong>SI</strong> </Button>
+                    <Button onClick={handleCloseReserva}> NO </Button>
+                </DialogActions>
+            </Dialog>
+            </Box>
+
             <Box sx={{position: "absolute", bottom: 20, right: 20}} >
-                {/* <Dialog fullWidth="300px" sx={{width:"50"}} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
+                <Dialog fullWidth="300px" sx={{width:"50"}} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
                     <DialogTitle id="form-dialog-title">Editar Contenido</DialogTitle>
                     <DialogContent>
                         <FormControl fullWidth>
                         <br></br>
-                        <TextField defaultValue={card.dni} autoFocusmargin="dense" id="dni" label="DNI" type="text" fullWidth onChange={e => setDetails({ ...details, dni: e.target.value })}/>
+                        <TextField defaultValue={card.titulo} autoFocusmargin="dense" id="titulo" label="Título" type="text" fullWidth onChange={e => setDetails({ ...details, titulo: e.target.value })}/>
                         <br></br>
-                        <TextField defaultValue={card.nombre} autoFocusmargin="dense" id="nombre" label="Nombre" type="text" fullWidth onChange={e => setDetails({ ...details, nombre: e.target.value })}/>
+                        <TextField defaultValue={card.autor} autoFocusmargin="dense" label="Autor" id="autor" type="text" fullWidth onChange={e => setDetails({ ...details, autor: e.target.value })}/>
                         <br></br>
-                        <TextField defaultValue={card.apellidos} autoFocusmargin="dense" id="apellidos" label="Apellidos" type="text" fullWidth onChange={e => setDetails({ ...details, apellidos: e.target.value })}/>
+                        <TextField defaultValue={card.ISBN} autoFocusmargin="dense" label="ISBN" id="doc" type="number" fullWidth onChange={e => setDetails({ ...details, ISBN: e.target.value })}/>
                         <br></br>
-                        <TextField defaultValue={card.username} autoFocusmargin="dense" id="username" label="Nombre de usuario" type="text" fullWidth onChange={e => setDetails({ ...details, username: e.target.value })}/>
-                        <br></br>
-                        <TextField defaultValue={card.pass} autoFocusmargin="dense" id="pass" label="Contraseña" type="text" fullWidth onChange={e => setDetails({ ...details, pass: e.target.value })}/>
-                        <br></br>
-                        <FormControl fullWidth>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DesktopDatePicker
-                                label="Fecha de nacimiento"
-                                inputFormat="DD/MM/YYYY"
-                                value={date}
-                                onChange={handleDateChange}
-                                renderInput={(params) => <TextField {...params} />}
-                                />
-                            </LocalizationProvider>
-                        </FormControl>
-                        <br></br>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Sexo</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={details.sexo}
-                            label="Sexo"
-                            onChange={e => setDetails({ ...details, sexo: e.target.value })}
-                            >
-                                <MenuItem value={"Hombre"}>Hombre</MenuItem>
-                                <MenuItem value={"Mujer"}>Mujer</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <br></br>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Tipo de usuario</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={details.rol}
-                            label="Tipo de usuario"
-                            onChange={e => setDetails({ ...details, rol: e.target.value })}
-                            >
-                                <MenuItem value={"normal"}>Normal</MenuItem>
-                                <MenuItem value={"empadronado"}>Empadronado</MenuItem>
-                            </Select>
-                        </FormControl>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DesktopDatePicker
+                            label="Fecha publicación"
+                            inputFormat="DD/MM/YYYY"
+                            value={date}
+                            onChange={handleDateChange}
+                            renderInput={(params) => <TextField {...params} />}
+                            />
+                        </LocalizationProvider>
                         <br></br>
                         </FormControl>
+                        <br></br>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleSubmit}> Editar </Button>
                         <Button onClick={handleClose}> Cancelar </Button>
                     </DialogActions>
-                </Dialog> */}
+                </Dialog>
             </Box>
 
             <Box sx={{ position: "absolute", bottom: "50%", right: "35%" }}>

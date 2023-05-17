@@ -124,6 +124,7 @@ const LibrosAdmin = () => {
         setLibros([]);
         if(tipo==="editar"){ setLoading(true); setAlertText("Libro editado correctamente");}
         if(tipo==="añadir"){ setLoading(true); setAlertText("Libro añadido correctamente");}
+        if(tipo==="reserva"){ setLoading(true); setAlertText("Reserva de libro modificada");}
 
         delay(1000).then( () => {
             Axios.get('/books').then((response) => {
@@ -166,7 +167,7 @@ const LibrosAdmin = () => {
         dateS.setDate(dateS.getDate() + 1);
         let fecha = dateS.getFullYear() + "-" + (dateS.getMonth() + 1) + "-" + dateS.getDate();
     
-        if(details.titulo=="" || details.autor=="" || details.ISBN<=0){
+        if(details.titulo==="" || details.autor==="" || details.ISBN<=0){
             setError("Rellene todos los campos");
             setOpen(false);
             setOpenAlert(true);
