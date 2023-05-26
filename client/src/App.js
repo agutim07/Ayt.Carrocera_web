@@ -13,7 +13,8 @@ import Header from './components/header.js';
 import Sidenav from './components/sidenav.js';
 import Inicio from './secciones/inicio.js';
 import Contacto from './secciones/contacto';
-import InicioSesion from './secciones/inicioSesion';
+import InicioSesion from './secciones/usuario/inicioSesion';
+import Registro from './secciones/usuario/registro';
 import Telefonos from './secciones/ayt/telefonos';
 import Corporacion from './secciones/ayt/corporacion';
 import Localizacion from './secciones/localizacion';
@@ -36,6 +37,11 @@ import MapaWeb from './secciones/mapaweb';
 import Noticias from './secciones/ayt/noticias';
 import Eventos from './secciones/ayt/eventos';
 
+import Perfil from './secciones/usuario/perfil';
+import Actividades from './secciones/usuario/actividades';
+import Libros from './secciones/usuario/libros';
+import EventosUser from './secciones/usuario/eventos';
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -44,7 +50,7 @@ import {
 } from "react-router-dom";
 
 import Axios from 'axios';
-import Registro from './secciones/registro';
+
 
 const theme = createTheme({
   typography: {
@@ -151,10 +157,20 @@ function App() {
     })
   }
 
+  const [refresh, doRefresh] = useState(0);
+  const [loginMsg,setLoginMsg] = useState(false);
+  const loginCompleted = () => {
+    setLoginMsg(true);
+    doRefresh(prev => prev + 1);
+  }
+  const loginCompleted2 = () => {
+    setLoginMsg(false);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ mx: "7.5%"}}> 
-        <Header />
+        <Header refresh={refresh}/>
         <Grid container spacing={0.5} direction="row" alignItems="up" justifyContent="center" sx={{mb:2}}>
           <Grid item xs={12} sm={10} md={9} align="left">
             <Grid container spacing={0.5} direction="column" alignItems="center" justifyContent="center">
@@ -174,7 +190,11 @@ function App() {
               <Grid item>
               <Routes>
                 <Route path="/" exact element={<Inicio loadingNews={loadingNews} noticia={news[0]} loadingEventos={loadingEventos} evento={proximoEvento}/>} />
-                <Route path="/inicioSesion" element={<InicioSesion/>} />
+                <Route path="/usuario/perfil" element={<Perfil msg={loginMsg} completed={loginCompleted2}/>} />
+                <Route path="/usuario/libros" element={<Libros/>} />
+                <Route path="/usuario/actividades" element={<Actividades/>} />
+                <Route path="/usuario/eventos" element={<EventosUser/>} />
+                <Route path="/inicioSesion" element={<InicioSesion loginCompleted={loginCompleted}/>} />
                 <Route path="/registro" element={<Registro/>} />
                 <Route path="/contacto" element={<Contacto/>} />
                 <Route path="/mapaweb" element={<MapaWeb/>} />

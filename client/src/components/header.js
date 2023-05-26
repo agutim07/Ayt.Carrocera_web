@@ -33,6 +33,13 @@ import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import LogoutIcon from '@mui/icons-material/Logout';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import BookIcon from '@mui/icons-material/Book';
+import GroupsIcon from '@mui/icons-material/Groups';
+
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Axios from 'axios';
 
 import {subsecciones,secciones} from '../data.js';
 
@@ -54,10 +61,36 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
-const Header = () => {
+
+const Header = ({refresh}) => {
   let logoWidth = 80;
   const drawerWidth = 300;
+
+  const [logged, setLogged] = useState(false);
+
+  useEffect(() => {
+      Axios.get('/login').then((response) => {
+          setLogged(response.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    Axios.get('/login').then((response) => {
+      setLogged(response.data);
+    });
+  }, [refresh]);
+
+  function logout(){
+    Axios.put('/login/logout').then((response) => {
+      setLogged(false);
+      setOpenAlert(true);
+      navigate('/');
+  });
+  }
 
   const [openDR, setOpenDR] = React.useState(false);
   const handleDrawerOpen = () => { setOpenDR(true); };
@@ -203,7 +236,12 @@ const Header = () => {
     handleDrawerClose();
   }
 
-  const [logged, setLogged] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
+
+  const handleCloseAlert = (event, reason) => {
+      if (reason === 'clickaway') {return;}
+      setOpenAlert(false);
+  };
 
   return (
     <div>
@@ -291,11 +329,23 @@ const Header = () => {
                 </div>
                 ) : (
                 <div>
-                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => newPage("INICIO")}>
+                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/usuario/perfil')}>
                     <ListItemIcon><ImportContactsIcon fontSize="small"/></ListItemIcon>
                     DATOS PERSONALES
                   </MenuItem>
-                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/admin')}>
+                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/usuario/actividades')}>
+                    <ListItemIcon><SportsBasketballIcon fontSize="small"/></ListItemIcon>
+                    RESERVA ACTIVIDADES
+                  </MenuItem>
+                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/usuario/libros')}>
+                    <ListItemIcon><BookIcon fontSize="small"/></ListItemIcon>
+                    ALQUILER DE LIBROS
+                  </MenuItem>
+                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => navigate('/usuario/eventos')}>
+                    <ListItemIcon><GroupsIcon fontSize="small"/></ListItemIcon>
+                    APUNTARSE A EVENTOS
+                  </MenuItem>
+                  <MenuItem sx={{color:"blue", fontSize: 15}} onClick={() => logout()}>
                     <ListItemIcon><LogoutIcon fontSize="small"/></ListItemIcon>
                     CERRAR SESIÓN
                   </MenuItem>
@@ -385,6 +435,12 @@ const Header = () => {
         src="/images/escudo.png" />
         </Grid>
       </Drawer>
+
+      <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleCloseAlert}>
+          <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
+              Cierre de sesión completado
+          </Alert>
+      </Snackbar>
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import {condLegales} from '../data.js';
-import {backend} from '../config/variables'
+import {condLegales} from '../../data.js';
+import {backend} from '../../config/variables.js'
 import {
     BrowserRouter as Router,
     Routes,
@@ -161,15 +161,7 @@ const MobileSwitch = styled((props) => (
   }));
 
 function Registro() {
-    const [logged, setLog] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    const navigate = useNavigate();
-    
-    /*const onLogOut = () => {
-        setLog(false);
-        navigate('/', {replace: true});
-    }*/
 
     const [details, setDetails] = useState({usuario:"", pass:"", nombre:"", apellidos:"", dni:"", sexo:"Hombre"});
     const [error, setError] = useState("");
@@ -215,7 +207,6 @@ function Registro() {
                     setOpen(true);
                 }else{
                     setOpenSnackbar(true);
-                    setLog(true);
                 }
                 setLoading(false);
             }).catch((error) => {
@@ -227,10 +218,6 @@ function Registro() {
             });
         }
        };
-
-    const handleCancel = () => {
-    
-    }
 
     const [checked, setChecked] = React.useState(false);
     const handleChange = (event) => {
@@ -251,35 +238,6 @@ function Registro() {
     const handleDateChange = (newValue) => {
         setDate(newValue);
     };
-
-    const extractFecha = (date) => {
-        let dia;
-        if(date.slice(8,9)==='0'){
-            dia = date.slice(9,10);
-        }else{
-            dia = date.slice(8,10);
-        }
-        let fecha = dia + ' de '  + getMes(date.slice(5,7)) + ', ' + date.slice(0,4);
-        return fecha;
-    }
-
-    const getMes = (mes) => {
-        switch (mes){
-            case '01': return "Enero";
-            case '02': return "Febrero";
-            case '03': return "Marzo";
-            case '04': return "Abril";
-            case '05': return "Mayo";
-            case '06': return "Junio";
-            case '07': return "Julio";
-            case '08': return "Agosto";
-            case '09': return "Septiembre";
-            case '10': return "Octubre";
-            case '11': return "Noviembre";
-            case '12': return "Diciembre";
-            default : return "";
-        }
-    }
 
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const handleCloseSnackbar = (event, reason) => {

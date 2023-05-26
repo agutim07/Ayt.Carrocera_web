@@ -39,6 +39,20 @@ router.post("/user", async (req,res) => {
     });
 })
 
+router.put("/logout", async (req,res) => {
+    userId="";
+    res.send(true);
+})
+
+router.get("/", async (req,res) => {
+    const user = userId;
+    if(user==""){
+        res.send(false);
+    }else{
+        res.send(true);
+    }
+})
+
 function getLoggedAdmin(){
     return adminUserId;
 }

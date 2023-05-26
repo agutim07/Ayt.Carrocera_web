@@ -48,16 +48,15 @@ const CustomTextField = styled(TextField)({
           borderColor: "red",
         }
     },
-  });
+});
 
-const InicioSesion = () => {
+const InicioSesion = ({loginCompleted}) => {
 
     const [details, setDetails] = useState({ user: '', pass: '' });
     const navigate = useNavigate();
 
     const [error, setError] = useState("");
     const [open, setOpen] = useState(false);
-    const [logged, setLog] = useState(false);
     const [loading, setLoading] = useState(false);
 
 
@@ -81,8 +80,8 @@ const InicioSesion = () => {
                         setError("Datos incorrectos");
                         setOpen(true);
                     } else {
-                        setLog(true);
-                        setOpenSnackbar(true);
+                        loginCompleted();
+                        navigate('/usuario/perfil');
                     }
                     setLoading(false);
                 }).catch((error) => {
@@ -93,12 +92,6 @@ const InicioSesion = () => {
                     setLoading(false);
                 });
         }
-    };
-
-    const [openSnackbar, setOpenSnackbar] = React.useState(false);
-    const handleCloseSnackbar = (event, reason) => {
-        if (reason === 'clickaway') {return;}
-        setOpenSnackbar(false);
     };
 
     return (
@@ -151,12 +144,6 @@ const InicioSesion = () => {
                 </Grid>
                 </Paper>
             </Grid>
-
-            <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
-                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Inicio de sesión correcto
-                </Alert>
-            </Snackbar>
         </ThemeProvider>
     );
 }
