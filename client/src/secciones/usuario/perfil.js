@@ -58,18 +58,19 @@ const Perfil = ({ msg, completed }) => {
     useEffect(() => {
         Axios.get('/login').then((response) => {
             setLogged(response.data);
-            setLoading(false);
             setUsuario(response.data);
-            if (msg) {
+            if(msg){
                 setOpenSnackbar(true);
                 completed();
             }
 
-            if (response.data) {
+            if(response.data){
                 Axios.get('/users/one').then((response) => {
                     setUsuario(response.data);
+                    setLoading(false);
                 });
-                console.log(usuario);
+            }else{
+                setLoading(false);
             }
         });
     }, []);
@@ -100,11 +101,15 @@ const Perfil = ({ msg, completed }) => {
                         </Grid>) : ""}
                     {(logged && !loading) ? (
                         <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center" sx={{ my: 1 }}>
-                            <Typography align="center" display="inline">
-                                <Box sx={{ mt: 2, fontSize: 20, fontWeight: 'bold', color: 'white' }}>Editar Usuario {usuario.nombre}
-                                    <TextField defaultValue={usuario.nombre} id="nombre" label="Nombre" type="text" fullWidth/>
+                                <Typography align="center" display="inline"><Box sx={{ mt: 2, fontSize: 20, fontWeight: 'bold', color: 'white' }}>
+                                    Editar {usuario.nombre} {usuario.apellidos}
+                                </Box></Typography>
+                                <Box component="form" sx={{ m: 0.5, mr: 3 }}>
+                                    <CustomTextField margin="normal" required fullWidth name="name" label="Nombre" type="text"
+                                    sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="name"
+                                    onChange={e => setUsuario({...usuario, nombre: e.target.value})} value={usuario.nombre} 
+                                    />
                                 </Box>
-                            </Typography>
                         </Grid>
                     ) : ""}
                 </Paper>

@@ -30,13 +30,17 @@ router.get("/", async (req,res) => {
 
 router.get("/one", async (req,res) => {
     const id = login.getLoggedUser();
-    User.findOne({_id:id}, async (error,data) => {
-        if(error) {
-            res.send(error);
-        } else {
-            res.send(data);
-        }
-    })
+    if(id!=""){
+        User.findOne({_id:id}, async (error,data) => {
+            if(error) {
+                res.send(null);
+            } else {
+                res.send(data);
+            }
+        })
+    }else{
+        res.send(null);
+    }
 })
 
 router.put("/:id", async (req,res) => {
