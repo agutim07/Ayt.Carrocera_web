@@ -28,11 +28,23 @@ router.get("/", async (req,res) => {
     })
 })
 
+router.get("/one", async (req,res) => {
+    const id = login.getLoggedUser();
+    User.findOne({_id:id}, async (error,data) => {
+        if(error) {
+            res.send(error);
+        } else {
+            res.send(data);
+        }
+    })
+})
+
 router.put("/:id", async (req,res) => {
     let user = login.getLoggedAdmin();
+    let user2 = login.getLoggedUser(); 
     let userID = req.params.id;
 
-    if(user!=""){
+    if(user!="" || user2 == userID){
         const username = req.body.usuario;
         const pass = req.body.contrasena;
         const name = req.body.nombre;
