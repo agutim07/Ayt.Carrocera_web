@@ -1,22 +1,24 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Axios from 'axios';
-import Collapse from '@mui/material/Collapse';
 import MuiAlert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import AlertTitle from '@mui/material/AlertTitle';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { alpha, styled } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
-
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import { Checkbox, FormControlLabel, MenuItem } from '@mui/material';
+import dayjs from 'dayjs';
+
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -59,17 +61,17 @@ const Perfil = ({ msg, completed }) => {
         Axios.get('/login').then((response) => {
             setLogged(response.data);
             setUsuario(response.data);
-            if(msg){
+            if (msg) {
                 setOpenSnackbar(true);
                 completed();
             }
 
-            if(response.data){
+            if (response.data) {
                 Axios.get('/users/one').then((response) => {
                     setUsuario(response.data);
                     setLoading(false);
                 });
-            }else{
+            } else {
                 setLoading(false);
             }
         });
@@ -80,6 +82,8 @@ const Perfil = ({ msg, completed }) => {
         if (reason === 'clickaway') { return; }
         setOpenSnackbar(false);
     };
+
+    const [date, setDate] = React.useState(dayjs());
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -101,25 +105,85 @@ const Perfil = ({ msg, completed }) => {
                         </Grid>) : ""}
                     {(logged && !loading) ? (
                         <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center" sx={{ my: 1 }}>
-                                <Typography align="center" display="inline"><Box sx={{ mt: 2, fontSize: 20, fontWeight: 'bold', color: 'white' }}>
+                            <Typography align="center" display="inline">
+                                <Box sx={{ mt: 2, fontSize: 20, fontWeight: 'bold', color: 'white' }}>
                                     Editar {usuario.nombre} {usuario.apellidos}
-                                </Box></Typography>
-                                <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                    <CustomTextField margin="normal" required fullWidth name="name" label="Nombre" type="text"
-                                    sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="name"
-                                    onChange={e => setUsuario({...usuario, nombre: e.target.value})} value={usuario.nombre} 
-                                    />
                                 </Box>
+                            </Typography>
+                            <Box component="form" sx={{ m: 0.5, mr: 3 }}>
+                                <CustomTextField margin="normal" required fullWidth name="name" label="Nombre" type="text"
+                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="name"
+                                    onChange={e => setUsuario({ ...usuario, nombre: e.target.value })} value={usuario.nombre}
+                                />
+                            </Box>
+                            <Box component="form" sx={{ m: 0.5, mr: 3 }}>
+                                <CustomTextField margin="normal" required fullWidth name="surname" label="Apellidos" type="text"
+                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="surname"
+                                    onChange={e => setUsuario({ ...usuario, apellidos: e.target.value })} value={usuario.apellidos}
+                                />
+                            </Box>
+                            <Box component="form" sx={{ m: 0.5, mr: 3 }}>
+                                <FormControl margin="normal" required fullWidth name="fechaNac" label="Fecha de nacimiento"
+                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="fechaNac">
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DesktopDatePicker
+                                            label="Fecha"
+                                            inputFormat="DD/MM/YYYY"
+                                            value={date}
+                                            onChange={e => setUsuario({ ...usuario, fecha_nacimiento: e.target.value })}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+                                    </LocalizationProvider>
+                                </FormControl>
+                            </Box>
+                            <Box component="form" sx={{ m: 0.5, mr: 3 }}>
+                                <CustomTextField margin="normal" required fullWidth name="dni" label="DNI" type="text"
+                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="dni"
+                                    onChange={e => setUsuario({ ...usuario, dni: e.target.value })} value={usuario.dni}
+                                />
+                            </Box>
+                            <Box component="form" sx={{ m: 0.5, mr: 3 }}>
+                                <CustomTextField margin="normal" required fullWidth name="username" label="Nombre de usuario" type="text"
+                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="username"
+                                    onChange={e => setUsuario({ ...usuario, username: e.target.value })} value={usuario.username}
+                                />
+                            </Box>
+                            <Box component="form" sx={{ m: 0.5, mr: 3 }}>
+                                <CustomTextField margin="normal" required fullWidth name="password" label="Contrseña" type="text"
+                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="password"
+                                    onChange={e => setUsuario({ ...usuario, pass: e.target.value })} value={usuario.pass}
+                                />
+                            </Box>
+                            <Box component="form" sx={{ m: 0.5, mr: 3 }}>
+                                <FormControl fullWidth margin="normal" required name="sexo" label="Sexo" type="text"
+                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="sexoFC">
+                                    <InputLabel id="sexoIL">Sexo</InputLabel>
+                                    <Select
+                                        labelId="sexoIL"
+                                        id="sexo"
+                                        value={usuario.sexo}
+                                        label="Sexo"
+                                        onChange={e => setUsuario({ ...usuario, sexo: e.target.value })}>
+                                        <MenuItem value={"Hombre"}>Hombre</MenuItem>
+                                        <MenuItem value={"Mujer"}>Mujer</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                            <Box component="form" sx={{ m: 0.5, mr: 3 }}>
+                                <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor: "#e53935", mt: 3, mb: 1, '&:hover': { backgroundColor: '#e53935', } }}>
+                                    Realizar cambios
+                                </Button>
+                            </Box>
                         </Grid>
                     ) : ""}
                 </Paper>
-            </Grid>
+            </Grid >
             <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
                 <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
                     Inicio de sesión correcto
                 </Alert>
             </Snackbar>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }
 
