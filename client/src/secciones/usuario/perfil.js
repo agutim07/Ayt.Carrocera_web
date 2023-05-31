@@ -53,6 +53,7 @@ const CustomTextField = styled(TextField)({
 });
 
 const Perfil = ({ msg, completed }) => {
+    
     const [loading, setLoading] = useState(true);
     const [logged, setLogged] = useState(false);
     const [usuario, setUsuario] = useState([]);
@@ -85,6 +86,79 @@ const Perfil = ({ msg, completed }) => {
 
     const [date, setDate] = React.useState(dayjs());
 
+    const [checked, setChecked] = React.useState(false);
+    const [error, setError] = useState("");
+    const [open, setOpen] = useState(false);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        let specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
+        var dateS = new Date(dayjs(date).toDate());
+        dateS.setDate(dateS.getDate() + 1);
+        let fecha = dateS.getFullYear() + "-" + (dateS.getMonth() + 1) + "-" + dateS.getDate();
+
+        if (usuario.nombre === "" || usuario.apellidos === "" || usuario.dni === "" || usuario.username === "" || usuario.pass === "") {
+            setError("Rellene todos los campos");
+            setOpen(true);
+        } else if (specialChars.test(usuario.username) || specialChars.test(usuario.pass)) {
+            setError("No se permiten caracteres especiales");
+            setOpen(true);
+        } else if (!validateDNI(usuario.dni)) {
+            setError("DNI no válido");
+            setOpen(true);
+        } else {
+            setLoading(true);
+            Axios.put("/users/"+usuario._id, {
+                usuario: usuario.nombre, usuario: usuario.apellidos, usuario: usuario.dni
+                , usuario: usuario.username, usuario: usuario.pass
+                , usuario: usuario.fechaNac, usuario: usuario.sexo
+            })
+                .then((response) => {
+                    if (!response.data) {
+                        setError("Registro inválido: el DNI y el username deben ser únicos");
+                        setOpen(true);
+                    } else {
+                        setOpenSnackbar(true);
+                        console.log("bien")
+                    }
+                    setLoading(false);
+                }).catch((error) => {
+                    if (error.response) {
+                        setError("Error al intentar conectar con la base de datos");
+                        setOpen(true);
+                    }
+                    setLoading(false);
+                });
+        }
+    };
+
+    function validateDNI(dni) {
+        var numero, lett, letra;
+        var expresion_regular_dni = /^[XYZ]?\d{5,8}[A-Z]$/;
+
+        dni = dni.toUpperCase();
+
+        if (expresion_regular_dni.test(dni) === true) {
+            numero = dni.substr(0, dni.length - 1);
+            numero = numero.replace('X', 0);
+            numero = numero.replace('Y', 1);
+            numero = numero.replace('Z', 2);
+            lett = dni.substr(dni.length - 1, 1);
+            numero = numero % 23;
+            letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
+            letra = letra.substring(numero, numero + 1);
+            if (letra != lett) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
     return (
         <ThemeProvider theme={darkTheme}>
             <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{ mb: 3 }}>
@@ -104,7 +178,7 @@ const Perfil = ({ msg, completed }) => {
                             </Typography>
                         </Grid>) : ""}
                     {(logged && !loading) ? (
-                        <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center" sx={{ my: 1 }}>
+                        <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center" sx={{ display: 'grid' }}>
                             <Typography align="center" display="inline">
                                 <Box sx={{ mt: 2, fontSize: 20, fontWeight: 'bold', color: 'white' }}>
                                     Editar {usuario.nombre} {usuario.apellidos}
@@ -129,15 +203,15 @@ const Perfil = ({ msg, completed }) => {
                                         <DesktopDatePicker
                                             label="Fecha"
                                             inputFormat="DD/MM/YYYY"
-                                            value={date}
-                                            onChange={e => setUsuario({ ...usuario, fecha_nacimiento: e.target.value })}
+                                            value={usuario.fechaNac}
+                                            onChange={e => setUsuario({ ...usuario, fechaNac: e.target.value })}
                                             renderInput={(params) => <TextField {...params} />}
                                         />
                                     </LocalizationProvider>
                                 </FormControl>
                             </Box>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                <CustomTextField margin="normal" required fullWidth name="dni" label="DNI" type="text"
+                                <CustomTextField margin="normal" disabled fullWidth name="dni" label="DNI" type="text"
                                     sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="dni"
                                     onChange={e => setUsuario({ ...usuario, dni: e.target.value })} value={usuario.dni}
                                 />
@@ -170,7 +244,7 @@ const Perfil = ({ msg, completed }) => {
                                 </FormControl>
                             </Box>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor: "#e53935", mt: 3, mb: 1, '&:hover': { backgroundColor: '#e53935', } }}>
+                                <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor: "#FFFFFF", mt: 3, mb: 1, '&:hover': { backgroundColor: "#008000", } }}>
                                     Realizar cambios
                                 </Button>
                             </Box>
