@@ -202,10 +202,11 @@ function Registro() {
             Axios.post("/register", {usuario:details.usuario, contrasena:details.pass,
                  nombre: details.nombre, apellidos:details.apellidos,dni:details.dni, fecha:fecha,sexo:details.sexo})
             .then((response) => {
-                if(!response.data){
+                if(response.data=="false"){
                     setError("Registro inválido: el DNI y el username deben ser únicos");
                     setOpen(true);
                 }else{
+                    setUserTipo(response.data);
                     setOpenSnackbar(true);
                 }
                 setLoading(false);
@@ -239,6 +240,7 @@ function Registro() {
         setDate(newValue);
     };
 
+    const [userTipo, setUserTipo] = React.useState("");
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {return;}
@@ -375,7 +377,7 @@ function Registro() {
 
             <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
                 <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Registro correcto
+                    Usuario {userTipo} registrado
                 </Alert>
             </Snackbar>
             
