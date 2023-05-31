@@ -12,6 +12,7 @@ router.post("/admin", async (req,res) => {
 
     User.findOne({username:username,pass:pass,idRol:rolAdmin._id}, (error,check) => {
         if(check){
+            userId = "";
             adminUserId = check._id;
             res.send(true);
         }else{
@@ -30,6 +31,7 @@ router.post("/user", async (req,res) => {
     User.findOne({username:username,pass:pass,$or:[{idRol:rolNormal._id},{idRol:rolEmpadronado._id}]}, (error,check) => {
         if(check){
             userId = check._id;
+            adminUserId = "";
             res.send(true);
             console.log("Usuario logueado");
         }else{

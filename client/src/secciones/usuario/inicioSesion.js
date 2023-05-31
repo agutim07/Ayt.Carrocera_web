@@ -134,7 +134,7 @@ const InicioSesion = ({loginCompleted}) => {
                                 onChange={e => setDetails({ ...details, pass: e.target.value })} value={details.pass} />
                         </Grid>
                         {(loading) ? (
-                            <Box sx={{ display: 'flex', my:1 }}>
+                            <Box display="flex" justifyContent="center" alignItems="center" sx={{ display: 'flex',  my:1 }}>
                                 <CircularProgress />
                             </Box>) : ""}
                         <Grid item>

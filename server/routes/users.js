@@ -49,36 +49,23 @@ router.put("/:id", async (req,res) => {
     let userID = req.params.id;
 
     if(user!="" || user2 == userID){
-        const username = req.body.usuario;
-        const pass = req.body.contrasena;
+        const pass = req.body.pass;
         const name = req.body.nombre;
         const surname = req.body.apellidos;
-        const signature = req.body.dni;
         const date = req.body.fecha;
         const sex = req.body.sexo;
-        const rol = await roles.getRol(req.body.rol);
 
-        if(typeof username!=='undefined' && typeof signature!=='undefined'){
-            let check = await checkUpdate(userID,signature,username);
+        let update = {pass: pass, nombre:name, apellidos:surname, fechaNac:date, sexo:sex};
+        let filter = {_id:userID};
 
-            if(!check){
+        User.findOneAndUpdate(filter, {$set:update}, {new: true}, (err,doc) => {
+            if(err){
+                console.log(err);
                 res.send(false);
             }else{
-                let update = {username: username, pass: pass, nombre:name, apellidos:surname,dni:signature, fechaNac:date, sexo:sex, idRol:rol._id};
-                let filter = {_id:userID};
-
-                User.findOneAndUpdate(filter, {$set:update}, {new: true}, (err,doc) => {
-                    if(err){
-                        console.log(err);
-                        res.send(false);
-                    }else{
-                        res.send(true);
-                    }
-                })
+                res.send(true);
             }
-        }else{
-            res.send(false);
-        }
+        })
     }
 })
 
@@ -100,16 +87,5 @@ router.delete("/:id", (req,res) => {
     }
     
 })
-
-async function checkUpdate(id, signature, username){
-    var data = await User.find({});
-    for(let i=0; i<data.length; i++){
-        if(data[i]._id!=id && (data[i].dni==signature || data[i].username==username)){
-            return false;
-        }
-    }
-
-    return true;
-}
 
 module.exports = {router:router}
