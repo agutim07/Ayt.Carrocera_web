@@ -16,7 +16,7 @@ router.get("/", (req,res) => {
         }else{
             const events = [];
             const orderData = data;
-            orderData.sort((a, b) => (a.fecha < b.fecha) ? 1 : -1);
+            orderData.sort((a, b) => (a.fecha > b.fecha) ? 1 : -1);
 
             for(let i=0; i<orderData.length; i++){
                 const pueblo = await pueblos.getPueblo(orderData[i].idPueblo);

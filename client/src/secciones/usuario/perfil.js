@@ -226,7 +226,7 @@ const Perfil = ({ msg, completed }) => {
                                 </FormControl>
                             </Box>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor: "#FFFFFF", mt: 3, mb: 1, '&:hover': { backgroundColor: "red", } }}>
+                                <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor: "red", mt: 3, mb: 1, '&:hover': { backgroundColor: "white", } }}>
                                     Realizar cambios
                                 </Button>
                             </Box>

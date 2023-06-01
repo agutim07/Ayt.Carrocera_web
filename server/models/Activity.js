@@ -26,10 +26,12 @@ const ActivitySchema = new Schema(
       required: true,
     },
     apertura: {
-      type: String,
+      type: Number,
+      required: true,
     },
     cierre: {
-      type: String,
+      type: Number,
+      required: true,
     },
     idPueblo: {
       type: Schema.Types.ObjectId,
