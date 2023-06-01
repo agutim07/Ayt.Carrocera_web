@@ -140,21 +140,29 @@ router.put("/reserva/:id", async (req,res) => {
     let book = await Book.findOne({_id:bookID});
 
     if((user!="" || user2!="") && book!=null){
+        var hasReservationAlready = false;
         const disp = !book.disponibilidad;
         var userBook = null;
-        if(user2!="" && disp==false){userBook=await getBookUserID(user2);}
+        if(user2!="" && disp==false){
+            userBook=await getBookUserID(user2);
+            hasReservationAlready = await checkUserBooks(userBook,book);
+        }
 
-        let update = {disponibilidad:disp, idUserAlquiler:userBook};
-        let filter = {_id:bookID};
+        if(!hasReservationAlready){
+            let update = {disponibilidad:disp, idUserAlquiler:userBook};
+            let filter = {_id:bookID};
 
-        Book.findOneAndUpdate(filter, {$set:update}, {new: true}, (err,doc) => {
-            if(err){
-                console.log(err);
-                res.send(false);
-            }else{
-                res.send(true);
-            }
-        })
+            Book.findOneAndUpdate(filter, {$set:update}, {new: true}, (err,doc) => {
+                if(err){
+                    console.log(err);
+                    res.send(false);
+                }else{
+                    res.send(true);
+                }
+            })
+        }else{
+            res.send(false);
+        }
     }else{
         res.send(false);
     }
@@ -169,6 +177,15 @@ router.get("/library", async (req,res) => {
         res.send("false");
     }
 })
+
+async function checkUserBooks(user,book){
+    let b = await Book.findOne({idUserAlquiler:user,idBiblioteca:book.idBiblioteca});
+    if(b==null){
+        return false;
+    }
+
+    return true;
+}
 
 async function getBookUser(user){
     let us = await User.findOne({_id:user});

@@ -49,9 +49,15 @@ router.put("/logout", async (req,res) => {
 router.get("/", async (req,res) => {
     const user = userId;
     if(user==""){
-        res.send(false);
+        res.send("false");
     }else{
-        res.send(true);
+        const us = await User.findOne({_id:user});
+        const rolNormal = await roles.getRol("normal");
+        if((us.idRol).equals(rolNormal._id)){
+            res.send("normal");
+        }else{
+            res.send("empadronado");
+        }
     }
 })
 

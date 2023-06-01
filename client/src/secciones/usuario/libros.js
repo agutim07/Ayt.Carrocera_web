@@ -81,16 +81,24 @@ const Libros = () => {
     const [filtro, setFiltro] = useState("todas");
     const [bibs, setBibs] = useState([]);
 
+    const [blockAccess, setBlock] = useState("No puede acceder a esta sección sin haber iniciado sesión");
+
     useEffect(() => {
         Axios.get('/login').then((response) => {
             setLogged(response.data);
             if(response.data){
-                Axios.get('/books/all').then((response) => {
-                    setBooks(response.data);
-                    setBooks2(response.data);
-                    setBibs(getBibs(response.data));
+                if(response.data!="empadronado"){
+                    setBlock("Sección exclusiva a usuarios empadronados");
+                    setLogged(false);
                     setLoading(false);
-                });
+                }else{
+                    Axios.get('/books/all').then((response) => {
+                        setBooks(response.data);
+                        setBooks2(response.data);
+                        setBibs(getBibs(response.data));
+                        setLoading(false);
+                    });
+                }   
             } else {
                 setLoading(false);
             }
@@ -116,6 +124,8 @@ const Libros = () => {
         }
     }
 
+    const [snackState, setSnackState] = React.useState("success");
+    const [snackMsg, setSnackMsg] = React.useState("");
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') { return; }
@@ -143,9 +153,14 @@ const Libros = () => {
         return `${date.getFullYear()}-${monthString}-${dateString}`;
     }
 
-    function handleSubmitReserva(id){
+    function handleSubmitReserva(b,devolucion){
+        if(!b.disponibilidad && !devolucion){
+            setSnackMsg("Este libro ya está reservado"); setSnackState("warning"); setOpenSnackbar(true); 
+            return;
+        }
+
         setLoading(true);
-        Axios.put("/books/reserva/"+id).then((response) => {
+        Axios.put("/books/reserva/"+b._id).then((response) => {
             if(response.data){
                 Axios.get('/books/all').then((response) => {
                     setBooks(response.data);
@@ -153,10 +168,15 @@ const Libros = () => {
                     setFiltro("todas");
                     setBibs(getBibs(response.data));
                     setLoading(false);
-                    setOpenSnackbar(true);
+                    if(devolucion){
+                        setSnackMsg("Libro devuelto correctamente"); 
+                    }else{
+                        setSnackMsg("Libro reservado correctamente"); 
+                    }
+                    setSnackState("success"); setOpenSnackbar(true);
                 })
             }else{
-                setError("Error al modificar reserva");
+                setError("Solo puede tener un libro reservado en "+b.biblioteca);
                 setOpen(true);
                 setLoading(false);
             }
@@ -224,7 +244,7 @@ const Libros = () => {
                     {(!logged && !loading) ? (
                         <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center" sx={{ my: 1 }}>
                             <Typography align="center" display="inline">
-                                <Box sx={{ mt: 2, fontSize: 14, fontWeight: 'bold', color: 'white' }}>No puede acceder a esta sección sin haber iniciado sesión</Box>
+                                <Box sx={{ mt: 2, fontSize: 14, fontWeight: 'bold', color: 'white' }}>{blockAccess}</Box>
                             </Typography>
                         </Grid>) : ""}
                     {(logged && !loading) ? (
@@ -254,11 +274,11 @@ const Libros = () => {
                                     <TableCell align="right">{book.ISBN}</TableCell>
                                     {(book.mio) ? (
                                         <TableCell align="right">
-                                            <Chip label={"Devolver"} size="small" sx={{border:1,borderColor:'white',backgroundColor:"orange",color:'black'}} />
+                                            <Chip label={"Devolver"} onClick={() => handleSubmitReserva(book,true)} size="small" sx={{border:1,borderColor:'white',backgroundColor:"orange",color:'black'}} />
                                         </TableCell>
                                     ) : (
                                         <TableCell align="right">
-                                            <Chip onClick={() => handleSubmitReserva(book._id)} label={book.disponibilidad ? "Reservar" : "Reservado"} size="small" sx={{backgroundColor:book.disponibilidad ? "green" : "red"}} />
+                                            <Chip onClick={() => handleSubmitReserva(book,false)} label={book.disponibilidad ? "Reservar" : "Reservado"} size="small" sx={{backgroundColor:book.disponibilidad ? "green" : "red"}} />
                                         </TableCell>
                                     )}
                                     
@@ -272,8 +292,8 @@ const Libros = () => {
                 </Paper>
             </Grid>
             <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
-                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Libro reservado
+                <Alert onClose={handleCloseSnackbar} severity={snackState} sx={{ width: '100%' }}>
+                    {snackMsg}
                 </Alert>
             </Snackbar>
         </ThemeProvider>

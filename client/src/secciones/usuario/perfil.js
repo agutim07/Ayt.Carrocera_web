@@ -76,14 +76,14 @@ const Perfil = ({ msg, completed }) => {
                 completed();
             }
 
-            if (response.data) {
+            if(response.data){
                 Axios.get('/users/one').then((response) => {
                     setUsuario(response.data);
                     setName(response.data.nombre+" "+response.data.apellidos);
                     setDate(dayjs(new Date(response.data.fechaNac) - 1))
                     setLoading(false);
                 });
-            } else {
+            }else{
                 setLoading(false);
             }
         });
