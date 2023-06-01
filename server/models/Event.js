@@ -21,9 +21,9 @@ const EventSchema = new Schema(
         type: Boolean,
         required: true,
     },
-    apuntados: {
-        type: [String],
-    },
+    apuntados: [
+        {type:Schema.Types.ObjectId, ref:'User'}
+    ],
     idPueblo: {
       type: Schema.Types.ObjectId,
       required: true,

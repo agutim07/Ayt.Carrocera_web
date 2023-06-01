@@ -109,6 +109,7 @@ const EventosAdmin = () => {
     function onChange(tipo){
         setEventos([]);
         if(tipo==="borrar"){ setLoading(true); setAlertText("Evento borrado correctamente");}
+        if(tipo==="borrarpersona"){ setLoading(true); setAlertText("Individuo desapuntado del evento correctamente");}
         if(tipo==="editar"){ setLoading(true); setAlertText("Evento editado correctamente");}
         if(tipo==="añadir"){ setAlertText("Evento añadido correctamente");}
 

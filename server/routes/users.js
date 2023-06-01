@@ -88,4 +88,9 @@ router.delete("/:id", (req,res) => {
     
 })
 
-module.exports = {router:router}
+async function getUser(id){
+    let us = await User.findOne({_id:id});
+    return us;
+}
+
+module.exports = {router:router, getUser:getUser}

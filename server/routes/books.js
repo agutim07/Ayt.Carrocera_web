@@ -5,6 +5,7 @@ const Book = require("../models/Book");
 const User = require("../models/User");
 var pueblos = require('./pueblos');
 var login = require('./login');
+const users = require('./users');
 
 router.get("/", async (req,res) => {
     let user = login.getLoggedAdmin();
@@ -144,7 +145,7 @@ router.put("/reserva/:id", async (req,res) => {
         const disp = !book.disponibilidad;
         var userBook = null;
         if(user2!="" && disp==false){
-            userBook=await getBookUserID(user2);
+            userBook = await getBookUserID(user2);
             hasReservationAlready = await checkUserBooks(userBook,book);
         }
 
@@ -188,7 +189,7 @@ async function checkUserBooks(user,book){
 }
 
 async function getBookUser(user){
-    let us = await User.findOne({_id:user});
+    let us = await users.getUser(user);
     if(us==null){
         return "admin";
     }
@@ -197,7 +198,7 @@ async function getBookUser(user){
 }
 
 async function getBookUserID(user){
-    let us = await User.findOne({_id:user});
+    let us = await users.getUser(user);
     if(us==null){
         return null;
     }
