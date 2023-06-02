@@ -88,7 +88,7 @@ const Actividades = () => {
     const [activities, setActivities] = useState([]);
     const [selected, setSelected] = useState();
     const [times, setTimes] = useState();
-    const [durations, setDuration] = useState(getDurations());
+    const [durations, setDurations] = useState(getDurations(1));
     const [reservas, setReservas] = useState([]);
 
     useEffect(() => {
@@ -120,6 +120,7 @@ const Actividades = () => {
         setOpen(false);
         setSelected(newValue);
         setTimes(generateTimes(newValue));
+        setDurations(getDurations(1));
     }
 
     const [snackMsg, setSnackMsg] = React.useState("");
@@ -172,7 +173,7 @@ const Actividades = () => {
 
     function generateTimes(ev){
         var t = [];
-        for(let i=ev.open; i<=ev.close; i++){
+        for(let i=ev.open; i<ev.close; i++){
             var label = "";
             if(i<10){label+="0";}
             label+=i+":00";
@@ -184,11 +185,26 @@ const Actividades = () => {
         return t;
     }
 
-    function getDurations(){
+    function changeHour(h){
+        let dur = details.duracion;
+
+        if((selected.close-h)==2 ||  (selected.close-h)==1){
+            console.log("entro");
+            if((selected.close-h)==2){setDurations(getDurations(2));}
+            if((selected.close-h)==1){setDurations(getDurations(3));}
+            dur = 0.5;
+        }else{
+            setDurations(getDurations(1));
+        }
+
+        setDetails({ ...details, hora: h, duracion: dur });
+    }
+
+    function getDurations(tipo){
         var t = [];
         t.push({label:"30min",value:0.5});  t.push({label:"1h",value:1});
-        t.push({label:"1h 30min",value:1.5});  t.push({label:"2h",value:2});
-        t.push({label:"2h 30min",value:2.5});  t.push({label:"3h",value:3});
+        if(tipo<=2){t.push({label:"1h 30min",value:1.5});  t.push({label:"2h",value:2});}
+        if(tipo<=1){t.push({label:"2h 30min",value:2.5});  t.push({label:"3h",value:3});}
         return t;
     }
 
@@ -380,7 +396,7 @@ const Actividades = () => {
                                             MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
                                             value={details.hora}
                                             label="Hora"
-                                            onChange={e => setDetails({ ...details, hora: e.target.value })}>
+                                            onChange={e => changeHour(e.target.value)}>
                                             {times.map((t) => (
                                                 <MenuItem value={t.value}>{t.label}</MenuItem>
                                             ))}

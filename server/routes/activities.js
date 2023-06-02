@@ -5,8 +5,12 @@ const Reserva = require("../models/Reserva");
 var pueblos = require('./pueblos');
 var login = require('./login');
 const users = require('./users');
+const roles = require('./roles');
 
 router.get("/", (req,res) => {
+    let user = login.getLoggedUser();
+    let admin = login.getLoggedAdmin();
+
     Activity.find(async (error,data) => {
         if(error){
             console.log(error);
@@ -15,9 +19,26 @@ router.get("/", (req,res) => {
             const acts = [];
 
             for(let i=0; i<data.length; i++){
-                const pueblo = await pueblos.getPueblo(data[i].idPueblo);
-                let item = {id:i, _id:data[i]._id, name:data[i].nombre, addr:data[i].direccion, price:data[i].precio_hr, exclusive:data[i].exclusivo, habilitada:data[i].habilitada, open:data[i].apertura, close:data[i].cierre, loc:pueblo};
-                acts.push(item);
+                let include = false;
+                if(admin!=""){include=true;}
+                if(user!=""){
+                    if(data[i].habilitada){
+                        if(data[i].exclusivo){
+                            const rolEmpadronado = await roles.getRol("empadronado");
+                            const us = await users.getUser(user);
+                            if(rolEmpadronado.equals(us.idRol)){include=true;}
+                        }else{
+                            include=true;
+                        }
+                    }
+                }
+
+                if(include){
+                    const pueblo = await pueblos.getPueblo(data[i].idPueblo);
+                    let item = {id:i, _id:data[i]._id, name:data[i].nombre, addr:data[i].direccion, price:data[i].precio_hr, exclusive:data[i].exclusivo, habilitada:data[i].habilitada, open:data[i].apertura, close:data[i].cierre, loc:pueblo};
+                    acts.push(item);
+                }
+                
             }
 
             res.send(acts);
