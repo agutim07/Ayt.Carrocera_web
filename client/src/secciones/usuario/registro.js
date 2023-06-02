@@ -343,7 +343,7 @@ function Registro() {
                             </Box>
                         </Grid>
                         <Box sx={{ fontStyle: 'italic' , color:"red"}}>(*): estos campos son obligatorios</Box>
-                        <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: '#e53935', }}}>
+                        <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: 'red', }}}>
                             Registrarse
                         </Button>
                     </Box>

@@ -138,7 +138,7 @@ const InicioSesion = ({loginCompleted}) => {
                                 <CircularProgress />
                             </Box>) : ""}
                         <Grid item>
-                            <Button variant="contained" onClick={handleSubmit} fullWidth sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: '#e53935', }}}>Iniciar sesion</Button>
+                            <Button variant="contained" onClick={handleSubmit} fullWidth sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: 'red', }}}>Iniciar sesion</Button>
                         </Grid>
                     </Box>
                 </Grid>

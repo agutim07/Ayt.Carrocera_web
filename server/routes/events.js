@@ -176,7 +176,6 @@ router.delete("/:id", (req,res) => {
     }else{
         res.send(false);
     }
-    
 })
 
 async function getApuntados(eventID){

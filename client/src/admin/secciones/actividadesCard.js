@@ -64,11 +64,19 @@ import FormControl from '@mui/material/FormControl';
 import AlertTitle from '@mui/material/AlertTitle';
 import CloseIcon from '@mui/icons-material/Close'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 import Axios from 'axios';
 
@@ -87,7 +95,7 @@ const Button2 = styled(Button)({
     ].join(','),
 });
 
-const ActividadesCard = ({onChange, card}) => {
+const ActividadesCard = ({onChange, card, reservas}) => {
     const [details, setDetails] = useState({price:card.price, exclusive:card.exclusive, open:card.open, close:card.close, habilitada:card.habilitada});
     const [times, getTimes] = useState(generateTimes());
 
@@ -157,6 +165,50 @@ const ActividadesCard = ({onChange, card}) => {
         return t;
     }
 
+    function getThisReservas(res){
+        var out = [];
+        for(let i=0; i<res.length; i++){
+            if(res[i].idActividad==card._id){
+                out.push(res[i]);
+            }
+        }
+        console.log(out);
+        return out;
+    }
+
+    const [openRes, setOpenRes] = useState(false);
+    const handleClickOpenRes = () => {
+        setOpenRes(true);
+    };
+    const handleCloseRes = () => {
+        setOpenRes(false);
+    };
+
+    const deleteReserva = (id) => {
+        Axios.delete("/activities/reserva/"+id).then(() => {
+            handleCloseRes();
+            onChange("reserva");
+        });
+    }
+
+    function getHour(d){
+        let sub = dayjs(new Date(d));
+
+        let out = "";
+        let h = sub.get('hour');    if(h<10){out+="0";}     out+=h+":";
+        let m = sub.get('minute');    if(m<10){out+="0";}     out+=m;
+        return out;
+    }
+
+    function dateToLabel(date){
+        date = new Date(date);
+        const currentMonth = date.getMonth()+1;
+        const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+        const currentDate = date.getDate();
+        const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+        return `${date.getFullYear()}-${monthString}-${dateString}`;
+    }
+
     return(
         <div>
             <Card elevation={12} sx={{minWidth:500}}>
@@ -184,6 +236,7 @@ const ActividadesCard = ({onChange, card}) => {
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <CardActions>
                         <Button variant="contained" onClick={handleClickOpen} startIcon={<EditIcon />}>Editar</Button>
+                        <Button variant="contained" onClick={handleClickOpenRes} startIcon={<PeopleOutlineIcon />}>Reservas</Button>
                     </CardActions>
                 </div>
             </Card>
@@ -244,6 +297,56 @@ const ActividadesCard = ({onChange, card}) => {
                     </DialogActions>
                 </Dialog>
             </Box>
+
+            <Box sx={{position: "absolute", bottom: 20, right: 20}} >
+            <Dialog fullWidth="600px" sx={{width:"50"}} open={openRes} onClose={handleCloseRes} aria-labelledby="form-dialog-title" >
+                <DialogTitle id="form-dialog-title">Reservas</DialogTitle>
+                <DialogContent>
+                {(getThisReservas(reservas).length==0) ? (
+                    <Typography sx={{color:'white'}}>
+                    No hay reservas en esta actividad
+                    </Typography>
+                ) : (
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 450 }} aria-label="simple table" size="small">
+                        <TableHead>
+                        <TableRow>
+                            <TableCell><b>Nombre y apellidos</b></TableCell>
+                            <TableCell align="right"><b>Dia</b></TableCell>
+                            <TableCell align="right"><b>Desde</b></TableCell>
+                            <TableCell align="right"><b>Hasta</b></TableCell>
+                            <TableCell align="right"><b>Eliminar</b></TableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {getThisReservas(reservas).map((res) => (
+                            <TableRow
+                            key={res.fechaInicio}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                            <TableCell component="th" scope="row">{res.nombre}</TableCell>
+                            <TableCell component="th" scope="row">{dateToLabel(res.fechaInicio)}</TableCell>
+                            <TableCell component="th" scope="row">{getHour(res.fechaInicio)}</TableCell>
+                            <TableCell align="right">{getHour(res.fechaFin)}</TableCell>
+                            <TableCell align="right">
+                                <IconButton onClick={() => deleteReserva(res._id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </TableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                )}
+                </DialogContent>
+                <DialogActions>
+                    <IconButton onClick={handleCloseRes}>
+                        <CloseIcon sx={{color:'red'}}/>
+                    </IconButton>
+                </DialogActions>
+            </Dialog>
+        </Box>
 
             <Box sx={{ position: "absolute", bottom: "50%", right: "35%" }}>
             <Collapse in={openAlert}>

@@ -27,6 +27,7 @@ import CardActions from '@mui/material/CardActions';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EuroIcon from '@mui/icons-material/Euro';
+import InfoIcon from '@mui/icons-material/Info';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
@@ -88,6 +89,7 @@ const Actividades = () => {
     const [selected, setSelected] = useState();
     const [times, setTimes] = useState();
     const [durations, setDuration] = useState(getDurations());
+    const [reservas, setReservas] = useState([]);
 
     useEffect(() => {
         Axios.get('/login').then((response) => {
@@ -98,7 +100,10 @@ const Actividades = () => {
                     setActivities(response.data);
                     setSelected(response.data[0]);
                     setTimes(generateTimes(response.data[0]));
-                    setLoading(false);
+                    Axios.get('/activities/reservas').then((response) => {
+                        setReservas(response.data);
+                        setLoading(false);
+                    });
                 });  
             }else{
                 setLoading(false);
@@ -111,16 +116,12 @@ const Actividades = () => {
     }, []);
 
     const changeSelected = (event, newValue) => {
+        setOpenInfo(false);
+        setOpen(false);
         setSelected(newValue);
         setTimes(generateTimes(newValue));
     }
 
-    const [date, setDate] = React.useState(dayjs());
-    const handleDateChange = (newValue) => {
-        setDate(newValue);
-    };
-
-    const [snackState, setSnackState] = React.useState("success");
     const [snackMsg, setSnackMsg] = React.useState("");
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const handleCloseSnackbar = (event, reason) => {
@@ -128,48 +129,43 @@ const Actividades = () => {
         setOpenSnackbar(false);
     };
 
-    function dateToLabel(date){
-        date = new Date(date);
-        const currentMonth = date.getMonth()+1;
-        const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
-        const currentDate = date.getDate();
-        const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
-        return `${date.getFullYear()}-${monthString}-${dateString}`;
-    }
-
-    function handleSubmitReserva(b,devolucion){
-        /* if(!b.disponibilidad && !devolucion){
-            setSnackMsg("Este libro ya está reservado"); setSnackState("warning"); setOpenSnackbar(true); 
+    function handleSubmitReserva(){
+        var dateS = new Date(dayjs(date).toDate());
+        var minDate = new Date(dayjs());
+        if(dateS<=minDate){
+            setError("No se pueden efectuar reservas previas a mañana (incluido)");
+            setOpen(true);
+            return;
+        }
+        if(!checkAvaliability()){
+            setError("En el rango elegido ya existe una reserva");
+            setOpen(true);
             return;
         }
 
+        dateS.setDate(dateS.getDate());
+
+        let inicio = dateS.getFullYear() + "/" + (dateS.getMonth() + 1) + "/" + dateS.getDate()+" "+getDate(details.hora);
+        let fin = dateS.getFullYear() + "/" + (dateS.getMonth() + 1) + "/" + dateS.getDate()+" "+getDate(details.hora+details.duracion);
+
         setLoading(true);
-        Axios.put("/books/reserva/"+b._id).then((response) => {
-            if(response.data){
-                Axios.get('/books/all').then((response) => {
-                    setBooks(response.data);
-                    setBooks2(response.data);
-                    setFiltro("todas");
-                    setBibs(getBibs(response.data));
-                    setLoading(false);
-                    if(devolucion){
-                        setSnackMsg("Libro devuelto correctamente"); 
-                    }else{
-                        setSnackMsg("Libro reservado correctamente"); 
-                    }
-                    setSnackState("success"); setOpenSnackbar(true);
-                })
-            }else{
-                setError("Solo puede tener un libro reservado en "+b.biblioteca);
+        Axios.post("/activities/reserva/"+selected._id, 
+        {precio:(selected.price*details.duracion), horas:details.duracion, inicio:inicio, fin:fin})
+        .then((response) => {
+            if(!response.data){
+                setError("No se ha podido efectuar la reserva");
                 setOpen(true);
                 setLoading(false);
+            }else{
+                setSnackMsg("Reserva efectuada con éxito");
+                setOpenSnackbar(true);
+                Axios.get('/activities/reservas').then((response) => {
+                    setReservas(response.data);
+                    setLoading(false);
+                });
             }
-        }).catch((error) => {
-            setError("Error al intentar conectar con la base de datos");
-            setOpen(true);
-            setLoading(false);
-        }); */
-    };
+        });
+    }
 
     const [error, setError] = useState("");
     const [open, setOpen] = useState(false);
@@ -198,14 +194,100 @@ const Actividades = () => {
 
     function getDate(l){
         let out = "";
+        let time = l%1;
+        let min = l-time;
 
-        if(l<10){out+=0;}
-        out+=l+":00";
+        if(min<10){out+=0;}
+        out+=min+":";
+
+        time = time*60;
+        if(time<10){out+=0;}
+        out+=time;
 
         return out;
     }
 
-    const [details, setDetails] = useState({price:0, hora:14, duracion:0.5});
+    const [details, setDetails] = useState({hora:14, duracion:0.5});
+    const [date, setDate] = React.useState(dayjs().add(1, 'day'));
+    const handleDateChange = (newValue) => {
+        setDate(newValue);
+    };
+
+    const [openInfo, setOpenInfo] = useState(false);
+    const [info, setInfo] = useState([]);
+    const openInf = () => {
+        setInfo(getInfoForDate());
+        setOpenInfo(true);
+    }
+
+    function dateToLabel(date){
+        date = new Date(date);
+        const currentMonth = date.getMonth()+1;
+        const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+        const currentDate = date.getDate();
+        const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+        return `${date.getFullYear()}-${monthString}-${dateString}`;
+    }
+
+    function getInfoForDate(){
+        var inf = [];
+
+        for(let i=0; i<reservas.length; i++){
+            if(reservas[i].idActividad==selected._id){
+                let inicio = dayjs(new Date(reservas[i].fechaInicio));
+                let actual = new Date(dayjs(date).toDate());
+                if(inicio.isSame(actual,'day')){
+                    let fin = dayjs(new Date(reservas[i].fechaFin));
+                    inf.push({id:reservas[i]._id,inicio:getHour(inicio),fin:getHour(fin),mine:reservas[i].mine});
+                }
+            }
+        }
+
+        return inf;
+    }
+    
+    function getHour(sub){
+        let out = "";
+        let h = sub.get('hour');    if(h<10){out+="0";}     out+=h+":";
+        let m = sub.get('minute');    if(m<10){out+="0";}     out+=m;
+        return out;
+    }
+
+    function checkAvaliability(){
+        const info = getInfoForDate();
+        console.log(info);
+        const ini = details.hora;
+        const fn = details.hora+details.duracion;
+
+        for(let i=0; i<info.length; i++){
+            var ini2 = parseInt(info[i].inicio.substring(0,2));
+            var fn2 = parseInt(info[i].fin.substring(0,2)) + (parseInt(info[i].fin.substring(3))/60);
+            console.log(ini + " "+ini2+" , "+fn+" "+fn2);
+            if((ini>ini2 && ini<fn2) || (fn>ini2 && fn<fn2) || (ini<=ini2 && fn>=fn2)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function deleteReserva(id){
+        setLoading(true);
+        setOpenInfo(false);
+        Axios.delete("/activities/reserva/"+id).then((response) => {
+            if(response.data){
+                setSnackMsg("Reserva eliminada con éxito");
+                setOpenSnackbar(true);
+                Axios.get('/activities/reservas').then((response) => {
+                    setReservas(response.data);
+                    setLoading(false);
+                });
+            }else{
+                setError("No se ha podido eliminar la reserva");
+                setOpen(true);
+                setLoading(false);
+            }
+        })
+    }
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -243,14 +325,35 @@ const Actividades = () => {
                             </Grid>
                             <Grid item xs={8}>
                                 <Grid container direction="column" alignItems="center" justifyContent="center">
+                                <Collapse in={open}>
+                                    <Alert severity="error"
+                                    action={
+                                        <IconButton
+                                        aria-label="close"
+                                        color="inherit"
+                                        size="small"
+                                        onClick={() => {
+                                            setOpen(false);
+                                        }}
+                                        >
+                                        <CloseIcon fontSize="inherit" />
+                                        </IconButton>
+                                    }
+                                    sx={{mb: 1}}
+                                    >
+                                    <strong>{error}</strong>
+                                    </Alert>
+                                </Collapse>
                                 <Box component="form" sx={{ m: 0.5, mr: 3 }}>
                                     <Box display="flex" justifyContent="center" alignItems="center" sx={{mb:1}}>
                                         <Chip icon={<LocationOnIcon />} label={selected.loc} sx={{backgroundColor:'green'}}/>
                                     </Box>
-                                    <Grid container direction="row" sx={{mb:2}}>
+                                    <Grid container direction="row" justifyContent="center" alignItems="center" sx={{mb:2}}>
                                         <Chip icon={<AccessTimeIcon />} sx={{mr:0.5}} label={"Desde "+getDate(selected.open)} />
                                         <Chip icon={<AccessTimeIcon />} sx={{ml:0.5}} label={"Hasta "+getDate(selected.close)} />
                                     </Grid>
+                                    <Grid container direction="row" alignItems="center" justifyContent="center">
+                                    <Grid item xs={7} sx={{mt:0.5}}>
                                     <FormControl fullWidth>
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <DesktopDatePicker
@@ -262,6 +365,13 @@ const Actividades = () => {
                                             />
                                         </LocalizationProvider>
                                     </FormControl>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ml:1}}>
+                                    <Button onClick={() => openInf()} sx={{borderColor:'red', color:'red'}} variant="outlined" size="small" startIcon={<InfoIcon />}>
+                                        Reservas
+                                    </Button>
+                                    </Grid>
+                                    </Grid>
                                     <Grid container direction="row" alignItems="center" justifyContent="center">
                                     <FormControl margin="normal" name="filtro" label="Hora" type="text" sx={{ mr:1, input: { color: 'white' } }}>
                                         <InputLabel>Hora</InputLabel>
@@ -291,6 +401,52 @@ const Actividades = () => {
                                     </FormControl>
                                     <Chip sx={{ml:1}} icon={<EuroIcon />} label={selected.price*details.duracion} />
                                     </Grid>
+                                    <Button onClick={handleSubmitReserva} fullWidth variant="contained" sx={{ bgcolor:"#e53935", mt: 2, mb: 1, '&:hover': {backgroundColor: 'red', }}}>
+                                    Reservar
+                                    </Button>
+                                    <Collapse in={openInfo}>
+                                        <Box display="flex" justifyContent="center" alignItems="center" sx={{mt:1.5}}>
+                                            <IconButton onClick={() => setOpenInfo(false)}>
+                                                <CloseIcon sx={{color:'red'}}/>
+                                            </IconButton>
+                                            {(info.length==0) ? (
+                                                <Typography sx={{color:'white'}}>
+                                                No hay reservas el {dateToLabel(date)}
+                                                </Typography>
+                                            ) : (
+                                            <TableContainer component={Paper}>
+                                            <Table sx={{ minWidth: 200 }} aria-label="simple table" size="small">
+                                                <TableHead>
+                                                <TableRow>
+                                                    <TableCell><b>Desde</b></TableCell>
+                                                    <TableCell align="right"><b>Hasta</b></TableCell>
+                                                    <TableCell align="right"><b>Eliminar</b></TableCell>
+                                                </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                {info.map((res) => (
+                                                    <TableRow
+                                                    key={res.inicio}
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                    <TableCell component="th" scope="row">{res.inicio}</TableCell>
+                                                    <TableCell align="right">{res.fin}</TableCell>
+                                                    <TableCell align="right">
+                                                        {(res.mine) ? (
+                                                            <Chip label={"Eliminar"} onClick={() => deleteReserva(res.id)} size="small" sx={{border:1,borderColor:'white',backgroundColor:"red",color:'white'}} />
+                                                        ) : (
+                                                            <Chip label={"No es suya"} size="small" sx={{border:1,borderColor:'white',backgroundColor:"white",color:'black'}} />
+                                                        )}
+                                                        
+                                                    </TableCell>
+                                                    </TableRow>
+                                                ))}
+                                                </TableBody>
+                                            </Table>
+                                            </TableContainer>
+                                            )}
+                                        </Box>
+                                    </Collapse>
                                 </Box>
                                 </Grid>
                             </Grid>
@@ -299,7 +455,7 @@ const Actividades = () => {
                 </Paper>
             </Grid>
             <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
-                <Alert onClose={handleCloseSnackbar} severity={snackState} sx={{ width: '100%' }}>
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
                     {snackMsg}
                 </Alert>
             </Snackbar>
