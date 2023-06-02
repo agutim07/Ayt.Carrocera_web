@@ -64,11 +64,19 @@ import FormControl from '@mui/material/FormControl';
 import AlertTitle from '@mui/material/AlertTitle';
 import CloseIcon from '@mui/icons-material/Close'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 import Axios from 'axios';
 
@@ -87,98 +95,118 @@ const Button2 = styled(Button)({
     ].join(','),
 });
 
-const ActividadesCard = ({onChange, card}) => {
-    const [details, setDetails] = useState({price:card.price, exclusive:card.exclusive, open1:parseInt(card.open.substring(0,2)), open2:parseInt(card.open.substring(3,5)), close1:parseInt(card.close.substring(0,2)), close2:parseInt(card.close.substring(3,5)), habilitada:card.habilitada});
+const ActividadesCard = ({onChange, card, reservas}) => {
+    const [details, setDetails] = useState({price:card.price, exclusive:card.exclusive, open:card.open, close:card.close, habilitada:card.habilitada});
+    const [times, getTimes] = useState(generateTimes());
 
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
-        details.price=card.price; details.exclusive=card.exclusive; details.open1=parseInt(card.open.substring(0,2)); details.open2=parseInt(card.open.substring(3,5)); details.close1=parseInt(card.close.substring(0,2)); details.close2=parseInt(card.close.substring(3,5)); details.habilitada=card.habilitada;
+        details.price=card.price; details.exclusive=card.exclusive; details.open=card.open; details.close=card.close; details.habilitada=card.habilitada;
         setOpen(false);
     };
 
     const [openAlert, setOpenAlert] = useState(false);
     const [error, setError] = useState("");
 
-    const changeTime = (tipo,value) => {
-        switch(tipo){
-            case 1:
-                if(value>24 || value<0 || (value==24 && details.open2!=0)){
-                    break; 
-                }else{
-                    setDetails({ ...details, open1: value });
-                }
-                break; 
-
-            case 2:
-                if(value>59 || value<0 || (value>0 && details.open1==24)){
-                    break; 
-                }else{
-                    setDetails({ ...details, open2: value });
-                }
-                break; 
-
-            case 3:
-                if(value>24 || value<0 || (value==24 && details.close2!=0)){
-                    break; 
-                }else{
-                    setDetails({ ...details, close1: value });
-                }
-                break; 
-
-            case 4:
-                if(value>59 || value<0 || (value>0 && details.close1==24)){
-                    break; 
-                }else{
-                    setDetails({ ...details, close2: value });
-                }   
-                break; 
-
-            default:
-                break;             
-        }
-    }
-
-    function getDate(l1,l2){
+    function getDate(l){
         let out = "";
 
-        if(l1<10){out+=0;}
-        out+=l1+":";
-
-        if(l2<10){out+=0;}
-        out+=l2;
+        if(l<10){out+=0;}
+        out+=l+":00";
 
         return out;
     }
 
     const handleSubmit = () => {
-        if (details.price === "" || details.open1 === "" || details.open2 === "" || details.close1 === "" || details.close2 === "") {
+        if (details.price === "") {
             setError("No puede dejar ningún campo vacio");
             setOpenAlert(true); 
-            details.price=card.price; details.exclusive=card.exclusive; details.open1=parseInt(card.open.substring(0,2)); details.open2=parseInt(card.open.substring(3,5)); details.close1=parseInt(card.close.substring(0,2)); details.close2=parseInt(card.close.substring(3,5)); details.habilitada=card.habilitada;
+            details.price=card.price; details.exclusive=card.exclusive; details.open=card.open; details.close=card.close; details.habilitada=card.habilitada;
             setOpen(false);
-        }else if(details.price<0){
-            setError("El precio debe ser mayor o igual a 0");
+        }else if(details.price<0 ||  typeof details.price != 'number'){
+            setError("Precio érroneo: debe ser un número mayor o igual a 0");
             setOpenAlert(true); 
-            details.price=card.price; details.exclusive=card.exclusive; details.open1=parseInt(card.open.substring(0,2)); details.open2=parseInt(card.open.substring(3,5)); details.close1=parseInt(card.close.substring(0,2)); details.close2=parseInt(card.close.substring(3,5)); details.habilitada=card.habilitada;
+            details.price=card.price; details.exclusive=card.exclusive; details.open=card.open; details.close=card.close; details.habilitada=card.habilitada;
+            setOpen(false);
+        }else if(details.close<=details.open){
+            setError("La hora de cierre debe ser mayor a la de apertura");
+            setOpenAlert(true); 
+            details.price=card.price; details.exclusive=card.exclusive; details.open=card.open; details.close=card.close; details.habilitada=card.habilitada;
             setOpen(false);
         }else{
             setOpen(false);
             Axios.put("/activities/"+card._id, 
-            {price:details.price, exclusive:details.exclusive, open:getDate(details.open1,details.open2), close:getDate(details.close1,details.close2), habilitada:details.habilitada})
+            {price:details.price, exclusive:details.exclusive, open:details.open, close:details.close, habilitada:details.habilitada})
             .then((response) => {
                 if(!response.data){
                     setError("No se ha podido modificar la actividad");
-                    details.price=card.price; details.exclusive=card.exclusive; details.open1=parseInt(card.open.substring(0,2)); details.open2=parseInt(card.open.substring(3,5)); details.close1=parseInt(card.close.substring(0,2)); details.close2=parseInt(card.close.substring(3,5)); details.habilitada=card.habilitada;
+                    details.price=card.price; details.exclusive=card.exclusive; details.open=card.open; details.close=card.close; details.habilitada=card.habilitada;
                     setOpenAlert(true);
                 }else{
                     onChange("editar");
                 }
             });
         }
-        
+    }
+
+    function generateTimes(){
+        var t = [];
+        for(let i=0; i<=24; i++){
+            var label = "";
+            if(i<10){label+="0";}
+            label+=i+":00";
+
+            var temp = {label:label,value:i};
+            t.push(temp);
+        }
+        return t;
+    }
+
+    function getThisReservas(res){
+        var out = [];
+        for(let i=0; i<res.length; i++){
+            if(res[i].idActividad==card._id){
+                out.push(res[i]);
+            }
+        }
+        console.log(out);
+        return out;
+    }
+
+    const [openRes, setOpenRes] = useState(false);
+    const handleClickOpenRes = () => {
+        setOpenRes(true);
+    };
+    const handleCloseRes = () => {
+        setOpenRes(false);
+    };
+
+    const deleteReserva = (id) => {
+        Axios.delete("/activities/reserva/"+id).then(() => {
+            handleCloseRes();
+            onChange("reserva");
+        });
+    }
+
+    function getHour(d){
+        let sub = dayjs(new Date(d));
+
+        let out = "";
+        let h = sub.get('hour');    if(h<10){out+="0";}     out+=h+":";
+        let m = sub.get('minute');    if(m<10){out+="0";}     out+=m;
+        return out;
+    }
+
+    function dateToLabel(date){
+        date = new Date(date);
+        const currentMonth = date.getMonth()+1;
+        const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+        const currentDate = date.getDate();
+        const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+        return `${date.getFullYear()}-${monthString}-${dateString}`;
     }
 
     return(
@@ -197,8 +225,8 @@ const ActividadesCard = ({onChange, card}) => {
                     {card.name}
                     </Typography>
                     <Grid container direction="row">
-                        <Chip icon={<AccessTimeIcon />} sx={{mr:0.5}} label={"Desde "+card.open} />
-                        <Chip icon={<AccessTimeIcon />} sx={{ml:0.5}} label={"Hasta "+card.close} />
+                        <Chip icon={<AccessTimeIcon />} sx={{mr:0.5}} label={"Desde "+getDate(card.open)} />
+                        <Chip icon={<AccessTimeIcon />} sx={{ml:0.5}} label={"Hasta "+getDate(card.close)} />
                     </Grid>
                     {(!card.habilitada) ? (
                     <Chip sx={{backgroundColor:'#f44336', mt:1}} label="Actividad deshabilitada" />
@@ -208,6 +236,7 @@ const ActividadesCard = ({onChange, card}) => {
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <CardActions>
                         <Button variant="contained" onClick={handleClickOpen} startIcon={<EditIcon />}>Editar</Button>
+                        <Button variant="contained" onClick={handleClickOpenRes} startIcon={<PeopleOutlineIcon />}>Reservas</Button>
                     </CardActions>
                 </div>
             </Card>
@@ -221,17 +250,35 @@ const ActividadesCard = ({onChange, card}) => {
                         <TextField defaultValue={card.price} autoFocusmargin="dense" id="precio" label="Precio/hora (€)" type="number" fullWidth onChange={e => setDetails({ ...details, price: e.target.value })}/>
                         <br></br>
                         <Grid container direction="row" justify="flex-end" alignItems="center" spacing={2}>
-                            <Typography sx={{mr:1}}>Apertura</Typography>
-                            <TextField value={details.open1} id="apertura1" size="small" type="number" sx={{width:'15%'}} onChange={e => changeTime(1, e.target.value)}/>
-                            <Typography sx={{mx:0.5}}>:</Typography>
-                            <TextField value={details.open2} id="apertura2" size="small" type="number" sx={{width:'15%'}} onChange={e => changeTime(2, e.target.value)}/>
+                            <FormControl margin="normal" name="filtro" label="Apertura" type="text" sx={{ input: { color: 'white' } }}>
+                                <InputLabel>Apertura</InputLabel>
+                                <Select
+                                    sx={{color: "white",'.MuiOutlinedInput-notchedOutline': {borderColor: 'white',},'&:hover .MuiOutlinedInput-notchedOutline': {borderColor: 'red',},}}
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
+                                    value={details.open}
+                                    label="Apertura"
+                                    onChange={e => setDetails({ ...details, open: e.target.value })}>
+                                    {times.map((t) => (
+                                        <MenuItem value={t.value}>{t.label}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <br></br>
                         <Grid container direction="row" justify="flex-end" alignItems="center" spacing={2}>
-                            <Typography sx={{mr:1}}>Cierre</Typography>
-                            <TextField value={details.close1} id="cierre1" size="small" type="number" sx={{width:'15%'}} onChange={e => changeTime(3, e.target.value)}/>
-                            <Typography sx={{mx:0.5}}>:</Typography>
-                            <TextField value={details.close2} id="cierre2" size="small" type="number" sx={{width:'15%'}} onChange={e => changeTime(4, e.target.value)}/>
+                            <FormControl margin="normal" name="filtro" label="Cierre" type="text" sx={{ input: { color: 'white' } }}>
+                                <InputLabel>Cierre</InputLabel>
+                                <Select
+                                    sx={{color: "white",'.MuiOutlinedInput-notchedOutline': {borderColor: 'white',},'&:hover .MuiOutlinedInput-notchedOutline': {borderColor: 'red',},}}
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
+                                    value={details.close}
+                                    label="Cierre"
+                                    onChange={e => setDetails({ ...details, close: e.target.value })}>
+                                    {times.map((t) => (
+                                        <MenuItem value={t.value}>{t.label}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <br></br>
                         <FormGroup>
@@ -250,6 +297,56 @@ const ActividadesCard = ({onChange, card}) => {
                     </DialogActions>
                 </Dialog>
             </Box>
+
+            <Box sx={{position: "absolute", bottom: 20, right: 20}} >
+            <Dialog fullWidth="600px" sx={{width:"50"}} open={openRes} onClose={handleCloseRes} aria-labelledby="form-dialog-title" >
+                <DialogTitle id="form-dialog-title">Reservas</DialogTitle>
+                <DialogContent>
+                {(getThisReservas(reservas).length==0) ? (
+                    <Typography sx={{color:'white'}}>
+                    No hay reservas en esta actividad
+                    </Typography>
+                ) : (
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 450 }} aria-label="simple table" size="small">
+                        <TableHead>
+                        <TableRow>
+                            <TableCell><b>Nombre y apellidos</b></TableCell>
+                            <TableCell align="right"><b>Dia</b></TableCell>
+                            <TableCell align="right"><b>Desde</b></TableCell>
+                            <TableCell align="right"><b>Hasta</b></TableCell>
+                            <TableCell align="right"><b>Eliminar</b></TableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {getThisReservas(reservas).map((res) => (
+                            <TableRow
+                            key={res.fechaInicio}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                            <TableCell component="th" scope="row">{res.nombre}</TableCell>
+                            <TableCell component="th" scope="row">{dateToLabel(res.fechaInicio)}</TableCell>
+                            <TableCell component="th" scope="row">{getHour(res.fechaInicio)}</TableCell>
+                            <TableCell align="right">{getHour(res.fechaFin)}</TableCell>
+                            <TableCell align="right">
+                                <IconButton onClick={() => deleteReserva(res._id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </TableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                )}
+                </DialogContent>
+                <DialogActions>
+                    <IconButton onClick={handleCloseRes}>
+                        <CloseIcon sx={{color:'red'}}/>
+                    </IconButton>
+                </DialogActions>
+            </Dialog>
+        </Box>
 
             <Box sx={{ position: "absolute", bottom: "50%", right: "35%" }}>
             <Collapse in={openAlert}>

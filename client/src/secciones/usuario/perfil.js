@@ -16,6 +16,10 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
+import AlertTitle from '@mui/material/AlertTitle';
+import CloseIcon from '@mui/icons-material/Close';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
 import { Checkbox, FormControlLabel, MenuItem } from '@mui/material';
 import dayjs from 'dayjs';
 
@@ -53,7 +57,12 @@ const CustomTextField = styled(TextField)({
 });
 
 const Perfil = ({ msg, completed }) => {
-    
+    const [fullName, setName] = useState("");
+    const [date, setDate] = React.useState(dayjs());
+    const handleDateChange = (newValue) => {
+        setDate(newValue);
+    };
+
     const [loading, setLoading] = useState(true);
     const [logged, setLogged] = useState(false);
     const [usuario, setUsuario] = useState([]);
@@ -67,12 +76,14 @@ const Perfil = ({ msg, completed }) => {
                 completed();
             }
 
-            if (response.data) {
+            if(response.data){
                 Axios.get('/users/one').then((response) => {
                     setUsuario(response.data);
+                    setName(response.data.nombre+" "+response.data.apellidos);
+                    setDate(dayjs(new Date(response.data.fechaNac) - 1))
                     setLoading(false);
                 });
-            } else {
+            }else{
                 setLoading(false);
             }
         });
@@ -84,9 +95,12 @@ const Perfil = ({ msg, completed }) => {
         setOpenSnackbar(false);
     };
 
-    const [date, setDate] = React.useState(dayjs());
+    const [openSnackbar2, setOpenSnackbar2] = React.useState(false);
+    const handleCloseSnackbar2 = (event, reason) => {
+        if (reason === 'clickaway') { return; }
+        setOpenSnackbar2(false);
+    };
 
-    const [checked, setChecked] = React.useState(false);
     const [error, setError] = useState("");
     const [open, setOpen] = useState(false);
 
@@ -102,26 +116,18 @@ const Perfil = ({ msg, completed }) => {
         if (usuario.nombre === "" || usuario.apellidos === "" || usuario.dni === "" || usuario.username === "" || usuario.pass === "") {
             setError("Rellene todos los campos");
             setOpen(true);
-        } else if (specialChars.test(usuario.username) || specialChars.test(usuario.pass)) {
+        } else if (specialChars.test(usuario.pass)) {
             setError("No se permiten caracteres especiales");
             setOpen(true);
-        } else if (!validateDNI(usuario.dni)) {
-            setError("DNI no válido");
-            setOpen(true);
-        } else {
+        }else{
             setLoading(true);
-            Axios.put("/users/"+usuario._id, {
-                usuario: usuario.nombre, usuario: usuario.apellidos, usuario: usuario.dni
-                , usuario: usuario.username, usuario: usuario.pass
-                , usuario: usuario.fechaNac, usuario: usuario.sexo
-            })
+            Axios.put("/users/"+usuario._id, {nombre:usuario.nombre, apellidos: usuario.apellidos, pass: usuario.pass, fecha: fecha, sexo: usuario.sexo})
                 .then((response) => {
                     if (!response.data) {
-                        setError("Registro inválido: el DNI y el username deben ser únicos");
+                        setError("Error al actualizar los cambios");
                         setOpen(true);
                     } else {
-                        setOpenSnackbar(true);
-                        console.log("bien")
+                        setOpenSnackbar2(true);
                     }
                     setLoading(false);
                 }).catch((error) => {
@@ -133,31 +139,6 @@ const Perfil = ({ msg, completed }) => {
                 });
         }
     };
-
-    function validateDNI(dni) {
-        var numero, lett, letra;
-        var expresion_regular_dni = /^[XYZ]?\d{5,8}[A-Z]$/;
-
-        dni = dni.toUpperCase();
-
-        if (expresion_regular_dni.test(dni) === true) {
-            numero = dni.substr(0, dni.length - 1);
-            numero = numero.replace('X', 0);
-            numero = numero.replace('Y', 1);
-            numero = numero.replace('Z', 2);
-            lett = dni.substr(dni.length - 1, 1);
-            numero = numero % 23;
-            letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
-            letra = letra.substring(numero, numero + 1);
-            if (letra != lett) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -181,30 +162,30 @@ const Perfil = ({ msg, completed }) => {
                         <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center" sx={{ display: 'grid' }}>
                             <Typography align="center" display="inline">
                                 <Box sx={{ mt: 2, fontSize: 20, fontWeight: 'bold', color: 'white' }}>
-                                    Editar {usuario.nombre} {usuario.apellidos}
+                                    Editar {fullName}
                                 </Box>
                             </Typography>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
                                 <CustomTextField margin="normal" required fullWidth name="name" label="Nombre" type="text"
-                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="name"
+                                    sx={{ input: { color: 'white' } }} id="name"
                                     onChange={e => setUsuario({ ...usuario, nombre: e.target.value })} value={usuario.nombre}
                                 />
                             </Box>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
                                 <CustomTextField margin="normal" required fullWidth name="surname" label="Apellidos" type="text"
-                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="surname"
+                                    sx={{ input: { color: 'white' } }} id="surname"
                                     onChange={e => setUsuario({ ...usuario, apellidos: e.target.value })} value={usuario.apellidos}
                                 />
                             </Box>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
                                 <FormControl margin="normal" required fullWidth name="fechaNac" label="Fecha de nacimiento"
-                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="fechaNac">
+                                    sx={{ input: { color: 'white' } }} id="fechaNac">
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DesktopDatePicker
-                                            label="Fecha"
+                                            label="Fecha de nacimiento"
                                             inputFormat="DD/MM/YYYY"
-                                            value={usuario.fechaNac}
-                                            onChange={e => setUsuario({ ...usuario, fechaNac: e.target.value })}
+                                            value={date}
+                                            onChange={handleDateChange}
                                             renderInput={(params) => <TextField {...params} />}
                                         />
                                     </LocalizationProvider>
@@ -212,27 +193,28 @@ const Perfil = ({ msg, completed }) => {
                             </Box>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
                                 <CustomTextField margin="normal" disabled fullWidth name="dni" label="DNI" type="text"
-                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="dni"
+                                    sx={{ input: { color: 'white' } }} id="dni"
                                     onChange={e => setUsuario({ ...usuario, dni: e.target.value })} value={usuario.dni}
                                 />
                             </Box>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                <CustomTextField margin="normal" required fullWidth name="username" label="Nombre de usuario" type="text"
-                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="username"
+                                <CustomTextField margin="normal" disabled fullWidth name="username" label="Nombre de usuario" type="text"
+                                    sx={{ input: { color: 'white' } }} id="username"
                                     onChange={e => setUsuario({ ...usuario, username: e.target.value })} value={usuario.username}
                                 />
                             </Box>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                <CustomTextField margin="normal" required fullWidth name="password" label="Contrseña" type="text"
-                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="password"
+                                <CustomTextField margin="normal" required fullWidth name="password" label="Contraseña" type="text"
+                                    sx={{ input: { color: 'white' } }} id="password"
                                     onChange={e => setUsuario({ ...usuario, pass: e.target.value })} value={usuario.pass}
                                 />
                             </Box>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
                                 <FormControl fullWidth margin="normal" required name="sexo" label="Sexo" type="text"
-                                    sx={{ input: { color: 'white' } }} InputLabelProps={{ sx: { color: 'white' } }} id="sexoFC">
+                                    sx={{ input: { color: 'white' } }} id="sexoFC">
                                     <InputLabel id="sexoIL">Sexo</InputLabel>
                                     <Select
+                                        sx={{color: "white",'.MuiOutlinedInput-notchedOutline': {borderColor: 'white',},'&:hover .MuiOutlinedInput-notchedOutline': {borderColor: 'red',},}}
                                         labelId="sexoIL"
                                         id="sexo"
                                         value={usuario.sexo}
@@ -244,10 +226,30 @@ const Perfil = ({ msg, completed }) => {
                                 </FormControl>
                             </Box>
                             <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor: "#FFFFFF", mt: 3, mb: 1, '&:hover': { backgroundColor: "#008000", } }}>
+                                <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor: "red", mt: 3, mb: 1, '&:hover': { backgroundColor: "white", } }}>
                                     Realizar cambios
                                 </Button>
                             </Box>
+                            <Collapse in={open}>
+                                <Alert severity="error"
+                                action={
+                                    <IconButton
+                                    aria-label="close"
+                                    color="inherit"
+                                    size="small"
+                                    onClick={() => {
+                                        setOpen(false);
+                                    }}
+                                    >
+                                    <CloseIcon fontSize="inherit" />
+                                    </IconButton>
+                                }
+                                sx={{mb: 3, m: 0.5, mr: 3}}
+                                >
+                                <AlertTitle>No se ha podido enviar la consulta</AlertTitle>
+                                <strong>{error}</strong>
+                                </Alert>
+                            </Collapse>
                         </Grid>
                     ) : ""}
                 </Paper>
@@ -255,6 +257,11 @@ const Perfil = ({ msg, completed }) => {
             <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
                 <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
                     Inicio de sesión correcto
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openSnackbar2} autoHideDuration={3000} onClose={handleCloseSnackbar2}>
+                <Alert onClose={handleCloseSnackbar2} severity="success" sx={{ width: '100%' }}>
+                    Usuario actualizado correctamente
                 </Alert>
             </Snackbar>
         </ThemeProvider >

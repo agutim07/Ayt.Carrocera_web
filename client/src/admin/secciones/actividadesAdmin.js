@@ -96,6 +96,8 @@ const ActividadesAdmin = () => {
     const [openAlert, setOpenAlert] = useState(false);
     const [error, setError] = useState("");
 
+    const [reservas, setReservas] = useState([]);
+
     useEffect(() => {
         getActividades();
     }, []);
@@ -103,19 +105,27 @@ const ActividadesAdmin = () => {
     function getActividades(){
         Axios.get('/activities').then((response) => {
           setActividades(response.data);
-          setLoading(false);
+          Axios.get('/activities/reservas').then((response) => {
+            setReservas(response.data);
+            setLoading(false);
+          });
         });
     }
 
     function onChange(tipo){
         setActividades([]);
         if(tipo==="editar"){ setLoading(true); setAlertText("Actividad editada correctamente");}
+        if(tipo==="reserva"){ setLoading(true); setAlertText("Reserva eliminada correctamente");}
 
         delay(1000).then( () => {
             Axios.get('/activities').then((response) => {
                 setActividades(response.data);
-                setLoading(false);
-                setOpenSnackbar(true);
+                Axios.get('/activities/reservas').then((response) => {
+                    setReservas(response.data);
+                    setLoading(false);
+                    setOpenSnackbar(true);
+                });
+                
         });
         })
     }
@@ -139,7 +149,7 @@ const ActividadesAdmin = () => {
         
         {actividades.map((card) => (
             <Grid item key={card.id} xs={12} sm={6}>
-                <ActividadesCard onChange={onChange} card={card} />
+                <ActividadesCard onChange={onChange} card={card} reservas={reservas}/>
             </Grid>
         ))}
         </Grid>

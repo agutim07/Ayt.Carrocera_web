@@ -12,6 +12,7 @@ router.post("/admin", async (req,res) => {
 
     User.findOne({username:username,pass:pass,idRol:rolAdmin._id}, (error,check) => {
         if(check){
+            userId = "";
             adminUserId = check._id;
             res.send(true);
         }else{
@@ -30,6 +31,7 @@ router.post("/user", async (req,res) => {
     User.findOne({username:username,pass:pass,$or:[{idRol:rolNormal._id},{idRol:rolEmpadronado._id}]}, (error,check) => {
         if(check){
             userId = check._id;
+            adminUserId = "";
             res.send(true);
             console.log("Usuario logueado");
         }else{
@@ -47,9 +49,15 @@ router.put("/logout", async (req,res) => {
 router.get("/", async (req,res) => {
     const user = userId;
     if(user==""){
-        res.send(false);
+        res.send("false");
     }else{
-        res.send(true);
+        const us = await User.findOne({_id:user});
+        const rolNormal = await roles.getRol("normal");
+        if((us.idRol).equals(rolNormal._id)){
+            res.send("normal");
+        }else{
+            res.send("empadronado");
+        }
     }
 })
 

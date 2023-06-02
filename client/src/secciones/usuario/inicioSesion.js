@@ -134,11 +134,11 @@ const InicioSesion = ({loginCompleted}) => {
                                 onChange={e => setDetails({ ...details, pass: e.target.value })} value={details.pass} />
                         </Grid>
                         {(loading) ? (
-                            <Box sx={{ display: 'flex', my:1 }}>
+                            <Box display="flex" justifyContent="center" alignItems="center" sx={{ display: 'flex',  my:1 }}>
                                 <CircularProgress />
                             </Box>) : ""}
                         <Grid item>
-                            <Button variant="contained" onClick={handleSubmit} fullWidth sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: '#e53935', }}}>Iniciar sesion</Button>
+                            <Button variant="contained" onClick={handleSubmit} fullWidth sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: 'red', }}}>Iniciar sesion</Button>
                         </Grid>
                     </Box>
                 </Grid>

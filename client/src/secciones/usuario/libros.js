@@ -30,9 +30,16 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Chip from '@mui/material/Chip';
 import { Checkbox, FormControlLabel, MenuItem } from '@mui/material';
 
-
-import Typography from '@mui/material/Typography';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+
+import dayjs from 'dayjs';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -66,36 +73,168 @@ const CustomTextField = styled(TextField)({
     },
 });
 
-const Libros = ({ msg, completed }) => {
+const Libros = () => {
     const [loading, setLoading] = useState(true);
     const [logged, setLogged] = useState(false);
+    const [books, setBooks] = useState([]);
+    const [books2, setBooks2] = useState([]);
+    const [filtro, setFiltro] = useState("todas");
+    const [bibs, setBibs] = useState([]);
 
-    //const [details, setDetails] = useState({ titulo: completed.titulo, autor: completed.autor, disponibilidad: completed.disponibilidad, ISBN: completed.ISBN, fecha: completed.fecha });
-
+    const [blockAccess, setBlock] = useState("No puede acceder a esta sección sin haber iniciado sesión");
 
     useEffect(() => {
         Axios.get('/login').then((response) => {
             setLogged(response.data);
-            setLoading(false);
-            if (msg) {
-                setOpenSnackbar(true);
-                completed();
+            if(response.data){
+                if(response.data!="empadronado"){
+                    setBlock("Sección exclusiva a usuarios empadronados");
+                    setLogged(false);
+                    setLoading(false);
+                }else{
+                    Axios.get('/books/all').then((response) => {
+                        setBooks(response.data);
+                        setBooks2(response.data);
+                        setBibs(getBibs(response.data));
+                        setLoading(false);
+                    });
+                }   
+            } else {
+                setLoading(false);
             }
+        }).catch((error) => {
+            setError("Error al intentar conectar con la base de datos");
+            setOpen(true);
+            setLoading(false);
         });
     }, []);
 
+    function changeFiltro(fil){
+        setFiltro(fil);
+        if(fil=="todas"){
+            setBooks2(books);
+        }else{
+            var temp = [];
+            for(let i=0; i<books.length; i++){
+                if(books[i].biblioteca==fil){
+                    temp.push(books[i]);
+                }
+            }
+            setBooks2(temp);
+        }
+    }
+
+    const [snackState, setSnackState] = React.useState("success");
+    const [snackMsg, setSnackMsg] = React.useState("");
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') { return; }
         setOpenSnackbar(false);
     };
 
+    function getBibs(data){
+        let bibsAr = [];
+
+        for(let i=0; i<data.length; i++){
+            if(!bibsAr.includes(data[i].biblioteca)){
+                bibsAr.push(data[i].biblioteca);
+            }
+        }
+
+        return bibsAr;
+    }
+
+    function dateToLabel(date){
+        date = new Date(date);
+        const currentMonth = date.getMonth()+1;
+        const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+        const currentDate = date.getDate();
+        const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+        return `${date.getFullYear()}-${monthString}-${dateString}`;
+    }
+
+    function handleSubmitReserva(b,devolucion){
+        if(!b.disponibilidad && !devolucion){
+            setSnackMsg("Este libro ya está reservado"); setSnackState("warning"); setOpenSnackbar(true); 
+            return;
+        }
+
+        setLoading(true);
+        Axios.put("/books/reserva/"+b._id).then((response) => {
+            if(response.data){
+                Axios.get('/books/all').then((response) => {
+                    setBooks(response.data);
+                    setBooks2(response.data);
+                    setFiltro("todas");
+                    setBibs(getBibs(response.data));
+                    setLoading(false);
+                    if(devolucion){
+                        setSnackMsg("Libro devuelto correctamente"); 
+                    }else{
+                        setSnackMsg("Libro reservado correctamente"); 
+                    }
+                    setSnackState("success"); setOpenSnackbar(true);
+                })
+            }else{
+                setError("Solo puede tener un libro reservado en "+b.biblioteca);
+                setOpen(true);
+                setLoading(false);
+            }
+        }).catch((error) => {
+            setError("Error al intentar conectar con la base de datos");
+            setOpen(true);
+            setLoading(false);
+        });
+    };
+
+    const [error, setError] = useState("");
+    const [open, setOpen] = useState(false);
+
     return (
         <ThemeProvider theme={darkTheme}>
             <Grid container direction="column" spacing={1} justifyContent="center" alignItems="center" sx={{ mb: 3 }}>
                 <Typography align="center" display="inline"><Box sx={{ mt: 2, fontSize: 20, fontWeight: 'bold', color: 'white' }}>ALQUILER DE LIBROS</Box></Typography>
+                {(logged && !loading) ? (
+                <div>
+                <Box display="flex" justifyContent="center" alignItems="center">
+                <FormControl margin="normal" name="filtro" label="Biblioteca" type="text" sx={{ input: { color: 'white' } }}>
+                    <InputLabel>Biblioteca</InputLabel>
+                    <Select
+                        sx={{color: "white",'.MuiOutlinedInput-notchedOutline': {borderColor: 'white',},'&:hover .MuiOutlinedInput-notchedOutline': {borderColor: 'red',},}}
+                        id="filtro"
+                        value={filtro}
+                        label="Biblioteca"
+                        onChange={e => changeFiltro(e.target.value)}>
+                        <MenuItem value={"todas"}>Todas</MenuItem>
+                        {bibs.map((bib) => (
+                            <MenuItem value={bib}>{bib}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                </Box>
+                <Collapse in={open}>
+                    <Alert severity="error"
+                    action={
+                        <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                            setOpen(false);
+                        }}
+                        >
+                        <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                    }
+                    sx={{mb: 1}}
+                    >
+                    <strong>{error}</strong>
+                    </Alert>
+                </Collapse>
+                </div>
+                ) : ""}
                 <Paper elevation={12} sx={{
-                    backgroundColor: "ffffff", color: "darkred", width: { xs: "85%", md: "60%" }, margin: 1,
+                    backgroundColor: "ffffff", color: "darkred", width: {md: "95%"}, margin: 1,
                     padding: 1, my: 0.5, border: "1px solid black", boxShadow: "3px 3px 3px black"
                 }}>
                     {(loading) ? (
@@ -105,83 +244,56 @@ const Libros = ({ msg, completed }) => {
                     {(!logged && !loading) ? (
                         <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center" sx={{ my: 1 }}>
                             <Typography align="center" display="inline">
-                                <Box sx={{ mt: 2, fontSize: 14, fontWeight: 'bold', color: 'white' }}>No puede acceder a esta sección sin haber iniciado sesión</Box>
+                                <Box sx={{ mt: 2, fontSize: 14, fontWeight: 'bold', color: 'white' }}>{blockAccess}</Box>
                             </Typography>
                         </Grid>) : ""}
                     {(logged && !loading) ? (
                         <Grid container direction="column" alignItems="center" justifyContent="center">
-                            <Typography align="center" display="inline">
-                                <Box sx={{ mt: 2, fontSize: 20, fontWeight: 'bold', color: 'white' }}>
-                                    Filtrar por:
-                                </Box>
-                            </Typography>
-                            <Grid container direction="row" alignItems="center" justifyContent="center">
-                                <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                    <FormControl fullWidth margin="normal" name="biblioteca" label="Biblioteca" type="text"
-                                        sx={{ input: { color: 'white' }, width: '150px' }} InputLabelProps={{ sx: { color: 'white' } }} id="bibliotecaFC">
-                                        <InputLabel id="bibliotecaIL">Bibliotecas</InputLabel>
-                                        <Select
-                                            labelId="bibliotecaIL"
-                                            id="biblioteca"
-                                            label="Biblioteca">
-                                            <MenuItem value={"Otero"}>Otero</MenuItem>
-                                            <MenuItem value={"Benllera"}>Benllera</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                                <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                    <CustomTextField fullWidth margin="normal" name="name" label="Nombre" type="text"
-                                        sx={{ input: { color: 'white' }, width: '200px' }} InputLabelProps={{ sx: { color: 'white' } }} id="name"
-                                    />
-                                </Box>
-                                <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                    <Button fullWidth variant="contained" sx={{ bgcolor: "#FFFFFF", '&:hover': { backgroundColor: "#008000", } }}>
-                                        Filtrar
-                                    </Button>
-                                </Box>
-                            </Grid>
-                            <Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                            </Box>
-                            
-                            {/*<Box component="form" sx={{ m: 0.5, mr: 3 }}>
-                                <Card elevation={12} sx={{ minWidth: 500 }}>
-                                    <CardHeader
-                                        avatar={
-                                            <Avatar sx={{ bgcolor: "#9c27b0" }} variant="rounded">
-                                                <SentimentSatisfiedIcon />
-                                            </Avatar>
-                                        }
-                                        subheader={completed.autor}
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom sx={{ fontWeight: 'bold', fontSize: { xs: 15, sm: 18 } }} component="div">
-                                            {completed.titulo}
-                                        </Typography>
-                                        {(!completed.disponibilidad) ? (
-                                            <Chip sx={{ backgroundColor: '#f44336', mt: 1 }} label={"Libro reservado por " + completed.user} />
-                                        ) : ""}
-                                    </CardContent>
-
-                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                        <CardActions>
-                                            <Button variant="contained" onClick={() => setOpenBorrar(true)} startIcon={<DeleteIcon />}>Borrar</Button>
-                                            <Button variant="contained" onClick={handleClickOpen} startIcon={<EditIcon />}>Editar</Button>
-                                        </CardActions>
-                                    </div>
-                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                        <CardActions>
-                                            <Button variant="contained" size="small" onClick={() => openReserva1()} startIcon={<BookmarkBorderIcon />}>{card.disponibilidad ? "Marcar como reservado" : "Eliminar reserva"}</Button>
-                                        </CardActions>
-                                    </div>
-                                </Card>
-                            </Box>*/}
+                            <TableContainer component={Paper}>
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small">
+                                <TableHead>
+                                <TableRow>
+                                    <TableCell><b>Biblioteca</b></TableCell>
+                                    <TableCell align="right"><b>Titulo</b></TableCell>
+                                    <TableCell align="right"><b>Autor</b></TableCell>
+                                    <TableCell align="right"><b>Lanzamiento</b></TableCell>
+                                    <TableCell align="right"><b>ISBN</b></TableCell>
+                                    <TableCell align="right"><b>Estado</b></TableCell>
+                                </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                {books2.map((book) => (
+                                    <TableRow
+                                    key={book.id}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                    <TableCell component="th" scope="row">{book.biblioteca}</TableCell>
+                                    <TableCell align="right">{book.titulo}</TableCell>
+                                    <TableCell align="right">{book.autor}</TableCell>
+                                    <TableCell align="right">{dateToLabel(book.fecha)}</TableCell>
+                                    <TableCell align="right">{book.ISBN}</TableCell>
+                                    {(book.mio) ? (
+                                        <TableCell align="right">
+                                            <Chip label={"Devolver"} onClick={() => handleSubmitReserva(book,true)} size="small" sx={{border:1,borderColor:'white',backgroundColor:"orange",color:'black'}} />
+                                        </TableCell>
+                                    ) : (
+                                        <TableCell align="right">
+                                            <Chip onClick={() => handleSubmitReserva(book,false)} label={book.disponibilidad ? "Reservar" : "Reservado"} size="small" sx={{backgroundColor:book.disponibilidad ? "green" : "red"}} />
+                                        </TableCell>
+                                    )}
+                                    
+                                    </TableRow>
+                                ))}
+                                </TableBody>
+                            </Table>
+                            </TableContainer>
                         </Grid>
                     ) : ""}
                 </Paper>
             </Grid>
             <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
-                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Inicio de sesión correcto
+                <Alert onClose={handleCloseSnackbar} severity={snackState} sx={{ width: '100%' }}>
+                    {snackMsg}
                 </Alert>
             </Snackbar>
         </ThemeProvider>

@@ -202,10 +202,11 @@ function Registro() {
             Axios.post("/register", {usuario:details.usuario, contrasena:details.pass,
                  nombre: details.nombre, apellidos:details.apellidos,dni:details.dni, fecha:fecha,sexo:details.sexo})
             .then((response) => {
-                if(!response.data){
+                if(response.data=="false"){
                     setError("Registro inválido: el DNI y el username deben ser únicos");
                     setOpen(true);
                 }else{
+                    setUserTipo(response.data);
                     setOpenSnackbar(true);
                 }
                 setLoading(false);
@@ -239,6 +240,7 @@ function Registro() {
         setDate(newValue);
     };
 
+    const [userTipo, setUserTipo] = React.useState("");
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {return;}
@@ -280,23 +282,23 @@ function Registro() {
                     <Grid container direction="column" spacing={1} margin={0.5} justifyContent="center" alignItems="center">
                     <Box component="form" sx={{ m: 0.5, mr: 3 }}>
                         <CustomTextField margin="normal" required fullWidth name="name" label="Nombre" type="text"
-                        sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="name"
+                        sx={{input:{color:'white'}}} id="name"
                         onChange={e => setDetails({...details, nombre: e.target.value})} value={details.nombre} 
                         />
                         <CustomTextField margin="normal" required fullWidth name="apellidos" label="Apellidos" type="text"
-                        sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="apellidos"
+                        sx={{input:{color:'white'}}} id="apellidos"
                         onChange={e => setDetails({...details, apellidos: e.target.value})} value={details.apellidos} 
                         />
                         <CustomTextField margin="normal" required fullWidth name="dni" label="DNI" type="text"
-                        sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="dni"
+                        sx={{input:{color:'white'}}} id="dni"
                         onChange={e => setDetails({...details, dni: e.target.value})} value={details.dni} 
                         />
                         <CustomTextField margin="normal" required fullWidth name="usuario" label="Usuario" type="text"
-                        sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="user"
+                        sx={{input:{color:'white'}}} id="user"
                         onChange={e => setDetails({...details, usuario: e.target.value})} value={details.usuario} 
                         />
                         <CustomTextField margin="normal" required fullWidth name="pass" label="Contraseña"  type={showPassword ? "text" : "password"}
-                        sx={{input:{color:'white'}}} InputLabelProps={{sx:{color:'white'}}} id="pass"
+                        sx={{input:{color:'white'}}} id="pass"
                         onChange={e => setDetails({...details, pass: e.target.value})} value={details.pass} 
                         />
                         <FormControlLabel sx={{color:'red'}}
@@ -319,7 +321,7 @@ function Registro() {
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Sexo</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
+                                sx={{color: "white",'.MuiOutlinedInput-notchedOutline': {borderColor: 'white',},'&:hover .MuiOutlinedInput-notchedOutline': {borderColor: 'red',},}}
                                 id="demo-simple-select"
                                 value={details.sexo}
                                 label="Sexo"
@@ -341,7 +343,7 @@ function Registro() {
                             </Box>
                         </Grid>
                         <Box sx={{ fontStyle: 'italic' , color:"red"}}>(*): estos campos son obligatorios</Box>
-                        <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: '#e53935', }}}>
+                        <Button onClick={handleSubmit} fullWidth variant="contained" sx={{ bgcolor:"#e53935", mt: 3, mb: 1, '&:hover': {backgroundColor: 'red', }}}>
                             Registrarse
                         </Button>
                     </Box>
@@ -375,7 +377,7 @@ function Registro() {
 
             <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
                 <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Registro correcto
+                    Usuario {userTipo} registrado
                 </Alert>
             </Snackbar>
             

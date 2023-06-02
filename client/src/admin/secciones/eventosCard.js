@@ -35,6 +35,7 @@ import BungalowIcon from '@mui/icons-material/Bungalow';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LanguageIcon from '@mui/icons-material/Language';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -55,7 +56,13 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import {Link} from "react-router-dom";
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -180,6 +187,21 @@ const EventosCard = ({onChange, card}) => {
         }
     }
 
+    const [openApunt, setOpenApunt] = useState(false);
+    const handleClickOpenApunt = () => {
+        setOpenApunt(true);
+    };
+    const handleCloseApunt = () => {
+        setOpenApunt(false);
+    };
+
+    const deletePerson = (id) => {
+        Axios.delete("/events/desapuntar/"+card._id+"/"+id).then(() => {
+            handleCloseApunt();
+            onChange("borrarpersona");
+        });
+    }
+
     return(
         <div>
         <Card elevation={12} sx={{minWidth:500}}>
@@ -215,6 +237,7 @@ const EventosCard = ({onChange, card}) => {
                 <CardActions>
                     <Button variant="contained" onClick={() => setOpenBorrar(true)} startIcon={<DeleteIcon />}>Borrar</Button>
                     <Button variant="contained" onClick={handleClickOpen} startIcon={<EditIcon />}>Editar</Button>
+                    {(card.inscripcion) ? (<Button variant="contained" onClick={handleClickOpenApunt} startIcon={<PeopleOutlineIcon />}>Apuntados</Button>) : ""}
                 </CardActions>
             </div>
             {(card.content != null && card.content!="") ? (
@@ -300,6 +323,44 @@ const EventosCard = ({onChange, card}) => {
                 <DialogActions>
                     <Button onClick={handleSubmit}> Editar </Button>
                     <Button onClick={handleClose}> Cancelar </Button>
+                </DialogActions>
+            </Dialog>
+        </Box>
+
+        <Box sx={{position: "absolute", bottom: 20, right: 20}} >
+            <Dialog fullWidth="600px" sx={{width:"50"}} open={openApunt} onClose={handleCloseApunt} aria-labelledby="form-dialog-title" >
+                <DialogTitle id="form-dialog-title">Personas apuntadas</DialogTitle>
+                <DialogContent>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 450 }} aria-label="simple table" size="small">
+                        <TableHead>
+                        <TableRow>
+                            <TableCell><b>Nombre y apellidos</b></TableCell>
+                            <TableCell align="right"><b>Eliminar</b></TableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {card.apuntados.map((apuntado) => (
+                            <TableRow
+                            key={apuntado.nombre}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                            <TableCell component="th" scope="row">{apuntado.nombre}</TableCell>
+                            <TableCell align="right">
+                                <IconButton onClick={() => deletePerson(apuntado.id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </TableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                    </TableContainer>
+                </DialogContent>
+                <DialogActions>
+                    <IconButton onClick={handleCloseApunt}>
+                        <CloseIcon sx={{color:'red'}}/>
+                    </IconButton>
                 </DialogActions>
             </Dialog>
         </Box>
